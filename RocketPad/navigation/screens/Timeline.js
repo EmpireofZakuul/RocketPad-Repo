@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: 160,
-    height: 160,
+    height: 200,
   },
   image: {
     flex: 1,

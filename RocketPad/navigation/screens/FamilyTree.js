@@ -7,8 +7,9 @@ import { Button } from 'react-native-paper';
 
 const FamilyTree = ({ navigation }) => {
 
-// const [rocketPostion, setRocketPostion] = useState([
-//   {id: 1, name: 'Ariane 1', top: 0, left: 0}
+const [rocketPostion, setRocketPostion] = useState([]);
+//   // {id: 1, name: 'Ariane 1', top: 0, left: 0}
+//   {name: 'Ariane 1', top: 0, left: 0}
 // ]);
 
     const [rocketsFamilyTree, setRocketsFamilyTree] = useState([]);
@@ -43,6 +44,17 @@ const FamilyTree = ({ navigation }) => {
     return () => subscribe();
   }, []);
 
+  // useEffect(()=> {
+  //   const rocketPositionsUpdated = rocketsFamilyTree.map((rocket) => {
+  //     if(rocket.Name === 'Diamant A'){
+  //       return {...rocket, top: 0, left: 100};
+  //     }
+     
+  //     return rocket;
+  //   });
+
+  //   setRocketPostion(rocketPositionsUpdated);
+  // }, [rocketsFamilyTree]);
 
   return (
     <View style={styles.container}>
@@ -55,6 +67,9 @@ const FamilyTree = ({ navigation }) => {
 
 
       <View>  
+{/* {rocketPostion.map((rocket) => (   
+<View key={rocket.id}> */}
+
 {rocketsFamilyTree.map((rocket, index) => (   
 <View key={index}>
   <View style={styles.rocketPosition}>
@@ -63,6 +78,7 @@ const FamilyTree = ({ navigation }) => {
                   navigation.navigate("rocket", { rocketId: rocket.id })
                 }
               >
+                {/* <View style={[styles.cardContainer, {top: rocket.top, left: rocket.left }]}> */}
                 <View style={styles.cardContainer}>
                   <View style={styles.card}>
                     <ImageBackground
@@ -97,19 +113,24 @@ const styles = StyleSheet.create({
       container: {
         marginHorizontal: 10,
         paddingTop: 10,
-    
+    // flex: 1,
       },
       cardContainer: {
         borderRadius: 12,
         overflow: "hidden",
-        marginBottom: 20,
+        marginBottom: 40,
         marginTop: 40,
-        // elevation: 5,
+        // width: 160,
+        // height: 160,
+        // position: 'absolute',
+        // top: 0,
+        // left: 0,
       },
 
       card: {
-        width: 160,
-        height: 160,
+      //  flex: 1,
+      width: 160,
+      height: 200,
       },
       image: {
         flex: 1,
