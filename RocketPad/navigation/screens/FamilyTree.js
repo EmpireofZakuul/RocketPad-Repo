@@ -12,6 +12,9 @@ const [rocketPostion, setRocketPostion] = useState([]);
 //   {name: 'Ariane 1', top: 0, left: 0}
 // ]);
 
+// const rocketOrder = {
+// Europe: ['Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4','Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4',]
+// };
     const [rocketsFamilyTree, setRocketsFamilyTree] = useState([]);
     const imgg = "https://designshack.net/wp-content/uploads/placeholder-image.png";
 

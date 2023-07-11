@@ -48,7 +48,9 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
       <Text style={styles.text}>{rocketOrbit.Text5}</Text>
@@ -61,7 +63,9 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
     </View>
   )}
 
@@ -70,7 +74,9 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
     
@@ -83,13 +89,17 @@ useEffect(() => {
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
       <Text style={styles.Header}>{rocketOrbit.Title2}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
       <Text style={styles.text}>{rocketOrbit.Text5}</Text>
       <Text style={styles.text}>{rocketOrbit.Text6}</Text>
       <Text style={styles.text}>{rocketOrbit.Text7}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
+      </View>
     </View>
   )}
 
@@ -98,7 +108,9 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
     </View>
@@ -109,10 +121,14 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
+      </View>
     </View>
   )}
 
@@ -121,7 +137,9 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
       <Text style={styles.text}>{rocketOrbit.Text5}</Text>
@@ -134,12 +152,16 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
       <Text style={styles.text}>{rocketOrbit.Text5}</Text>
       <Text style={styles.text}>{rocketOrbit.Text6}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
+      </View>
     </View>
   )}
 
@@ -149,14 +171,18 @@ useEffect(() => {
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
+      <View style={styles.imageContainer2}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image2} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
       <Text style={styles.text}>{rocketOrbit.Text5}</Text>
       <Text style={styles.text}>{rocketOrbit.Text6}</Text>
       <Text style={styles.text}>{rocketOrbit.Text7}</Text>
       <Text style={styles.text}>{rocketOrbit.Text8}</Text>
       <Text style={styles.text}>{rocketOrbit.Text9}</Text>
+      <View style={styles.imageContainer2}>
       <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image2} />
+      </View>
     </View>
   )}
 
@@ -165,7 +191,9 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
+      <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Tex3}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
       <Text style={styles.text}>{rocketOrbit.Text5}</Text>
@@ -194,17 +222,25 @@ const styles = StyleSheet.create({
   lineHeight: 24,
   marginBottom: 20,
   },
-  image:{
-    maxWidth: '100%',
+  imageContainer:{
+    width: "100%",
     height: 300,
     marginBottom: 20,
-    
+  },
+
+  imageContainer2:{
+    width: "100%",
+    height: 600,
+    marginBottom: 20,
+  },
+  image:{
+    resizeMode: "contain",
+    flex:1,
   },
 
   image2:{
-    width: '100%',
-    height: 600,
-    marginBottom: 20,
+    resizeMode: "contain",
+    flex:1,
     
   },
   Header:{
