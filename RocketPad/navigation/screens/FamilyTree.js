@@ -13,10 +13,11 @@ const [rocketPostion, setRocketPostion] = useState([]);
 // ]);
 
 // const rocketOrder = {
-// Europe: ['Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4','Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4',]
+// Europe: ['Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4','Ariane 1', 'Ariane 2', 'Ariane 3','Ariane 40','Ariane 42 P','Ariane 42 L','Ariane 44 P', 'Ariane 44 LP', 'Ariane 44 L','Ariane 5 G','Ariane 5 G+','Ariane 5 GS','Ariane 5 ECA','Ariane 5 ES','Vega','Vega C',]
 // };
     const [rocketsFamilyTree, setRocketsFamilyTree] = useState([]);
     const imgg = "https://designshack.net/wp-content/uploads/placeholder-image.png";
+    // const [selectedCountry, setSelectedCountry] = useState([]);
 
   useEffect(() => {
     const rocketTreeRef = collection(FIRESTORE_DB, "Rockets");
@@ -32,6 +33,7 @@ const [rocketPostion, setRocketPostion] = useState([]);
             rocketCapacity: RocketCapacity,
             stages: Stages,
             variant: Variant,
+            
             // top: 0,
             // left: 0,
           };

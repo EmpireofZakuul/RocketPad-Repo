@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ImageBackground, ScrollView, Image, TouchableOpacity, ActivityIndicator  } from 'react-native'
+import { View, Text, StyleSheet, ImageBackground, ScrollView, Image, TouchableOpacity, ActivityIndicator, Linking  } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { apiKey, endpoint, language, category, pageSize, searchTerm, domains} from '../../newsAPIConfig'
 import axios from 'axios'
@@ -26,10 +26,12 @@ const Home = ({ navigation }) => {
         },
       });
       const articles = response.data.articles;
+      
       allNewsArticles.push(...articles);
     }
     // console.log(allNewsArticles);
-    setNewsArticles(allNewsArticles);
+    const limitedArticles = allNewsArticles.slice(0, pageSize);
+    setNewsArticles(limitedArticles);
     setLoadingNews(false);
   };
 
@@ -56,15 +58,14 @@ const Home = ({ navigation }) => {
           return(
           <View key={index}>
            <TouchableOpacity onPress={() =>
-                  navigation.navigate(article.url)
-                }>
+                  Linking.openURL(article.url)}>
             <View style={styles.card}>
             <View style={styles.imageContainer}>
               <Image source={{ uri: article.urlToImage }}style={styles.image}/>
               </View>
               <View style={styles.articleContent}>
                 <Text style={styles.title}>{article.title}</Text>
-                <Text style={styles.description}>{moment(article.publishedAt).format("DD MMMM YYYY")}|{article.source.name}</Text>
+                <Text style={styles.description}>{moment(article.publishedAt).format("DD MMMM YYYY")} | {article.source.name}</Text>
               </View>
             </View>
             </TouchableOpacity>
@@ -109,15 +110,16 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   description: {
-    fontSize: 10,
+    fontSize: 16,
     color: "red",
+    fontWeight: "bold",
   },
   articleContent: {
     padding: 12,
   },
   card: {
     width: "100%",
-    height: 400,
+    height: 350,
     borderRadius: 12,
     overflow: "hidden",
     elevation: 2,

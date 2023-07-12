@@ -1,13 +1,15 @@
 import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
-import { FIRESTORE_DB } from '../../firebaseConfig';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { FIRESTORE_DB, FIRESTORE_STORAGE } from '../../firebaseConfig';
 import { useRoute } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 import moment from 'moment';
 
 const Rocket = () => {
   const [rocket, setRocket] = useState({});
+  const [rocketImage, setRocketImage] = useState({});
   const route = useRoute();
   const rocketId = route.params?.rocketId;
 
@@ -35,6 +37,10 @@ const Rocket = () => {
     };
     fetchData();
   }, [rocketId]);
+
+  useEffect(() => {
+    
+  })
 
   const imgg =
     "https://designshack.net/wp-content/uploads/placeholder-image.png";
