@@ -1,11 +1,12 @@
 import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView, Image } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
 import { FIRESTORE_DB, FIRESTORE_STORAGE } from '../../firebaseConfig';
 import { useRoute } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 import moment from 'moment';
+import { color } from 'react-native-elements/dist/helpers';
 
 const Rocket = () => {
   const [rocket, setRocket] = useState({});
@@ -38,9 +39,37 @@ const Rocket = () => {
     fetchData();
   }, [rocketId]);
 
-  useEffect(() => {
-    
-  })
+//   useEffect(() => {
+//     const getImages = async () => {
+//       const storage = getStorage(FIRESTORE_STORAGE);
+//       const rocketImages = ref(storage, rocket.imageFolderPath);
+//       const imageList = await listAll(rocketImages);
+//       const urls = await Promise.all(imageList.items.map((rocketImages) => getDownloadURL(rocketImages)));
+//       setRocketImage(urls)
+//     }
+// getImages();
+//   }, [rocket.imageFolderPath])
+
+
+useEffect(() => {
+  console.log('rocket.imageFolderPath:', rocket.imageFolderPath);
+  console.log('getImages function called');
+  const getImages = async () => {
+    try {
+      const storage = getStorage(FIRESTORE_STORAGE);
+      const rocketImages = ref(storage, rocket.imageFolderPath);
+      const imageList = await listAll(rocketImages);
+      const urls = await Promise.all(
+        imageList.items.map((rocketImage) => getDownloadURL(rocketImage))
+      );
+      setRocketImage(urls);
+    } catch (error) {
+      console.log("Error retrieving images:", error);
+    }
+  };
+
+  getImages();
+}, [rocket.imageFolderPath]);
 
   const imgg =
     "https://designshack.net/wp-content/uploads/placeholder-image.png";
@@ -51,9 +80,22 @@ const Rocket = () => {
     <ScrollView>
       <Text style={styles.Header}>{rocket.Name}</Text>
       <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image source={{ uri: imgg }} style={styles.image} />
-        </View>
+      <View style={styles.imageContainer}>
+      {rocketImage.slice(0,4).map((url, index) => (
+            <View key={index} style={styles.smallImageContainer}>
+            <Image source={{ uri: url }} style={styles.image} />
+            </View>
+          ))}
+        {rocketImage.length > 4 && (
+          <View style={styles.numberImages}>
+            <Text style={styles.numberText}>
+              +{rocketImage.length - 4}
+              
+            </Text>
+          </View>
+        )}
+       
+      </View>
       </View>
       <View style={styles.dividerColour}>
         <Divider style={styles.divider} />
@@ -355,8 +397,9 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
+    // justifyContent: "flex-end",
+    // alignItems: "center",
+    resizeMode: 'cover',
   },
   imageContainer: {
     borderRadius: 12,
@@ -418,6 +461,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     textAlign: 'center'
+  },
+  smallImageContainer:{
+    width: '50%',
+    height: '50%',
+  },
+  numberImages:{
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+  },
+  numberText:{
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   }
 });
 

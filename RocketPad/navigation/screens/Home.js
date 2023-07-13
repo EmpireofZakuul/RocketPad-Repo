@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, ImageBackground, ScrollView, Image, TouchableOpacity, ActivityIndicator, Linking  } from 'react-native'
+import { View,  StyleSheet, ImageBackground, ScrollView, Image, TouchableOpacity, Linking  } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { apiKey, endpoint, language, category, pageSize, searchTerm, domains} from '../../newsAPIConfig'
 import axios from 'axios'
 import moment from 'moment/moment'
+import { ActivityIndicator, MD2Colors, Avatar, Button, Card, Text } from 'react-native-paper';
 
 
 const Home = ({ navigation }) => {
@@ -50,7 +51,8 @@ const Home = ({ navigation }) => {
       <Text style={styles.imageOfTheDayText}>Latest News</Text>
       {loadingNews ?(
           <View style={styles.loadingContainer}>
-<ActivityIndicator size="large" color="blue"/>
+{/* <ActivityIndicator size="large" color="blue"/> */}
+<ActivityIndicator animating={true} color={MD2Colors.red800}  size="large"/>
           </View>
       ) : (
       <View style={styles.container}>
@@ -59,7 +61,7 @@ const Home = ({ navigation }) => {
           <View key={index}>
            <TouchableOpacity onPress={() =>
                   Linking.openURL(article.url)}>
-            <View style={styles.card}>
+            {/* <View style={styles.card}>
             <View style={styles.imageContainer}>
               <Image source={{ uri: article.urlToImage }}style={styles.image}/>
               </View>
@@ -67,7 +69,15 @@ const Home = ({ navigation }) => {
                 <Text style={styles.title}>{article.title}</Text>
                 <Text style={styles.description}>{moment(article.publishedAt).format("DD MMMM YYYY")} | {article.source.name}</Text>
               </View>
-            </View>
+            </View> */}
+
+<Card style={styles.card}>
+    <Card.Cover source={{ uri: article.urlToImage }} />
+    <Card.Content style={styles.articleContent}>
+      <Text variant="titleLarge" style={styles.title}>{article.title}</Text>
+      <Text variant="bodyMedium" style={styles.description}>{moment(article.publishedAt).format("DD MMMM YYYY")} | {article.source.name}</Text>
+    </Card.Content>
+  </Card>
             </TouchableOpacity>
           </View>
         );
@@ -104,13 +114,13 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   title: {
-    fontSize: 22,
+    
     fontWeight: "bold",
     textAlign: "center",
     paddingBottom: 20,
   },
   description: {
-    fontSize: 16,
+    
     color: "red",
     fontWeight: "bold",
   },
@@ -119,13 +129,10 @@ const styles = StyleSheet.create({
   },
   card: {
     width: "100%",
-    height: 350,
+    // height: 300,
     borderRadius: 12,
-    overflow: "hidden",
-    elevation: 2,
+    // overflow: "hidden",
     marginBottom: 40,
-    borderColor: "black",
-    borderWidth: 1,
   },
   imageContainer: {
     width: "100%",
