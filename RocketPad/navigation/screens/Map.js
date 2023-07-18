@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 const Map = () => {
@@ -10,3 +10,7 @@ const Map = () => {
 }
 
 export default Map
+
+const styles = StyleSheet.create({
+  
+})

@@ -38,6 +38,7 @@ const Timeline = ({ navigation }) => {
             stages: Stages,
             FirstLaunch: formattedDate,
             variant: Variant,
+      
           };
 
           if (rocket.variant === "No") {
@@ -89,7 +90,7 @@ const Timeline = ({ navigation }) => {
               <View style={styles.line} />
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("rocket", { rocketId: rocket.id })
+                  navigation.navigate("rocket", { rocketId: rocket.id})
                 }
               >
                 <View style={styles.cardContainer}>

@@ -1,18 +1,51 @@
-import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Modal, Pressable, Dimensions, Animated  } from 'react-native';
+import React, { useEffect, useState, useRef } from 'react';
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
-import { getStorage, ref, getDownloadURL, listAll } from 'firebase/storage';
-import { FIRESTORE_DB, FIRESTORE_STORAGE } from '../../firebaseConfig';
-import { useRoute } from '@react-navigation/native';
+import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
+import { FIRESTORE_DB, FIRESTORE_STORAGE} from '../../firebaseConfig';
+import { useRoute, validatePathConfig } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
-import moment from 'moment';
-import { color } from 'react-native-elements/dist/helpers';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { FAB } from 'react-native-paper';
+
 
 const Rocket = () => {
   const [rocket, setRocket] = useState({});
-  const [rocketImage, setRocketImage] = useState({});
+  const [rocketImage, setRocketImage] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [indexCol, setIndexCol] = useState(0);
   const route = useRoute();
   const rocketId = route.params?.rocketId;
+  // const rocketsImage = route.params?.rocketsImage;
+  const { width, height } = Dimensions.get('screen');
+  const carouselContainerWidth = width;
+const carouselContainerHeight = height;
+  const scrollX = useRef(new Animated.Value(0)).current;
+
+  const handleOnScroll = event => {
+    Animated.event(
+      [
+        {
+          nativeEvent: {
+            contentOffset: {
+              x: scrollX,
+            },
+          },
+        },
+      ], 
+      {
+        useNativeDriver: false,
+      }
+    )(event);
+  };
+
+//   const handleItemsChanged = useRef(({ viewableItems }) => {
+// setIndexCol(viewableItems[0].index);
+//   }).current;
+
+//   const viewabilityConfig = useRef({
+//     itemVisiblePercentThreshold: 50,
+//   }).current;
 
   useEffect(() => {
     console.log("Fetching data for rocket:", rocketId);
@@ -22,16 +55,13 @@ const Rocket = () => {
 
       if (rocketDocument.exists()) {
         const rocketData = rocketDocument.data();
-        // console.log('Fetched rocket data:', rocketData);
-        // console.log('RocketCapacity:', rocketData.RocketCapacity);
-        // console.log('Stages:', rocketData.Stages);
         setRocket({
           id: rocketDocument.id,
           ...rocketData,
           RocketCapacity: rocketData.RocketCapacity,
           Stages: rocketData.Stages,
         });
-        // console.log('Rocket Document:', rocketDocument.data());
+        console.log("Rocket:", rocket);
       } else {
         console.log("No such document!");
       }
@@ -39,331 +69,393 @@ const Rocket = () => {
     fetchData();
   }, [rocketId]);
 
-//   useEffect(() => {
-//     const getImages = async () => {
-//       const storage = getStorage(FIRESTORE_STORAGE);
-//       const rocketImages = ref(storage, rocket.imageFolderPath);
-//       const imageList = await listAll(rocketImages);
-//       const urls = await Promise.all(imageList.items.map((rocketImages) => getDownloadURL(rocketImages)));
-//       setRocketImage(urls)
-//     }
-// getImages();
-//   }, [rocket.imageFolderPath])
+  useEffect(() => {
+    const rocketImageRef = doc(FIRESTORE_DB, "imagesVideos", "Ariane 1");
+    const fetchData = async () => {
+      const rocketImageDocument = await getDoc(rocketImageRef);
 
+      if (rocketImageDocument.exists()) {
+        const rocketImages = rocketImageDocument.data();
+        const imageArray = Object.values(rocketImages);
+        setRocketImage(imageArray);
+        console.log("Rocket:", rocketImage); // Add this line
+      } else {
+        console.log("No such document!");
+      }
+    };
+    fetchData();
+  }, []);
+ 
+useEffect(() =>{
+  if(modalVisible){
+    scrollX.setValue(0);
+  }
+}, [modalVisible]);
 
-useEffect(() => {
-  console.log('rocket.imageFolderPath:', rocket.imageFolderPath);
-  console.log('getImages function called');
-  const getImages = async () => {
-    try {
-      const storage = getStorage(FIRESTORE_STORAGE);
-      const rocketImages = ref(storage, rocket.imageFolderPath);
-      const imageList = await listAll(rocketImages);
-      const urls = await Promise.all(
-        imageList.items.map((rocketImage) => getDownloadURL(rocketImage))
-      );
-      setRocketImage(urls);
-    } catch (error) {
-      console.log("Error retrieving images:", error);
-    }
-  };
-
-  getImages();
-}, [rocket.imageFolderPath]);
-
-  const imgg =
-    "https://designshack.net/wp-content/uploads/placeholder-image.png";
-
-  // console.log('Rocket:', rocket); // Add this console.log statement
 
   return (
-    <ScrollView>
-      <Text style={styles.Header}>{rocket.Name}</Text>
-      <View style={styles.container}>
-      <View style={styles.imageContainer}>
-      {rocketImage.slice(0,4).map((url, index) => (
-            <View key={index} style={styles.smallImageContainer}>
-            <Image source={{ uri: url }} style={styles.image} />
+    <View>
+      <ScrollView>
+        <Text style={styles.Header}>{rocket.Name}</Text>
+
+        <View style={styles.container}>
+          <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <View style={styles.imageContainer}>
+              {rocketImage.slice(0, 4).map((url, index) => (
+                <View key={index} style={styles.smallImageContainer}>
+                  <Image source={{ uri: url }} style={styles.image} />
+                </View>
+              ))}
+
+              {rocketImage.length > 4 && (
+                <View style={styles.numberImages}>
+                  <Text style={styles.numberText}>
+                    +{rocketImage.length - 4}
+                  </Text>
+                </View>
+              )}
             </View>
-          ))}
-        {rocketImage.length > 4 && (
-          <View style={styles.numberImages}>
-            <Text style={styles.numberText}>
-              +{rocketImage.length - 4}
-              
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.dividerColour}>
+          <Divider style={styles.divider} />
+          <Text style={styles.dividerText}> {rocket.Name} Information</Text>
+          <Divider style={styles.divider} />
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Country of Origin:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.Country}</Text>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Rocket Function:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.RocketFunction}</Text>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Cost Per Launch:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.LaunchCost}</Text>
+          </View>
+        </View>
+
+        <View style={styles.dividerColour}>
+          <Divider style={styles.divider} />
+          <Text style={styles.dividerText}> {rocket.Name} Launch History</Text>
+          <Divider style={styles.divider} />
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Staus:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.Status}</Text>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Launch Location:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.LaunchSite}</Text>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Total Launches:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.TotalLaunches}</Text>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Successes:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.Success}</Text>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Failures:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.Failures}</Text>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Rocket Success Rate:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>
+              {((rocket.Success / rocket.TotalLaunches) * 100).toFixed(2)}%
             </Text>
           </View>
-        )}
-       
-      </View>
-      </View>
-      <View style={styles.dividerColour}>
-        <Divider style={styles.divider} />
-        <Text style={styles.dividerText}> {rocket.Name} Information</Text>
-        <Divider style={styles.divider} />
-      </View>
+        </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Country of Origin:</Text>
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>First Launch:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.FirstLaunch}</Text>
+          </View>
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.Country}</Text>
-        </View>
-      </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Rocket Function:</Text>
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Last Launch:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.LastLaunch}</Text>
+          </View>
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.RocketFunction}</Text>
-        </View>
-      </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Cost Per Launch:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.LaunchCost}</Text>
-        </View>
-      </View>
-
-      <View style={styles.dividerColour}>
-        <Divider style={styles.divider} />
-        <Text style={styles.dividerText}> {rocket.Name} Launch History</Text>
-        <Divider style={styles.divider} />
-      </View>
-
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Staus:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.Status}</Text>
-        </View>
-      </View>
-
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Launch Location:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.LaunchSite}</Text>
-        </View>
-      </View>
-
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Total Launches:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.TotalLaunches}</Text>
-        </View>
-      </View>
-
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Successes:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.Success}</Text>
-        </View>
-      </View>
-
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Failures:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.Failures}</Text>
-        </View>
-      </View>
-
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Rocket Success Rate:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{((rocket.Success / (rocket.TotalLaunches)) * 100).toFixed(2)}%</Text>
-        </View>
-      </View>
-
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>First Launch:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.FirstLaunch}</Text>
-        </View>
-      </View>
-
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Last Launch:</Text>
-        </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.LastLaunch}</Text>
-        </View>
-      </View>
-
-
-      <View style={styles.container}>
+        {/* <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={{ uri: imgg }} style={styles.image} />
         </View>
-      </View>
+      </View> */}
 
-      <View style={styles.dividerColour}>
-        <Divider style={styles.divider} />
-        <Text style={styles.dividerText}>
-          {" "}
-          {rocket.Name} Technical Specifications
-        </Text>
-        <Divider style={styles.divider} />
-      </View>
+        <View style={styles.dividerColour}>
+          <Divider style={styles.divider} />
+          <Text style={styles.dividerText}>
+            {" "}
+            {rocket.Name} Technical Specifications
+          </Text>
+          <Divider style={styles.divider} />
+        </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Rocket Height:</Text>
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Rocket Height:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.RocketHeight}</Text>
+          </View>
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.RocketHeight}</Text>
-        </View>
-      </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Rocket Diameter:</Text>
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Rocket Diameter:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.RocketDiameter}</Text>
+          </View>
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.RocketDiameter}</Text>
-        </View>
-      </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Mass:</Text>
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Mass:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.Mass}</Text>
+          </View>
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.Mass}</Text>
-        </View>
-      </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Fairing Height:</Text>
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Fairing Height:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.FairingHeight}</Text>
+          </View>
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.FairingHeight}</Text>
-        </View>
-      </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Fairing Diameter:</Text>
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Fairing Diameter:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.FairingDiameter}</Text>
+          </View>
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.FairingDiameter}</Text>
-        </View>
-      </View>
 
-      <View style={styles.tableContainer}>
-        <View style={styles.leftContainer}>
-          <Text style={styles.leftSideText}>Rocket Stages:</Text>
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Rocket Stages:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.RocketStages}</Text>
+          </View>
         </View>
-        <View style={styles.rightContainer}>
-          <Text style={styles.rightSideText}>{rocket.RocketStages}</Text>
-        </View>
-      </View>
 
-      {rocket.Stages &&
-        rocket.Stages.map((stage, index) => (
-          <View key={`stage_${index}`}>
-            <View style={styles.dividerColour}>
-              <Divider style={styles.divider} />
-              <Text style={styles.dividerText}>{stage.Stage} </Text>
-              <Divider style={styles.divider} />
+        {rocket.Stages &&
+          rocket.Stages.map((stage, index) => (
+            <View key={`stage_${index}`}>
+              <View style={styles.dividerColour}>
+                <Divider style={styles.divider} />
+                <Text style={styles.dividerText}>{stage.Stage} </Text>
+                <Divider style={styles.divider} />
+              </View>
+
+              <View style={styles.tableContainer}>
+                <View style={styles.leftContainer}>
+                  <Text style={styles.leftSideText}>Powered By:</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.rightSideText}>
+                    {stage.EngineNumbers} - {stage.PoweredBy} {stage.EngineType}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.tableContainer}>
+                <View style={styles.leftContainer}>
+                  <Text style={styles.leftSideText}>Engine Cycle:</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.rightSideText}>{stage.EngineCycle}</Text>
+                </View>
+              </View>
+
+              <View style={styles.tableContainer}>
+                <View style={styles.leftContainer}>
+                  <Text style={styles.leftSideText}>Thrust:</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.rightSideText}>{stage.RocketThrust}</Text>
+                </View>
+              </View>
+
+              <View style={styles.tableContainer}>
+                <View style={styles.leftContainer}>
+                  <Text style={styles.leftSideText}>Propellant:</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.rightSideText}>
+                    {stage.RocketPropellant}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.tableContainer}>
+                <View style={styles.leftContainer}>
+                  <Text style={styles.leftSideText}>Burn Time:</Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={styles.rightSideText}>{stage.BurnTime}</Text>
+                </View>
+              </View>
             </View>
+          ))}
 
-            <View style={styles.tableContainer}>
-              <View style={styles.leftContainer}>
-                <Text style={styles.leftSideText}>Powered By:</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.rightSideText}>
-                  {stage.EngineNumbers} - {stage.PoweredBy} {stage.EngineType}
-                </Text>
+        <View style={styles.dividerColour}>
+          <Divider style={styles.divider} />
+          <Text style={styles.dividerText}>
+            {" "}
+            {rocket.Name} Launch Capacity{" "}
+          </Text>
+          <Divider style={styles.divider} />
+        </View>
+
+        {rocket.RocketCapacity &&
+          rocket.RocketCapacity.map((capacity, index) => (
+            <View style={styles.tableContainer} key={`capacity_${index}`}>
+              <View style={styles.container}>
+                <Text style={styles.payloadTitle}>{capacity.Description}</Text>
+                <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
             </View>
+          ))}
+      </ScrollView>
 
-            {/* <View style={styles.tableContainer}>
-              <View style={styles.leftContainer}>
-                <Text style={styles.leftSideText}>Engine:</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.rightSideText}>{stage.EngineType}</Text>
-              </View>
-            </View> */}
+      <View style={styles.centeredView}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Pressable
+                style={styles.button}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Icon
+                  style={styles.icon}
+                  name="window-close"
+                  size={30}
+                  color="black"
+                />
+              </Pressable>
 
-            <View style={styles.tableContainer}>
-              <View style={styles.leftContainer}>
-                <Text style={styles.leftSideText}>Engine Cycle:</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.rightSideText}>{stage.EngineCycle}</Text>
-              </View>
-            </View>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                pagingEnabled
+                snapToAlignment="center"
+                onScroll={handleOnScroll}
+                // onViewableItemsChanged={handleItemsChanged}
+                // viewabilityConfig={viewabilityConfig}
+              >
+                {rocketImage.map((url, index) => (
+                  <View key={index} style={[styles.carouselConatiner, { width: carouselContainerWidth, height: carouselContainerHeight }]}>
+                    <View style={styles.carouselItem}>
+                      <Image
+                        source={{ uri: url }}
+                        style={styles.imageCarousel}
+                      />
+                    </View>
+                  </View>
+                ))}
+              </ScrollView>
 
-            <View style={styles.tableContainer}>
-              <View style={styles.leftContainer}>
-                <Text style={styles.leftSideText}>Thrust:</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.rightSideText}>{stage.RocketThrust}</Text>
-              </View>
-            </View>
-
-            <View style={styles.tableContainer}>
-              <View style={styles.leftContainer}>
-                <Text style={styles.leftSideText}>Propellant:</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.rightSideText}>{stage.RocketPropellant}</Text>
-              </View>
-            </View>
-
-            <View style={styles.tableContainer}>
-              <View style={styles.leftContainer}>
-                <Text style={styles.leftSideText}>Burn Time:</Text>
-              </View>
-              <View style={styles.rightContainer}>
-                <Text style={styles.rightSideText}>{stage.BurnTime}</Text>
-              </View>
+              <View style={styles.dotConatainer}>
+  {rocketImage.map((_, index) => {
+    const inputRange = [
+      (index - 1) * width,
+      index * width,
+      (index + 1) * width
+    ];
+    const dotWidth = scrollX.interpolate({
+      inputRange,
+      outputRange: [12, 30, 12],
+      extrapolate:'clamp',
+    });
+    const backgroundColor = scrollX.interpolate({
+      inputRange,
+      outputRange: ['#ccc', '#FFFFFF', '#ccc'],
+      extrapolate:'clamp',
+    });
+    return (
+      <Animated.View
+        key={index.toString()}
+        style={[styles.dot, { width: dotWidth, backgroundColor },]}
+      />
+    );
+  })}
+</View>
             </View>
           </View>
-        ))}
-
-      <View style={styles.dividerColour}>
-        <Divider style={styles.divider} />
-        <Text style={styles.dividerText}> {rocket.Name} Launch Capacity </Text>
-        <Divider style={styles.divider} />
+        </Modal>
       </View>
-
-      {rocket.RocketCapacity &&
-        rocket.RocketCapacity.map((capacity, index) => (
-          <View style={styles.tableContainer} key={`capacity_${index}`}>
-            <View style={styles.container}>
-              <Text style={styles.payloadTitle}>{capacity.Description}</Text>
-              <Text style={styles.payloadText}>{capacity.Value}</Text>
-            </View>
-          </View>
-        ))}
-    </ScrollView>
+    </View>
   );
 };
-
 export default Rocket;
 
 const styles = StyleSheet.create({
@@ -384,7 +476,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
-    textAlign: 'right'
+    textAlign: "right",
   },
 
   Header: {
@@ -397,9 +489,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    // justifyContent: "flex-end",
-    // alignItems: "center",
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   imageContainer: {
     borderRadius: 12,
@@ -408,6 +498,10 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 5,
     overflow: "hidden",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   divider: {
     backgroundColor: "#CAC4D0",
@@ -430,51 +524,121 @@ const styles = StyleSheet.create({
 
   leftContainer: {
     flex: 1,
-    // borderColor: 'black',
-    // borderWidth: 1,
     marginLeft: 20,
   },
 
   rightContainer: {
     flex: 1,
-    // borderColor: 'black',
-    // borderWidth: 1,
     marginRight: 20,
-    alignItems: 'flex-end'
+    alignItems: "flex-end",
   },
 
   tableContainer: {
-    // flex: 1,
     flexDirection: "row",
-    // alignItems: 'center',
   },
 
   payloadTitle: {
     fontSize: 22,
     lineHeight: 28,
     textAlign: "center",
-    // fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 5,
   },
 
   payloadText: {
     fontSize: 16,
     lineHeight: 24,
-    textAlign: 'center'
+    textAlign: "center",
+    marginBottom: 5,
   },
-  smallImageContainer:{
-    width: '50%',
-    height: '50%',
+  smallImageContainer: {
+    width: "50%",
+    height: "50%",
+    borderColor: "black",
+    borderWidth: 2,
   },
-  numberImages:{
-    position: 'absolute',
+  numberImages: {
+    position: "absolute",
     bottom: 10,
     right: 10,
   },
-  numberText:{
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  }
+  numberText: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  carouselConatiner: {
+    borderColor: "red",
+    borderWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  carouselItem: {
+    width: "100%",
+    height: 750,
+    borderColor: "white",
+    borderWidth: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  imageCarousel: {
+    flex: 1,
+    width: "100%",
+    resizeMode: "contain",
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    flex: 1,
+    margin: 0,
+    backgroundColor: "black",
+    borderRadius: 20,
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    position: "absolute",
+    top: 25,
+    right: 25,
+    backgroundColor: "transparent",
+    width: 56,
+    height: 56,
+    zIndex: 1,
+  },
+  icon: {
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    color: "white",
+  },
+
+  dot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: "#ccc",
+    marginHorizontal: 3,
+  },
+  dotConatainer: {
+    flexDirection: "row",
+    position: "absolute",
+    bottom: 30,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
