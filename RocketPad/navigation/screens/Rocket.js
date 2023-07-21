@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Modal, Pressable, Dimensions, Animated  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, Modal, Pressable, Dimensions, Animated, Video  } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
 import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
@@ -16,7 +16,7 @@ const Rocket = () => {
   const [indexCol, setIndexCol] = useState(0);
   const route = useRoute();
   const rocketId = route.params?.rocketId;
-  // const rocketsImage = route.params?.rocketsImage;
+  const rocketsImage = route.params?.rocketsImage;
   const { width, height } = Dimensions.get('screen');
   const carouselContainerWidth = width;
 const carouselContainerHeight = height;
@@ -61,6 +61,8 @@ const carouselContainerHeight = height;
           RocketCapacity: rocketData.RocketCapacity,
           Stages: rocketData.Stages,
         });
+
+
         console.log("Rocket:", rocket);
       } else {
         console.log("No such document!");
@@ -70,7 +72,7 @@ const carouselContainerHeight = height;
   }, [rocketId]);
 
   useEffect(() => {
-    const rocketImageRef = doc(FIRESTORE_DB, "imagesVideos", "Ariane 1");
+    const rocketImageRef = doc(FIRESTORE_DB, "imagesVideos", rocketsImage);
     const fetchData = async () => {
       const rocketImageDocument = await getDoc(rocketImageRef);
 
@@ -84,7 +86,7 @@ const carouselContainerHeight = height;
       }
     };
     fetchData();
-  }, []);
+  }, [rocketsImage]);
  
 useEffect(() =>{
   if(modalVisible){
@@ -127,6 +129,15 @@ useEffect(() =>{
         <View style={styles.tableContainer}>
           <View style={styles.leftContainer}>
             <Text style={styles.leftSideText}>Country of Origin:</Text>
+          </View>
+          <View style={styles.rightContainer}>
+            <Text style={styles.rightSideText}>{rocket.ID}</Text>
+          </View>
+        </View>
+
+        <View style={styles.tableContainer}>
+          <View style={styles.leftContainer}>
+            <Text style={styles.leftSideText}>Launch Provider:</Text>
           </View>
           <View style={styles.rightContainer}>
             <Text style={styles.rightSideText}>{rocket.Country}</Text>
@@ -415,10 +426,22 @@ useEffect(() =>{
                 {rocketImage.map((url, index) => (
                   <View key={index} style={[styles.carouselConatiner, { width: carouselContainerWidth, height: carouselContainerHeight }]}>
                     <View style={styles.carouselItem}>
-                      <Image
+
+                      {/* {url.includes(".mp4")? (
+                        <Video source={{uri: url}}
+                        style={styles.video}
+                        controls
+                        resizeMode="contain"
+                        onError={(error) => console.log("Video error:", error)}
+                        />
+                      ) : ( */}
+
+                        <Image
                         source={{ uri: url }}
                         style={styles.imageCarousel}
                       />
+                      {/* // )} */}
+                   
                     </View>
                   </View>
                 ))}
@@ -640,5 +663,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  video:{
+    width: "100%",
+    height: "100%",
+  }
 });
 

@@ -2,8 +2,7 @@ import { View, Text,  StyleSheet, ImageBackground, TouchableOpacity, ScrollView 
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
-import { FAB } from 'react-native-paper';
-import { Button } from 'react-native-paper';
+import { FAB, Card } from 'react-native-paper';
 
 const FamilyTree = ({ navigation }) => {
 
@@ -26,10 +25,12 @@ const [rocketPostion, setRocketPostion] = useState([]);
         const RocketDataTree = [];
 
         snapshot.docs.forEach((doc) => {
-          const { Name, RocketCapacity, Stages, Variant } = doc.data();
+          const { Name, RocketCapacity, Stages, Variant, images, img } = doc.data();
           const rocketTree = {
             id: doc.id,
             Name,
+            image: img,
+            rocketImage: images,
             rocketCapacity: RocketCapacity,
             stages: Stages,
             variant: Variant,
@@ -80,20 +81,23 @@ const [rocketPostion, setRocketPostion] = useState([]);
   <View style={styles.rocketPosition}>
 <TouchableOpacity 
                 onPress={() =>
-                  navigation.navigate("rocket", { rocketId: rocket.id })
-                }
-              >
+                  navigation.navigate("rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage })
+                }>
                 {/* <View style={[styles.cardContainer, {top: rocket.top, left: rocket.left }]}> */}
+                <Card style={styles.cards}>
                 <View style={styles.cardContainer}>
+                
                   <View style={styles.card}>
                     <ImageBackground
-                      source={{ uri: imgg }}
+                      source={{ uri: rocket.image }}
                       style={styles.image}
                     >
                       <Text style={styles.rocketName}>{rocket.Name}</Text>
                     </ImageBackground>
                   </View>
+                  
                 </View>
+                </Card>
               </TouchableOpacity>
               </View>
               </View>
@@ -123,8 +127,8 @@ const styles = StyleSheet.create({
       cardContainer: {
         borderRadius: 12,
         overflow: "hidden",
-        marginBottom: 40,
-        marginTop: 40,
+        // marginBottom: 40,
+        // marginTop: 40,
         // width: 160,
         // height: 160,
         // position: 'absolute',
@@ -136,6 +140,10 @@ const styles = StyleSheet.create({
       //  flex: 1,
       width: 160,
       height: 200,
+      },
+      cards:{
+        marginBottom: 40,
+        marginTop: 40,
       },
       image: {
         flex: 1,

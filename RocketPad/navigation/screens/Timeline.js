@@ -3,18 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import moment from 'moment';
-import { FAB } from 'react-native-paper';
+import { FAB, Card, } from 'react-native-paper';
 
 // import DropShadow from "react-native-drop-shadow";  
 // import {getStorage, ref, getDownloadURL} from 'firebase/storage';
-// import {LinearGradient} from 'react-native-linear-gradient';
+// import LinearGradient from 'react-native-linear-gradient';
 
 const formatDate = (date) => {
   const formattedDate = moment(date, "DD MMMM YYYY").format("DD MMMM YYYY");
   return formattedDate;
 };
 
-const imgg = "https://designshack.net/wp-content/uploads/placeholder-image.png";
+// const imgg = "https://designshack.net/wp-content/uploads/placeholder-image.png";
+
 const Timeline = ({ navigation }) => {
   const [rockets, setRockets] = useState([]);
 
@@ -30,10 +31,12 @@ const Timeline = ({ navigation }) => {
 
         snapshot.docs.forEach((doc) => {
           const formattedDate = formatDate(doc.data().FirstLaunch);
-          const { Name, RocketCapacity, Stages, Variant } = doc.data();
+          const { Name, RocketCapacity, Stages, Variant, images, img } = doc.data();
           const rocket = {
             id: doc.id,
             Name,
+            image: img,
+            rocketImage: images,
             rocketCapacity: RocketCapacity,
             stages: Stages,
             FirstLaunch: formattedDate,
@@ -90,13 +93,14 @@ const Timeline = ({ navigation }) => {
               <View style={styles.line} />
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("rocket", { rocketId: rocket.id})
+                  navigation.navigate("rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage})
                 }
               >
+                 <Card>
                 <View style={styles.cardContainer}>
                   <View style={styles.card}>
                     <ImageBackground
-                      source={{ uri: imgg }}
+                      source={{ uri: rocket.image }}
                       style={styles.image}
                     >
                       {/* <LinearGradient
@@ -105,12 +109,16 @@ const Timeline = ({ navigation }) => {
                 start={[0.5, 1]}
                 end={[0.5, 0.5]}
               /> */}
-                      <Text style={styles.rocketName}>{rocket.Name}</Text>
+                     <Text style={styles.rocketName}>{rocket.Name}</Text>
                     </ImageBackground>
                   </View>
+                
                 </View>
-              </TouchableOpacity>
+                </Card>
+              </TouchableOpacity> 
+   
             </View>
+
           ))}
         </View>
       </ScrollView>
@@ -118,7 +126,7 @@ const Timeline = ({ navigation }) => {
   );
 };
 
-
+export default Timeline;
 
 const styles = StyleSheet.create({
   container: {
@@ -141,6 +149,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: 12,
     overflow: "hidden",
+  
 
     // elevation: 5,
   },
@@ -230,7 +239,7 @@ const styles = StyleSheet.create({
 
 
 
-export default Timeline;
+
 
 
 
