@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import moment from 'moment';
-import { FAB, Card, } from 'react-native-paper';
+import { ActivityIndicator, MD2Colors, FAB, Card, } from 'react-native-paper';
 
 // import DropShadow from "react-native-drop-shadow";  
 // import {getStorage, ref, getDownloadURL} from 'firebase/storage';
@@ -18,8 +18,10 @@ const formatDate = (date) => {
 
 const Timeline = ({ navigation }) => {
   const [rockets, setRockets] = useState([]);
+  const [loadingNews, setLoadingNews] = useState([]);
 
   useEffect(() => {
+    setLoadingNews(true);
     const rocketsRef = collection(FIRESTORE_DB, "Rockets");
     const sortedRocketsQuery = query(
       rocketsRef,
@@ -55,6 +57,7 @@ const Timeline = ({ navigation }) => {
           moment(b.FirstLaunch, "DD MMMM YYYY").diff(moment(a.FirstLaunch, "DD MMMM YYYY"))
         );
         setRockets(RocketData);
+        setLoadingNews(false);
       },
     });
 
@@ -63,6 +66,14 @@ const Timeline = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      {loadingNews ?(
+        <View>
+          <View style={styles.loadingContainer}>
+<ActivityIndicator animating={true} color={MD2Colors.red800}  size="large"/>
+          </View>
+          <View style={styles.textLoadingContainer}><Text style={styles.textLoading}>Launching Rockets.......</Text></View>
+          </View>
+      ) : (
       <ScrollView>
 
       <FAB
@@ -71,6 +82,7 @@ const Timeline = ({ navigation }) => {
     style={styles.fab}
     onPress={() => navigation.navigate("familytree")}
   />
+
 
 
         <Text style={styles.topText}>Present Day</Text>
@@ -121,8 +133,14 @@ const Timeline = ({ navigation }) => {
 
           ))}
         </View>
+       
+        
+         
       </ScrollView>
+      )}
     </View>
+
+    
   );
 };
 
@@ -153,6 +171,24 @@ const styles = StyleSheet.create({
 
     // elevation: 5,
   },
+
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 60,
+  },
+textLoading:{
+
+    fontWeight: "bold",
+    fontSize: 22,
+    color: "black",
+},
+textLoadingContainer:{
+  justifyContent: "center",
+    alignItems: "center",
+    marginTop: 60,
+},
   dateContainer: {
     width: 150,
     marginRight: 8,

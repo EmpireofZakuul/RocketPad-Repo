@@ -69,7 +69,7 @@ function TabNavigator() {
         // tabBarVisible: true,
       })}
     >
-      <Tab.Screen name={HomeScreen} component={Home} />
+      <Tab.Screen name={HomeScreen} component={Home} options={{ headerShown: false }}/>
       <Tab.Screen name={TimelineScreen} component={Timeline} />
       <Tab.Screen name={LaunchesScreen} component={Launches} />
       <Tab.Screen name={OrbitsScreen} component={Orbits} />

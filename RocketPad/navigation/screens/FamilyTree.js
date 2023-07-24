@@ -1,12 +1,16 @@
-import { View, Text,  StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text,  StyleSheet, ImageBackground, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
-import { FAB, Card } from 'react-native-paper';
+import {ActivityIndicator, MD2Colors,FAB, Card, Button, Modal } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const FamilyTree = ({ navigation }) => {
 
 const [rocketPostion, setRocketPostion] = useState([]);
+const [filterValue, setFilterValue] = useState('');
+const [modalVisible, setModalVisible] = useState(false);
+const [loadingNews, setLoadingNews] = useState([]);
 //   // {id: 1, name: 'Ariane 1', top: 0, left: 0}
 //   {name: 'Ariane 1', top: 0, left: 0}
 // ]);
@@ -19,6 +23,7 @@ const [rocketPostion, setRocketPostion] = useState([]);
     // const [selectedCountry, setSelectedCountry] = useState([]);
 
   useEffect(() => {
+    setLoadingNews(true);
     const rocketTreeRef = collection(FIRESTORE_DB, "Rockets");
     const subscribe = onSnapshot(rocketTreeRef, {
       next: (snapshot) => {
@@ -44,11 +49,17 @@ const [rocketPostion, setRocketPostion] = useState([]);
           
         });
         setRocketsFamilyTree(RocketDataTree);
+        setLoadingNews(false);
       },
     });
 
     return () => subscribe();
   }, []);
+
+  const FilterValue = (value) =>{
+    setFilterValue(value);
+    console.log(value);
+  }
 
   // useEffect(()=> {
   //   const rocketPositionsUpdated = rocketsFamilyTree.map((rocket) => {
@@ -64,6 +75,14 @@ const [rocketPostion, setRocketPostion] = useState([]);
 
   return (
     <View style={styles.container}>
+       {loadingNews ?(
+        <View>
+          <View style={styles.loadingContainer}>
+<ActivityIndicator animating={true} color={MD2Colors.red800}  size="large"/>
+          </View>
+          <View style={styles.textLoadingContainer}><Text style={styles.textLoading}>Launching Rockets.......</Text></View>
+          </View>
+      ) : (
       <ScrollView>
       <FAB
     icon="timeline-clock"
@@ -71,8 +90,61 @@ const [rocketPostion, setRocketPostion] = useState([]);
     onPress={() => navigation.navigate("timeline")}
   />
 
+{/* <View style={styles.filterButtonContainer}>
+<Button icon="cursor-pointer" mode="elevated" onPress={() => FilterValue('Europe')} style={styles.filterButton}>
+    Europe
+</Button>
 
-      <View>  
+<Button icon="cursor-pointer" mode="elevated" onPress={() => FilterValue('United States')}style={styles.filterButton}>
+    United States
+</Button>
+
+<Button icon="cursor-pointer" mode="elevated" onPress={() => FilterValue('Russia')} style={styles.filterButton}>
+    Russia
+</Button>
+</View> */}
+
+{/* <View> 
+<Pressable style={styles.button} onPress={() => setModalVisible(modalVisible)}>
+<Text style={styles.filterText}> Filter </Text> 
+ <Icon style={styles.icon} name="filter-menu" size={30} color="black" />
+</Pressable>
+ <FAB
+    icon="filter-menu"
+    style={styles.fabFilter}
+    onPress={() => setModalVisible(modalVisible)}
+  />
+  
+  </View> */}
+
+
+<Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Pressable
+                style={styles.button}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Icon
+                  style={styles.icon}
+                  name="window-close"
+                  size={30}
+                  color="black"
+                />
+              </Pressable>
+
+        
+            </View>
+          </View>
+        </Modal>
+      <View style={styles.rocketContainer}>  
 {/* {rocketPostion.map((rocket) => (   
 <View key={rocket.id}> */}
 
@@ -105,6 +177,7 @@ const [rocketPostion, setRocketPostion] = useState([]);
 ))}
 </View>
       </ScrollView>
+       )}
     </View>
   )
 }
@@ -119,11 +192,55 @@ const styles = StyleSheet.create({
         right: 0,
         marginBottom: 40,
       },
+
+      loadingContainer: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 60,
+      },
+    textLoading:{
+    
+        fontWeight: "bold",
+        fontSize: 22,
+        color: "black",
+    },
+    textLoadingContainer:{
+      justifyContent: "center",
+        alignItems: "center",
+        marginTop: 60,
+    },
+
+      // fabFilter: {
+      //   position: 'absolute',
+      //   margin: 16,
+      //   top: 0,
+      //   // right: 300,
+      //   marginBottom: 40,
+      //   justifyContent: 'flex-start',
+      // },
       container: {
         marginHorizontal: 10,
         paddingTop: 10,
     // flex: 1,
       },
+      rocketContainer:{
+marginTop:60,
+      },
+
+
+
+//       filterButton:{
+// width: 110,
+// marginHorizontal:10,
+//       },
+
+//       filterButtonContainer:{
+//         flexDirection:'row',
+
+//       },
+
+
       cardContainer: {
         borderRadius: 12,
         overflow: "hidden",
@@ -163,6 +280,30 @@ const styles = StyleSheet.create({
       rocketPosition: {
         // position: 'absolute',
         justifyContent: 'center',
-        alignItems: 'center'
-      }
+        alignItems: 'center',
+       
+      },
+
+      centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      },
+      modalView: {
+        flex: 1,
+        margin: 0,
+        backgroundColor: "black",
+        borderRadius: 20,
+        width: "100%",
+        height: "100%",
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+      },
 })
