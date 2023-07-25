@@ -13,6 +13,7 @@ const Home = ({ navigation }) => {
   const imgg = "https://pbs.twimg.com/media/Fvd3qcoWcAMaVs8?format=jpg&name=large";
   const [loadingNews, setLoadingNews] = useState([]);
   const [rocketImage, setRocketImage] = useState(null);
+ 
 
   useEffect(() => {
     const rocketsRef = collection(FIRESTORE_DB, "ImageOfTheDay");
@@ -63,7 +64,7 @@ const Home = ({ navigation }) => {
     }
     const limitedArticles = allNewsArticles.slice(0, pageSize);
     setNewsArticles(limitedArticles);
-    setLoadingNews(false);
+    // setLoadingNews(false);
   };
 
   useEffect(() => {
@@ -75,11 +76,14 @@ const Home = ({ navigation }) => {
     <ScrollView>
       {rocketImage && (
 <View>
+
 <View key={rocketImage.id} style={styles.imageOfDay}>
                   <Image source={{ uri: rocketImage.img }} style={styles.image} />
+                  <View style={styles.imageOfDayOverlay}></View>
                 </View>
+                
                 <View style={styles.rocketNameContainer}>
-                  <Text style={styles.imageOfTheDayText}>Today's Rocket Image</Text>
+                  <Text style={styles.imageOfTheDayText}>RocketPad's Rocket Spotlight</Text>
                   <Text style={styles.rocketName}>{rocketImage.name} Rocket</Text>
                   {/* <Button style={styles.rocketNameButton}> Explore <Icon style={styles.icon} name="arrow-right" size={20} color="white" /></Button> */}
                   {/* <Chip icon="arrow-right" mode="outlined" onPress={() => console.log('Pressed')}>Explore</Chip> */}
@@ -144,14 +148,21 @@ const styles = StyleSheet.create({
   },
 
   imageOfDay: {
-    borderColor: "black",
-    borderWidth: 1,
     width: "100%",
     height: 850,
-    // marginTop: 30,
-    backgroundColor: 'black',
+    position: 'relative',
+
   },
   
+  imageOfDayOverlay:{
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+width: "100%",
+height: 850,
+  },
+
   imageOfTheDayText: {
     fontSize: 16,
     textAlign: "center",
@@ -170,7 +181,6 @@ fontWeight: "bold",
   rocketName:{
     fontSize: 22,
     fontWeight: "bold",
-    textAlign: "center",
     color: "white",
     marginTop: 15,
   },
@@ -189,7 +199,8 @@ left: 20,
   marginTop: 15,
   flexDirection: 'row', 
     alignItems: 'center', 
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width:160,
   },
 
   icon:{
