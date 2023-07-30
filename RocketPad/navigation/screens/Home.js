@@ -84,7 +84,7 @@ const Home = ({ navigation }) => {
                 
                 <View style={styles.rocketNameContainer}>
                   <Text style={styles.imageOfTheDayText}>RocketPad's Rocket Spotlight</Text>
-                  <Text style={styles.rocketName}>{rocketImage.name} Rocket</Text>
+                  <Text style={styles.rocketName}>{rocketImage.name}</Text>
                   {/* <Button style={styles.rocketNameButton}> Explore <Icon style={styles.icon} name="arrow-right" size={20} color="white" /></Button> */}
                   {/* <Chip icon="arrow-right" mode="outlined" onPress={() => console.log('Pressed')}>Explore</Chip> */}
                   <TouchableOpacity
