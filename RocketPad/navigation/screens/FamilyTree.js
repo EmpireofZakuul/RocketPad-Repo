@@ -19,7 +19,18 @@ const rocketOrder = {
 Europe: ['Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4','Ariane 1', 'Ariane 2', 'Ariane 3','Ariane 40','Ariane 42P','Ariane 42L','Ariane 44P', 'Ariane 44LP', 'Ariane 44L','Ariane 5G (Generic)','Ariane 5G+','Ariane 5GS','Ariane 5 ECA','Ariane 5 ES','Vega','Vega C',]
 };
 
-
+const sortRockets = (rockets, order) => {
+  const rocketsSorted = [];
+  for (const category in order){
+    order[category].forEach((rocketName) => {
+      const rocketPostionOrder = rockets.find((rocket) => rocket.Name === rocketName);
+      if (rocketPostionOrder) {
+        rocketsSorted.push(rocketPostionOrder);
+      }
+    });
+  }
+  return rocketsSorted;
+};
 
   useEffect(() => {
     setLoadingNews(true);
@@ -47,8 +58,8 @@ Europe: ['Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4','Ariane
             RocketDataTree.push(rocketTree);
           
         });
-
-        setRocketsFamilyTree(RocketDataTree);
+        const rocketsSorted = sortRockets(RocketDataTree, rocketOrder);
+        setRocketsFamilyTree(rocketsSorted);
         setLoadingNews(false);
       },
     });
@@ -61,17 +72,23 @@ Europe: ['Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4','Ariane
     console.log(value);
   }
 
-  // useEffect(()=> {
-  //   const rocketPositionsUpdated = rocketsFamilyTree.map((rocket) => {
-  //     if(rocket.Name === 'Diamant A'){
-  //       return {...rocket, top: 0, left: 100};
-  //     }
-     
-  //     return rocket;
-  //   });
+  const rocketPositions = {
+    // 'Ariane 2': { top: 0, left: -100, marginTop: defaultMargin , marginBottom: defaultMargin  },
+    // 'Ariane 3': { top: -280, left: 100, marginTop: defaultMargin , marginBottom: -defaultMargin -200  },
+  
+    'Ariane 2': { top: 0, left: -100, marginTop: 40 , marginBottom: 0  },
+    'Ariane 3': { top: -200, left: 100, marginTop: 0 , marginBottom: -140 },
+  };
 
-  //   setRocketPostion(rocketPositionsUpdated);
-  // }, [rocketsFamilyTree]);
+    const rocketPositionsUpdated = (rocketName) => {
+
+      const defaultMargin = 40; // Default margin for other rockets
+      return rocketPositions[rocketName] || { top: 0, left: 0, marginTop: defaultMargin, marginBottom: defaultMargin };
+   
+    };
+
+   
+
 
   return (
     <View style={styles.container}>
@@ -145,17 +162,14 @@ Europe: ['Diamant A', 'Europa', 'Black Arrow','Diamant B','Diamant BP.4','Ariane
           </View>
         </Modal>
       <View style={styles.rocketContainer}>  
-{/* {rocketPostion.map((rocket) => (   
-<View key={rocket.id}> */}
 
 {rocketsFamilyTree.map((rocket, index) => (   
-<View key={index}>
-  <View style={styles.rocketPosition}>
+<View key={index} style={[styles.rocketPosition,  rocketPositionsUpdated(rocket.Name)]}>
+  <View >
 <TouchableOpacity 
                 onPress={() =>
                   navigation.navigate("rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage })
                 }>
-                {/* <View style={[styles.cardContainer, {top: rocket.top, left: rocket.left }]}> */}
                 <Card style={styles.cards}>
                 <View style={styles.cardContainer}>
                 
@@ -244,23 +258,15 @@ marginTop:60,
       cardContainer: {
         borderRadius: 12,
         overflow: "hidden",
-        // marginBottom: 40,
-        // marginTop: 40,
-        // width: 160,
-        // height: 160,
-        // position: 'absolute',
-        // top: 0,
-        // left: 0,
       },
 
       card: {
-      //  flex: 1,
       width: 160,
       height: 200,
       },
       cards:{
-        marginBottom: 40,
-        marginTop: 40,
+        // marginBottom: 40,
+        // marginTop: 40,
       },
       image: {
         flex: 1,
@@ -278,11 +284,16 @@ marginTop:60,
       },
 
       rocketPosition: {
-        // position: 'absolute',
+        // position: 'relative',
         justifyContent: 'center',
         alignItems: 'center',
        
       },
+
+      // rocketPositionMargin:{
+      //   marginBottom: -40,
+      //   marginTop: -40,
+      // },
 
       centeredView: {
         flex: 1,
