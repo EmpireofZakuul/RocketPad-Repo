@@ -2,7 +2,7 @@ import { View, Text,  StyleSheet, ImageBackground, TouchableOpacity, ScrollView,
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
-import {ActivityIndicator, MD2Colors,FAB, Card, Button, Modal } from 'react-native-paper';
+import {ActivityIndicator, MD2Colors,FAB, Card, Button, Modal, Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const FamilyTree = ({ navigation }) => {
@@ -91,6 +91,13 @@ const sortRockets = (rockets, order) => {
 
 
   return (
+    <View>
+          <Appbar.Header>
+   
+   <Appbar.Content title="Rocket FamilyTree" />
+   {/* <Appbar.Action icon="magnify" onPress={() => setShowSearchBar(true)} /> */}
+ </Appbar.Header>
+   
     <View style={styles.container}>
        {loadingNews ?(
         <View>
@@ -193,6 +200,7 @@ const sortRockets = (rockets, order) => {
       </ScrollView>
        )}
     </View>
+    </View>
   )
 }
 
@@ -235,7 +243,8 @@ const styles = StyleSheet.create({
       // },
       container: {
         marginHorizontal: 10,
-        paddingTop: 10,
+        marginBottom: 220,
+        // paddingTop: 10,
     // flex: 1,
       },
       rocketContainer:{

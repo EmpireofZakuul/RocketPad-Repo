@@ -3,10 +3,10 @@ import React, { useEffect, useState, useRef } from 'react';
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
 import { getStorage, ref, listAll, getDownloadURL } from 'firebase/storage';
 import { FIRESTORE_DB, FIRESTORE_STORAGE} from '../../firebaseConfig';
-import { useRoute, validatePathConfig } from '@react-navigation/native';
+import { useRoute, validatePathConfig, useNavigation } from '@react-navigation/native';
 import { Divider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { FAB } from 'react-native-paper';
+import { FAB, Appbar } from 'react-native-paper';
 
 
 const Rocket = () => {
@@ -21,6 +21,7 @@ const Rocket = () => {
   const carouselContainerWidth = width;
 const carouselContainerHeight = height;
   const scrollX = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
 
   const handleOnScroll = event => {
     Animated.event(
@@ -97,7 +98,12 @@ useEffect(() =>{
 
   return (
     <View>
-      <ScrollView>
+      <Appbar.Header>
+    <Appbar.BackAction onPress={() => navigation.goBack()} />
+    <Appbar.Content title={rocket.Name} />
+  </Appbar.Header>
+
+      <ScrollView style={styles.rocketContainer}>
         <Text style={styles.Header}>{rocket.Name}</Text>
 
         <View style={styles.container}>
@@ -489,6 +495,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  rocketContainer: {
+marginBottom: 120,
+  },
   leftSideText: {
     fontSize: 16,
     lineHeight: 24,
@@ -532,7 +541,7 @@ const styles = StyleSheet.create({
   },
   dividerColour: {
     backgroundColor: "rgba(193, 192, 249, 0.4)",
-    marginBottom: 10,
+    marginBottom: 25,
     marginTop: 10,
   },
 
@@ -568,7 +577,7 @@ const styles = StyleSheet.create({
   },
 
   payloadText: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 24,
     textAlign: "center",
     marginBottom: 5,

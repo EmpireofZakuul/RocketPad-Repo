@@ -2,16 +2,17 @@ import { ScrollView, StyleSheet, Text, View , Image, TouchableOpacity} from 'rea
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment/moment'
-import { ActivityIndicator, MD2Colors, Card, } from 'react-native-paper';
+import { ActivityIndicator, MD2Colors, Card, Appbar } from 'react-native-paper';
 import { Divider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const Launches = () => {
+const Launches = ({navigation}) => {
   const [launches, setLaunches] = useState([]);
   const [loadingLaunches, setLoadingLaunches] = useState([]);
  const url = 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?mode=detailed'
  const [remainingTime, setRemainingTime] = useState('');
 const placeholder = 'https://www.tandempm.ie/wp-content/uploads/placeholder-85.png';
+const [currentTime, setCurrentTime] = useState(Date.now());
 
 
   const getLaunches = async () => {
@@ -33,11 +34,51 @@ try{
     setLoadingLaunches(false);
   };
 
+
+const countdown = (launchTime) => {
+  const currentTime = Date.now();
+  const timeBetweenTimes = new Date(launchTime).getTime() - currentTime;
+const seconds = Math.floor((timeBetweenTimes / 1000) % 60);
+const minutes = Math.floor((timeBetweenTimes / 1000 / 60) % 60);
+const hours = Math.floor((timeBetweenTimes / (1000 * 60 * 60)) % 24);
+const days = Math.floor(timeBetweenTimes / (1000 * 60 * 60 * 24));
+
+// console.log('Days:', days, 'Hours:', hours, 'Minutes:', minutes, 'Seconds:', seconds);
+return{ days, hours, minutes, seconds}
+};
+
+const formatCountdown = (countdown) => {
+  const {days, hours, minutes, seconds} = countdown;
+
+  if(days < 0 && hours < 0 && minutes < 0 && seconds < 0){
+    return "00 : 00 : 00 : 00"
+  }
+
+  return (
+`${days.toString().padStart(2, '0')} : ` +
+`${hours.toString().padStart(2, '0')} : ` +
+`${minutes.toString().padStart(2, '0')} : ` +
+`${seconds.toString().padStart(2, '0')} ` 
+
+  );
+};
+
+
   useEffect(() => {
     getLaunches();
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 1000);
+  
+    return () => clearInterval(interval);
   }, []);
 
   return (
+    <View>
+        <Appbar.Header>
+   <Appbar.Content title="Upcoming Rocket Launches" />
+ </Appbar.Header>
+   
    <ScrollView>
          {loadingLaunches ?(
      <View>
@@ -48,7 +89,14 @@ try{
      </View>
       ) : (
       <View style={styles.container}>
-        {launches.map((rocketLaunches, index) => (
+        {launches.map((rocketLaunches, index) => {
+
+const launchTime = new Date(rocketLaunches.net);
+const time = countdown(launchTime);
+const countdownFormated = formatCountdown(time);
+
+return(
+
           <View key={index}>
             <Card style={styles.card}>
             <View style={styles.imageContainer}>
@@ -62,15 +110,21 @@ try{
 <View style={styles.contentContainer}>
             <Text style={styles.title}>{rocketLaunches.rocket?.configuration?.full_name} | {rocketLaunches.mission?.name}</Text>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Provider:</Text> {rocketLaunches.launch_service_provider?.name}</Text>
-            <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Location:</Text> {rocketLaunches.pad?.location?.name}</Text>
+            <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Location:</Text> {rocketLaunches.pad?.name} - {rocketLaunches.pad?.location?.name}</Text>
 </View>           
 
 <View style={styles.dividerContainer}>
 <Divider style={styles.divider} />
             <View style={styles.dividerColour}>
-                {/* <Divider style={styles.divider} /> */}
-                <Text style={styles.timer}>T - Minus - {moment(rocketLaunches.net).fromNow()}</Text>
-                {/* <Divider style={styles.divider} /> */}
+                <View>
+                <Text style={styles.timer}>T - Minus - {countdownFormated} </Text>
+                </View>
+           {/* <View style={styles.timerContainer}>
+              <Text style={styles.timerText}> Days</Text>
+              <Text style={styles.timerText}> Hours</Text>
+              <Text style={styles.timerText}> Minutes</Text>
+              <Text style={styles.timerText}> Seconds</Text>
+           </View> */}
               </View>
               <Divider style={styles.divider} />
               </View>
@@ -82,13 +136,16 @@ try{
         
             <View>
             <Text style={styles.descriptionContainer}>Mission:</Text>
+            {/* <TouchableOpacity  onPress={() => navigation.navigate('orbit', {documentName: rocketLaunches.mission?.orbit?.name})}> */}
+            {/* <Text style={styles.subTitle}><Text style={styles.boldText}>Orbit:</Text> <Text style={styles.textLink}>{rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text></Text> */}
+            {/* </TouchableOpacity> */}
             <Text style={styles.subTitle}><Text style={styles.boldText}>Orbit:</Text> {rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Mission Type:</Text> {rocketLaunches.mission?.type}</Text>
             <Text style={styles.subTitle}>{rocketLaunches.mission?.description}</Text>
             </View>
          
             </View>
-            <View style={styles.mainButtonContainer}>
+            {/* <View style={styles.mainButtonContainer}>
               <View>
         
                   <View style={styles.rocketNameButton}>
@@ -98,20 +155,22 @@ try{
                    
                     </View>
 
-                    {/* <View>
+                    <View>
                   <View style={styles.rocketNameButton2}>
                     <Text style={styles.buttonText}>More Info</Text>
                     <Icon style={styles.icon} name="information-variant" size={30} color="black" />
                     </View>
-                    </View> */}
-            </View>
+                    </View>
+            </View> */}
             </View>
             </Card>
             </View>
-           ))}
+);
+        })}
 </View>
 )}
    </ScrollView>
+   </View>
   )
 }
 
@@ -121,6 +180,7 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
     paddingTop: 10,
+    marginBottom: 100,
   },
   contentContainer: {
     paddingHorizontal: 10,
@@ -135,6 +195,11 @@ const styles = StyleSheet.create({
     height: 60,
     width: "100%",
     justifyContent: "center",
+  },
+
+  textLink:{
+    textDecorationLine: 'underline',
+    color: 'blue',
   },
 
   dividerContainer: {
@@ -176,15 +241,14 @@ const styles = StyleSheet.create({
 
   timerContainer: {
     marginTop: 15,
+  flexDirection: 'row',
+  justifyContent: 'space-evenly',
   },
-  // timerText:{
-  //   fontSize: 26,
-  //   marginVertical: 7,
-  //   textAlign: 'center',
-  //   justifyContent: "center",
-  //   alignItems: "center",
-  //   fontWeight: 'bold',
-  // },
+
+  timerText:{
+ fontSize: 16,
+ color: 'black',
+  },
 
   timer: {
     fontSize: 26,

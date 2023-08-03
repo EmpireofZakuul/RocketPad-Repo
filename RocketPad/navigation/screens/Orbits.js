@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, Scro
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
+import { Appbar } from 'react-native-paper';
 
 const Orbits = ({navigation}) => {
   const [orbits, setOrbit] = useState([]);
@@ -47,6 +48,11 @@ useEffect(() => {
 
 return (
 
+  <View>
+    <Appbar.Header>
+      <Appbar.Content title="Orbits" />
+    </Appbar.Header>
+ 
       <ScrollView>
           <View style={styles.container}>
         {orbits.map((RocketOrbit, index) => (
@@ -106,7 +112,7 @@ return (
       ))}
       </View>
       </ScrollView>
-     
+      </View>
   );
 };
 export default Orbits
@@ -114,7 +120,8 @@ export default Orbits
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
-    marginVertical: 20,
+   marginTop: 30,
+   marginBottom: 120,
   },
   text:{
   fontSize: 16,

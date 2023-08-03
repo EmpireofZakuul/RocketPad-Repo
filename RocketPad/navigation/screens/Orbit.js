@@ -2,9 +2,8 @@ import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, Scro
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
-import { useRoute } from '@react-navigation/native';
-import { useNavigation} from '@react-navigation/native';
-
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { Appbar } from 'react-native-paper';
 
 const Orbit = () => {
   
@@ -15,7 +14,7 @@ const Orbit = () => {
 
 const route = useRoute();
 const documentName = route.params?.documentName;
-
+const navigation = useNavigation();
 
 useEffect(() => {
   console.log('Fetching data for documentName:', documentName);
@@ -38,6 +37,13 @@ useEffect(() => {
 
   return (
 
+    <View>
+         
+      <Appbar.Header>
+    <Appbar.BackAction onPress={() => navigation.goBack()} />
+    <Appbar.Content title={documentName} />
+  </Appbar.Header>
+  
     <ScrollView>
       <View style={styles.container}>
         {rocketOrbits.map((rocketOrbit, index) => (
@@ -205,7 +211,7 @@ useEffect(() => {
         ))}
       </View>
     </ScrollView>
-
+    </View>
     
   );
 };
@@ -215,7 +221,8 @@ useEffect(() => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
-    marginVertical: 20,
+    marginTop: 30,
+    marginBottom: 120,
   },
   text:{
   fontSize: 16,

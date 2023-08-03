@@ -1,9 +1,10 @@
-import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView , Keyboard, TextInput} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import moment from 'moment';
-import { ActivityIndicator, MD2Colors, FAB, Card, } from 'react-native-paper';
+import { ActivityIndicator, MD2Colors, FAB, Card, Appbar  } from 'react-native-paper';
+import { Feather, Entypo } from "@expo/vector-icons";
 
 // import DropShadow from "react-native-drop-shadow";  
 // import {getStorage, ref, getDownloadURL} from 'firebase/storage';
@@ -16,9 +17,11 @@ const formatDate = (date) => {
 
 // const imgg = "https://designshack.net/wp-content/uploads/placeholder-image.png";
 
-const Timeline = ({ navigation }) => {
+const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClicked}) => {
   const [rockets, setRockets] = useState([]);
   const [loadingNews, setLoadingNews] = useState([]);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+ 
 
   useEffect(() => {
     setLoadingNews(true);
@@ -64,7 +67,46 @@ const Timeline = ({ navigation }) => {
     return () => subscribe();
   }, []);
 
+
+  // const searchRockets = rockets.filter((rocket) =>{
+  //   const rocketName = rocket.Name.toLowerCase().includes(searchPhrase.toLowerCase());
+  //   // const rocketContinent = rocket.id.toLowerCase().includes(searchPhrase.toLowerCase());
+  //   return rocketName 
+  // }, [searchPhrase]);
+
   return (
+   <View>
+     <Appbar.Header>
+   
+    <Appbar.Content title="Rocket Timeline" />
+    <Appbar.Action icon="magnify" onPress={() => setShowSearchBar(true)} />
+  </Appbar.Header>
+
+  {showSearchBar && (
+  <View style={styles.SearchBarContainer}>
+  <View style={styles.searchBar}>
+< Feather name="search" size={20} color="black" style={{marginLeft: 1}}/>
+
+<TextInput style={styles.input} placeholder='Search' value={searchPhrase} onChangeText={setSearchPhrase} onFocus={() => {
+  setClicked(true);
+}}/>
+
+{searchPhrase !== ""  && (
+  <Entypo name='cross' size={20} color="black" style={{padding: 1}} onPress={() => {
+    setSearchPhrase("")
+  }}/>
+)}
+ </View>
+
+    <View>
+      <Button title='Cancel' onPress={() => {
+        Keyboard.dismiss();
+        setShowSearchBar(false);
+      }}></Button>
+   
+  </View>
+  </View>
+  )} 
     <View style={styles.container}>
       {loadingNews ?(
         <View>
@@ -105,7 +147,7 @@ const Timeline = ({ navigation }) => {
               <View style={styles.line} />
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage})
+                  navigation.navigate("rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage, })
                 }
               >
                  <Card>
@@ -133,13 +175,14 @@ const Timeline = ({ navigation }) => {
 
           ))}
         </View>
-       
+        
         
          
       </ScrollView>
       )}
     </View>
 
+  </View>
     
   );
 };
@@ -149,10 +192,12 @@ export default Timeline;
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
-    paddingTop: 10,
-    // borderColor: 'black',
-    // borderWidth: 2,
+    marginBottom: 220,
+  
   },
+//   rockets:{
+// marginTop: 30,
+//   },
   timeline: {
     flexDirection: "column",
     alignItems: "flex-start",
@@ -167,9 +212,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: 12,
     overflow: "hidden",
-  
-
-    // elevation: 5,
   },
 
   loadingContainer: {
@@ -179,7 +221,6 @@ const styles = StyleSheet.create({
     marginTop: 60,
   },
 textLoading:{
-
     fontWeight: "bold",
     fontSize: 22,
     color: "black",
@@ -270,6 +311,29 @@ textLoadingContainer:{
     marginBottom: 40,
   },
 
+  SearchBarContainer:{
+    margin: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '90%',
+    alignSelf: 'center',
+      },
+      
+      searchBar:{
+    padding: 10,
+    flexDirection: 'row',
+    width: '85%',
+    backgroundColor: '#d9dbda',
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+      },
+      input:{
+    fontSize: 20,
+    marginLeft: 10,
+    width: '90%',
+      },
 });
 
 

@@ -33,16 +33,17 @@ export default function MainContainer() {
       <Stack.Navigator>
         {/* <Stack.Screen name='TabNavigator' component={TabNavigator} options={{ headerShown: false }} /> */}
         <Stack.Screen name='TabNavigator' component={TabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name={RocketScreen} component={Rocket}  />
-        <Stack.Screen name={OrbitScreen} component={Orbit} />
-        <Stack.Screen name={FamilyTreeScreen} component={FamilyTree} />
+        <Stack.Screen name={OrbitScreen} component={Orbit} options={{ headerShown: false }}/>
+        <Stack.Screen name={FamilyTreeScreen} component={FamilyTree} options={{ headerShown: false }} />
         <Stack.Screen name={TimelineScreen} component={Timeline}  />
+        <Stack.Screen name={RocketScreen} component={Rocket} options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
 function TabNavigator() {
+
   return (
     <Tab.Navigator
       initialRouteName={HomeScreen}
@@ -66,14 +67,17 @@ function TabNavigator() {
 
           return <Icon name={iconName} size={size} color={color} />;
         },
-        // tabBarVisible: true,
+      
       })}
+
     >
       <Tab.Screen name={HomeScreen} component={Home} options={{ headerShown: false }}/>
-      <Tab.Screen name={TimelineScreen} component={Timeline} />
-      <Tab.Screen name={LaunchesScreen} component={Launches} />
-      <Tab.Screen name={OrbitsScreen} component={Orbits} />
+      <Tab.Screen name={TimelineScreen} component={Timeline} options={{ headerShown: false }} />
+      <Tab.Screen name={LaunchesScreen} component={Launches} options={{ headerShown: false }}/>
+      <Tab.Screen name={OrbitsScreen} component={Orbits} options={{ headerShown: false }}/>
       <Tab.Screen name={MapScreen} component={Map} />
+      {/* <Tab.Screen name={RocketScreen} component={Rocket} options={{ headerShown: false, tabBarButton: () => null }}/> */}
+      <Tab.Screen name={FamilyTreeScreen} component={FamilyTree} options={{ headerShown: false, tabBarButton: () => null}}/>
     </Tab.Navigator>
   );
 }

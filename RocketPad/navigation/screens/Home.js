@@ -56,15 +56,17 @@ const Home = ({ navigation }) => {
           language: language,
           apiKey: apiKey,
           pageSize: pageSize,
+          sortBy: 'publishedAt',
         },
       });
       const articles = response.data.articles;
       
       allNewsArticles.push(...articles);
     }
+    allNewsArticles.sort
     const limitedArticles = allNewsArticles.slice(0, pageSize);
     setNewsArticles(limitedArticles);
-    // setLoadingNews(false);
+    setLoadingNews(false);
   };
 
   useEffect(() => {
@@ -144,7 +146,7 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
-    paddingTop: 10,
+    marginTop: 60,
   },
 
   imageOfDay: {
@@ -175,7 +177,7 @@ fontWeight: "bold",
     fontWeight: "bold",
     lineHeight: 40,
     textAlign: "center",
-    marginTop: 30,
+    marginTop: 60,
   },
 
   rocketName:{
