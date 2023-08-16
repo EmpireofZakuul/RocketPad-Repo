@@ -5,10 +5,8 @@ import { FIRESTORE_DB } from '../../firebaseConfig';
 import moment from 'moment';
 import { ActivityIndicator, MD2Colors, FAB, Card, Appbar  } from 'react-native-paper';
 import { Feather, Entypo } from "@expo/vector-icons";
-
-// import DropShadow from "react-native-drop-shadow";  
-// import {getStorage, ref, getDownloadURL} from 'firebase/storage';
-// import LinearGradient from 'react-native-linear-gradient';
+// import {LinearGradient} from 'react-native-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const formatDate = (date) => {
   const formattedDate = moment(date, "DD MMMM YYYY").format("DD MMMM YYYY");
@@ -49,9 +47,9 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
       
           };
 
-          if (rocket.variant === "No") {
+          // if (rocket.variant === "No") {
             RocketData.push(rocket);
-          }
+          // }
         });
         console.log(RocketData),
           console.log("Number of documents:", snapshot.docs.length);
@@ -126,7 +124,6 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
   />
 
 
-
         <Text style={styles.topText}>Present Day</Text>
         <View style={styles.timeline}>
           <View style={styles.lineContainer}>
@@ -157,12 +154,12 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
                       source={{ uri: rocket.image }}
                       style={styles.image}
                     >
-                      {/* <LinearGradient
-                colors={['rgba(0, 0, 0, 0.9)', 'transparent']}
+                      <LinearGradient
+                colors={['rgba(0, 0, 0, 0.9)','rgba(0, 0, 0, 0.2)', 'transparent']}
                 style={styles.gradient}
                 start={[0.5, 1]}
                 end={[0.5, 0.5]}
-              /> */}
+              />
                      <Text style={styles.rocketName}>{rocket.Name}</Text>
                     </ImageBackground>
                   </View>
@@ -190,6 +187,7 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
 export default Timeline;
 
 const styles = StyleSheet.create({
+
   container: {
     marginHorizontal: 10,
     marginBottom: 220,
@@ -256,13 +254,13 @@ textLoadingContainer:{
     justifyContent: "flex-end",
     alignItems: "center",
   },
-  // gradient: {
-  //   position: 'absolute',
-  //   left: 0,
-  //   right: 0,
-  //   bottom: 0,
-  //   top: '10%',
-  // },
+  gradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: '10%',
+  },
   rocketName: {
     fontWeight: "bold",
     fontSize: 18,
