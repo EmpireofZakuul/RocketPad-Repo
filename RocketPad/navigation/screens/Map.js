@@ -1,11 +1,12 @@
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, onPress, Pressable} from 'react-native'
-import React, {useEffect, useState} from 'react'
+import { StyleSheet, Text, View,  TouchableOpacity, onPress, Pressable} from 'react-native'
+import React, {useEffect, useRef, useState} from 'react'
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import { API_KEY } from '../../mapConfig';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { Modal, Portal, PaperProvider } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {SafeAreaView } from 'react-native-safe-area-context';
 
 const Map = () => {
   const [launchLocations, setLaunchLocations] = useState([]);
@@ -13,6 +14,9 @@ const Map = () => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const [markerSelected, setMarkerSelected] = useState(null);
+  const activeCol = 'green';
+  const inactiveCol = 'red';
+  const selectedCol = '#FF1694';
 
   useEffect(() => {
     const orbitsRef = collection(FIRESTORE_DB, "LaunchSites");
@@ -43,8 +47,8 @@ style={styles.mapStyle}
  initialRegion = {{
   latitude:  48.7485320459443,
   longitude: 10.464650688166566,
-  latitudeDelta: 150,
-  longitudeDelta:150,
+  latitudeDelta: 130,
+  longitudeDelta:130,
  
     }}
     customMapStyle={mapStyle}
@@ -64,7 +68,9 @@ style={styles.mapStyle}
   // setVisible(true);
  showModal(sites)
  }}
-  />
+  > 
+  {/* <Icon name="map-marker" size={35} color={markerSelected && markerSelected.id === sites.id ? selectedCol : sites.Status === 'active' ? activeCol : inactiveCol}/>  */}
+  </Marker>
   ))} 
   </MapView>
  <Portal>
@@ -351,11 +357,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   mapStyle: {
-    // position: 'absolute',
-    // top: 0,
-    // left: 0,
-    // right: 0,
-    // bottom: 0,
     width: "100%",
     height: "100%",
   },
@@ -365,6 +366,7 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     marginHorizontal: 15,
+    backgroundColor: "white",
   },
   button: {
     borderRadius: 20,
@@ -388,9 +390,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
     marginBottom: 8,
-    // borderWidth: 1,
-    // borderColor: 'green',
-    // width: 300
   },
   subTitle: {
     fontSize: 13,
