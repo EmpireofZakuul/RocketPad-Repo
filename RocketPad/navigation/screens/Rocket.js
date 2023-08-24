@@ -7,6 +7,7 @@ import { useRoute, validatePathConfig, useNavigation } from '@react-navigation/n
 import { Divider } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { FAB, Appbar } from 'react-native-paper';
+import ImageZoom from 'react-native-image-pan-zoom';
 
 
 const Rocket = () => {
@@ -433,20 +434,26 @@ useEffect(() =>{
                   <View key={index} style={[styles.carouselConatiner, { width: carouselContainerWidth, height: carouselContainerHeight }]}>
                     <View style={styles.carouselItem}>
 
-                      {/* {url.includes(".mp4")? (
-                        <Video source={{uri: url}}
-                        style={styles.video}
-                        controls
-                        resizeMode="contain"
-                        onError={(error) => console.log("Video error:", error)}
-                        />
-                      ) : ( */}
+                            {/* <ImageZoom cropWidth={width}
+                                      cropHeight={height}
+                                      imageWidth={width}
+                                      imageHeight={750}
+                                      >
+                                      
+                                      
+                                   
+                            <Image
+                                  source={{ uri: url }}
+                                  style={styles.imageCarousel} />
+                            </ImageZoom> */}
 
+            
                         <Image
                         source={{ uri: url }}
                         style={styles.imageCarousel}
                       />
-                      {/* // )} */}
+
+  
                    
                     </View>
                   </View>
@@ -599,16 +606,16 @@ marginBottom: 120,
     fontWeight: "bold",
   },
   carouselConatiner: {
-    borderColor: "red",
-    borderWidth: 2,
+    // borderColor: "red",
+    // borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
   },
   carouselItem: {
     width: "100%",
     height: 750,
-    borderColor: "white",
-    borderWidth: 2,
+    // borderColor: "white",
+    // borderWidth: 2,
     justifyContent: "center",
     alignItems: "center",
   },

@@ -55,11 +55,29 @@ const formatCountdown = (countdown) => {
   }
 
   return (
-`${days.toString().padStart(2, '0')} : ` +
-`${hours.toString().padStart(2, '0')} : ` +
-`${minutes.toString().padStart(2, '0')} : ` +
-`${seconds.toString().padStart(2, '0')} ` 
+// `${days.toString().padStart(2, '0')} : ` +
+// `${hours.toString().padStart(2, '0')} : ` +
+// `${minutes.toString().padStart(2, '0')} : ` +
+// `${seconds.toString().padStart(2, '0')} ` 
 
+<View style={styles.containerTimer}>
+  <View style={styles.itemTimer}>
+    <Text style={styles.timerText}>{days.toString().padStart(2, '0')} :</Text>
+    <Text style={styles.timerTime}>Days</Text>
+  </View>
+  <View style={styles.itemTimer}>
+    <Text style={styles.timerText}>{hours.toString().padStart(2, '0')} :</Text>
+    <Text style={styles.timerTime}>Hours</Text>
+  </View>
+  <View style={styles.itemTimer}>
+    <Text style={styles.timerText}>{minutes.toString().padStart(2, '0')} :</Text>
+    <Text style={styles.timerTime}>Minutes</Text>
+  </View>
+  <View style={styles.itemTimer}>
+    <Text style={styles.timerText}>{seconds.toString().padStart(2, '0')}</Text>
+    <Text style={styles.timerTime}>Sec</Text>
+  </View>
+</View>
   );
 };
 
@@ -116,15 +134,12 @@ return(
 <View style={styles.dividerContainer}>
 <Divider style={styles.divider} />
             <View style={styles.dividerColour}>
+
+                {/* <View style={styles.containerTimer}> */}
                 <View>
-                <Text style={styles.timer}>T - Minus - {countdownFormated} </Text>
+                {/* <Text style={styles.timer}>T - Minus - </Text>  */}
+                <Text>{countdownFormated}</Text>
                 </View>
-           {/* <View style={styles.timerContainer}>
-              <Text style={styles.timerText}> Days</Text>
-              <Text style={styles.timerText}> Hours</Text>
-              <Text style={styles.timerText}> Minutes</Text>
-              <Text style={styles.timerText}> Seconds</Text>
-           </View> */}
               </View>
               <Divider style={styles.divider} />
               </View>
@@ -237,23 +252,45 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     fontWeight: "bold",
+    
   },
 
-  timerContainer: {
+  containerTimer: {
     marginTop: 15,
   flexDirection: 'row',
-  justifyContent: 'space-evenly',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginHorizontal: 5,
+  },
+
+  timerTextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150, // Adjust the width as needed
+  },
+
+  itemTimer:{
+    alignItems: 'center',
+    marginHorizontal: 5,
   },
 
   timerText:{
- fontSize: 16,
+ fontSize: 22,
  color: 'black',
+ fontWeight: "bold",
+  },
+
+  timerTime: {
+    fontSize: 14,
+    color: 'black',
   },
 
   timer: {
     fontSize: 26,
     textAlign: "center",
     fontWeight: "bold",
+    marginBottom: 15,
   },
   date:{
     fontSize: 26,
