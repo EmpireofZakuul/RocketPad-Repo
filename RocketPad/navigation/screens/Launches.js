@@ -50,34 +50,17 @@ return{ days, hours, minutes, seconds}
 const formatCountdown = (countdown) => {
   const {days, hours, minutes, seconds} = countdown;
 
-  if(days < 0 && hours < 0 && minutes < 0 && seconds < 0){
-    return "00 : 00 : 00 : 00"
-  }
+  // if(days < 0 && hours < 0 && minutes < 0 && seconds < 0){
+  //   return "00 : 00 : 00 : 00"
+  // }
 
   return (
-// `${days.toString().padStart(2, '0')} : ` +
-// `${hours.toString().padStart(2, '0')} : ` +
-// `${minutes.toString().padStart(2, '0')} : ` +
-// `${seconds.toString().padStart(2, '0')} ` 
+`${days.toString().padStart(2, '0')} : ` +
+`${hours.toString().padStart(2, '0')} : ` +
+`${minutes.toString().padStart(2, '0')} : ` +
+`${seconds.toString().padStart(2, '0')} ` 
 
-<View style={styles.containerTimer}>
-  <View style={styles.itemTimer}>
-    <Text style={styles.timerText}>{days.toString().padStart(2, '0')} :</Text>
-    <Text style={styles.timerTime}>Days</Text>
-  </View>
-  <View style={styles.itemTimer}>
-    <Text style={styles.timerText}>{hours.toString().padStart(2, '0')} :</Text>
-    <Text style={styles.timerTime}>Hours</Text>
-  </View>
-  <View style={styles.itemTimer}>
-    <Text style={styles.timerText}>{minutes.toString().padStart(2, '0')} :</Text>
-    <Text style={styles.timerTime}>Minutes</Text>
-  </View>
-  <View style={styles.itemTimer}>
-    <Text style={styles.timerText}>{seconds.toString().padStart(2, '0')}</Text>
-    <Text style={styles.timerTime}>Sec</Text>
-  </View>
-</View>
+
   );
 };
 
@@ -135,11 +118,43 @@ return(
 <Divider style={styles.divider} />
             <View style={styles.dividerColour}>
 
-                {/* <View style={styles.containerTimer}> */}
-                <View>
-                {/* <Text style={styles.timer}>T - Minus - </Text>  */}
-                <Text>{countdownFormated}</Text>
-                </View>
+
+{time.days >= 0 && time.hours >= 0 && time.minutes >= 0 && time.seconds >= 0  ? (
+<View style={styles.containerTimer}>
+<Text style={styles.timerText}>T - </Text>
+  <View style={styles.itemTimer}>
+    <Text style={styles.timerText}>{time.days.toString().padStart(2, '0')}</Text>
+    <Text style={styles.timerTime}>Days</Text>
+  </View>
+  <View style={styles.dotContainer}>
+    <Text style={styles.timerDots}>:</Text>
+  </View>
+  <View style={styles.itemTimer}>
+    <Text style={styles.timerText}>{time.hours.toString().padStart(2, '0')}</Text>
+    <Text style={styles.timerTime}>Hours</Text>
+  </View>
+  <View style={styles.dotContainer}>
+    <Text style={styles.timerDots}>:</Text>
+  </View>
+  <View style={styles.itemTimer}>
+    <Text style={styles.timerText}>{time.minutes.toString().padStart(2, '0')}</Text>
+    <Text style={styles.timerTime}>Mins</Text>
+  </View>
+  <View style={styles.dotContainer}>
+    <Text style={styles.timerDots}>:</Text>
+  </View>
+  <View style={styles.itemTimer}>
+    <Text style={styles.timerText}>{time.seconds.toString().padStart(2, '0')}</Text>
+    <Text style={styles.timerTime}>Secs</Text>
+  </View>
+  </View>
+  ) : (
+    <View style={styles.containerTimer}>
+    <Text style={rocketLaunches.status?.name === 'Launch Successful' ? styles.launchStatus : styles.launchStatusFailure}>{rocketLaunches.status?.name}</Text> 
+    </View>
+  )}
+
+
               </View>
               <Divider style={styles.divider} />
               </View>
@@ -209,7 +224,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(193, 192, 249, 0.4)",
     height: 60,
     width: "100%",
-    justifyContent: "center",
+    // justifyContent: "center",
   },
 
   textLink:{
@@ -256,7 +271,7 @@ const styles = StyleSheet.create({
   },
 
   containerTimer: {
-    marginTop: 15,
+    marginVertical: 5,
   flexDirection: 'row',
   justifyContent: 'center',
   alignItems: 'center',
@@ -267,18 +282,49 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 150, // Adjust the width as needed
+    width: '100%', 
   },
 
   itemTimer:{
     alignItems: 'center',
-    marginHorizontal: 5,
+    width: 50,
+  },
+
+  dotContainer:{
+    alignItems: 'center',
+    marginTop: -18,
+    marginHorizontal: 1,
+  },
+
+  timerDots: {
+    fontSize: 26,
+    color: 'black',
+    fontWeight: "bold",
+    lineHeight: 30,
   },
 
   timerText:{
- fontSize: 22,
+ fontSize: 26,
  color: 'black',
  fontWeight: "bold",
+  },
+
+  launchStatus: {
+    fontSize: 26,
+    color: '#00b300',
+    fontWeight: "bold",
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 8,
+  },
+
+  launchStatusFailure:{
+  fontSize: 26,
+    color: '#ff0000',
+    fontWeight: "bold",
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 8,
   },
 
   timerTime: {
@@ -286,14 +332,14 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 
-  timer: {
-    fontSize: 26,
-    textAlign: "center",
-    fontWeight: "bold",
-    marginBottom: 15,
-  },
+  // timer: {
+  //   fontSize: 26,
+  //   textAlign: "center",
+  //   fontWeight: "bold",
+  //   marginBottom: 15,
+  // },
   date:{
-    fontSize: 26,
+    fontSize: 24,
     textAlign: "center",
     fontWeight: "bold",
   },

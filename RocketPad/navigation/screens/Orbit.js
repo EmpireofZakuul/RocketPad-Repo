@@ -68,10 +68,15 @@ useEffect(() => {
     <View>
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
+      <View style={styles.imageContainer4}>
+      <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
+      </View>
+      <Text style={styles.text}>{rocketOrbit.Text3}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
       <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
       </View>
+     
     </View>
   )}
 
@@ -95,7 +100,7 @@ useEffect(() => {
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
-      <View style={styles.imageContainer}>
+      <View style={styles.imageContainer4}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
       </View>
       <Text style={styles.Header}>{rocketOrbit.Title2}</Text>
@@ -103,7 +108,7 @@ useEffect(() => {
       <Text style={styles.text}>{rocketOrbit.Text5}</Text>
       <Text style={styles.text}>{rocketOrbit.Text6}</Text>
       <Text style={styles.text}>{rocketOrbit.Text7}</Text>
-      <View style={styles.imageContainer}>
+      <View style={styles.imageContainer3}>
       <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
       </View>
     </View>
@@ -114,7 +119,7 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
-      <View style={styles.imageContainer}>
+      <View style={styles.imageContainer4}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
       </View>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
@@ -177,7 +182,7 @@ useEffect(() => {
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
-      <View style={styles.imageContainer2}>
+      <View style={styles.imageContainer5}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image2} />
       </View>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
@@ -197,7 +202,7 @@ useEffect(() => {
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
-      <View style={styles.imageContainer}>
+      <View style={styles.imageContainer3}>
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
       </View>
       <Text style={styles.text}>{rocketOrbit.Tex3}</Text>
@@ -240,6 +245,24 @@ const styles = StyleSheet.create({
     height: 600,
     marginBottom: 20,
   },
+
+  imageContainer3:{
+    width: "100%",
+    height: 230,
+    marginBottom: 20,
+  },
+
+  imageContainer4:{
+    width: "100%",
+    height: 200,
+    marginBottom: 20,
+  },
+  imageContainer5:{
+    width: "100%",
+    height: 400,
+    marginBottom: 20,
+  },
+
   image:{
     resizeMode: "contain",
     flex:1,
