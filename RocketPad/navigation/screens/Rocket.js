@@ -564,12 +564,16 @@ marginBottom: 120,
   leftContainer: {
     flex: 1,
     marginLeft: 20,
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
 
   rightContainer: {
     flex: 1,
     marginRight: 20,
     alignItems: "flex-end",
+    // borderColor: 'red',
+    // borderWidth: 1,
   },
 
   tableContainer: {
@@ -579,13 +583,18 @@ marginBottom: 120,
   payloadTitle: {
     fontSize: 22,
     lineHeight: 28,
+  fontWeight: 400,
+  letterSpacing: 0,
     textAlign: "center",
     marginBottom: 5,
+   
   },
 
   payloadText: {
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 24,
+    fontWeight: 400,
+  letterSpacing: 0.15,
     textAlign: "center",
     marginBottom: 5,
   },
@@ -601,8 +610,8 @@ marginBottom: 120,
     right: 10,
   },
   numberText: {
-    color: "black",
-    fontSize: 20,
+    color: "#FF1694",
+    fontSize: 22,
     fontWeight: "bold",
   },
   carouselConatiner: {

@@ -14,9 +14,6 @@ const Map = () => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const [markerSelected, setMarkerSelected] = useState(null);
-  const activeCol = 'green';
-  const inactiveCol = 'red';
-  const selectedCol = '#FF1694';
 
   useEffect(() => {
     const orbitsRef = collection(FIRESTORE_DB, "LaunchSites");
@@ -48,8 +45,7 @@ style={styles.mapStyle}
   latitude:  48.7485320459443,
   longitude: 10.464650688166566,
   latitudeDelta: 130,
-  longitudeDelta:130,
- 
+  longitudeDelta: 130,
     }}
     customMapStyle={mapStyle}
     apiKey={API_KEY}>
@@ -65,11 +61,9 @@ style={styles.mapStyle}
  pinColor={markerSelected && markerSelected.id === sites.id ? "#FF1694" : sites.Status === "active" ? "green" : "red"}
  onPress={() =>{
   setMarkerSelected(sites);
-  // setVisible(true);
  showModal(sites)
- }}
-  > 
-  {/* <Icon name="map-marker" size={35} color={markerSelected && markerSelected.id === sites.id ? selectedCol : sites.Status === 'active' ? activeCol : inactiveCol}/>  */}
+ }}> 
+ 
   </Marker>
   ))} 
   </MapView>
