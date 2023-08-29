@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View,  TouchableOpacity, onPress, Pressable} from 'react-native'
+import { StyleSheet, Text, View} from 'react-native'
 import React, {useEffect, useRef, useState} from 'react'
-import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
+import { collection, onSnapshot} from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import { API_KEY } from '../../mapConfig';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { Modal, Portal, PaperProvider } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {SafeAreaView } from 'react-native-safe-area-context';
 
 const Map = () => {
@@ -14,6 +13,7 @@ const Map = () => {
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const [markerSelected, setMarkerSelected] = useState(null);
+  const mapRef = useRef(null);
 
   useEffect(() => {
     const orbitsRef = collection(FIRESTORE_DB, "LaunchSites");
@@ -34,312 +34,350 @@ const Map = () => {
     return () => subscribe();
   }, []);
 
+  // const animateToRegion = (region) => {
+  //   if (mapRef.current) {
+  //     mapRef.current.animateToRegion(region, 3 * 1000);
+  //   }
+  // };
+
+  const animateToRegion = (region) => {
+    if (mapRef.current) {
+      mapRef.current.animateCamera (
+        {
+        center: region,
+    },
+    {duration: 400}
+    );
+    }
+  };
+
+
   return (
-   <PaperProvider>
-    <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-<MapView
-style={styles.mapStyle}
- provider= {PROVIDER_GOOGLE}
- initialRegion = {{
-  latitude:  48.7485320459443,
-  longitude: 10.464650688166566,
-  latitudeDelta: 130,
-  longitudeDelta: 130,
-    }}
-    customMapStyle={mapStyle}
-    apiKey={API_KEY}>
-   {launchLocations.map((sites, index) => (
-  
+    
+    <PaperProvider>
+      <SafeAreaView style={styles.mapContainer}>
+        <View style={styles.container}>
+          <MapView
+            style={styles.mapStyle}
+            provider={PROVIDER_GOOGLE}
+            ref={mapRef}
+            region={{
+              latitude: 48.7485320459443,
+              longitude: 10.464650688166566,
+              latitudeDelta: 50,
+              longitudeDelta: 50,
+            }}
+            customMapStyle={mapStyle}
+            apiKey={API_KEY}
+          >
+            {launchLocations.map((sites, index) => (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: sites.Latitude,
+                  longitude: sites.Longitude,
+                }}
+                pinColor={
+                  markerSelected && markerSelected.id === sites.id
+                    ? "#FF1694"
+                    : sites.Status === "active"
+                    ? "green"
+                    : "red"
+                }
+                onPress={() => {
+                  setMarkerSelected(sites);
+                  // const newRegion = {
+                  //   latitude: sites.Latitude,
+                  //   longitude: sites.Longitude,
+                  //   latitudeDelta: 10,
+                  //   longitudeDelta: 10,
+                  // };
+                  // animateToRegion(newRegion);
 
- <Marker
- key={index}
- coordinate={{
-  latitude:sites.Latitude,
-  longitude: sites.Longitude,
- }}
- pinColor={markerSelected && markerSelected.id === sites.id ? "#FF1694" : sites.Status === "active" ? "green" : "red"}
- onPress={() =>{
-  setMarkerSelected(sites);
- showModal(sites)
- }}> 
- 
-  </Marker>
-  ))} 
-  </MapView>
- <Portal>
-  <Modal visible={markerSelected && visible}  onDismiss={() => {hideModal(); setMarkerSelected(null); }}>
-             {/* <Modal visible={markerSelected && visible}  onRequestClose={() => {
-            setVisible(!visible);
-          }}> */}
-            <View style={styles.modalContainer}>
-              {/* <Button onPress={() => setVisible(false)}></Button> */}
 
-              
-              {/* <Pressable
-                style={styles.button}
-                onPress={() => setVisible(!visible)}
+                  animateToRegion({
+                       latitude: sites.Latitude,
+                    longitude: sites.Longitude,
+                  });
+                  showModal(sites);
+                }}
+              ></Marker>
+            ))}
+          </MapView>
+          <Portal>
+            <Modal
+              visible={markerSelected && visible}
+              onDismiss={() => {
+                hideModal();
+                setMarkerSelected(null);
+              }}
+            >
+              <View
+                style={[
+                  styles.modalContainer,
+                  { position: "absolute", top: 0, left: 15, right: 15 },
+                ]}
               >
-                <Icon
-                  style={styles.icon}
-                  name="window-close"
-                  size={30}
-                  color="black"
-                />
-              </Pressable> */}
-
-              {markerSelected && (
-                <View style={styles.contentContainer}>
-              <Text style={styles.siteTitle}>{markerSelected.Name}</Text>
-              <Text style={styles.subTitle}><Text style={styles.bold}>County:</Text> {markerSelected.Country}</Text>
-              <Text style={styles.subTitle}><Text style={styles.bold}>Operationa Dates:</Text> {markerSelected.OperationalDate}</Text>
-              <Text style={styles.subTitle}><Text style={styles.bold}>Status:</Text> {markerSelected.Status}</Text>
+                {markerSelected && (
+                  <View style={styles.contentContainer}>
+                    <Text style={styles.siteTitle}>{markerSelected.Name}</Text>
+                    <Text style={styles.subTitle}>
+                      <Text style={styles.bold}>County:</Text>{" "}
+                      {markerSelected.Country}
+                    </Text>
+                    <Text style={styles.subTitle}>
+                      <Text style={styles.bold}>Operationa Dates:</Text>{" "}
+                      {markerSelected.OperationalDate}
+                    </Text>
+                    <Text style={styles.subTitle}>
+                      <Text style={styles.bold}>Status:</Text>{" "}
+                      {markerSelected.Status}
+                    </Text>
+                  </View>
+                )}
               </View>
-              )}
-            </View>
-          </Modal>
+            </Modal>
           </Portal>
-          </View>
-          
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
     </PaperProvider>
   );
-}
+};
 
-export default Map
+export default Map;
 const mapStyle = [
   {
-    "elementType": "geometry",
-    "stylers": [
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#1d2c4d"
-      }
-    ]
+        color: "#1d2c4d",
+      },
+    ],
   },
   {
-    "elementType": "labels.text.fill",
-    "stylers": [
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#8ec3b9"
-      }
-    ]
+        color: "#8ec3b9",
+      },
+    ],
   },
   {
-    "elementType": "labels.text.stroke",
-    "stylers": [
+    elementType: "labels.text.stroke",
+    stylers: [
       {
-        "color": "#1a3646"
-      }
-    ]
+        color: "#1a3646",
+      },
+    ],
   },
   {
-    "featureType": "administrative.country",
-    "elementType": "geometry.stroke",
-    "stylers": [
+    featureType: "administrative.country",
+    elementType: "geometry.stroke",
+    stylers: [
       {
-        "color": "#4b6878"
-      }
-    ]
+        color: "#4b6878",
+      },
+    ],
   },
   {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "administrative.land_parcel",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#64779e"
-      }
-    ]
+        color: "#64779e",
+      },
+    ],
   },
   {
-    "featureType": "administrative.province",
-    "elementType": "geometry.stroke",
-    "stylers": [
+    featureType: "administrative.province",
+    elementType: "geometry.stroke",
+    stylers: [
       {
-        "color": "#4b6878"
-      }
-    ]
+        color: "#4b6878",
+      },
+    ],
   },
   {
-    "featureType": "landscape.man_made",
-    "elementType": "geometry.stroke",
-    "stylers": [
+    featureType: "landscape.man_made",
+    elementType: "geometry.stroke",
+    stylers: [
       {
-        "color": "#334e87"
-      }
-    ]
+        color: "#334e87",
+      },
+    ],
   },
   {
-    "featureType": "landscape.natural",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "landscape.natural",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#023e58"
-      }
-    ]
+        color: "#023e58",
+      },
+    ],
   },
   {
-    "featureType": "poi",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "poi",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#283d6a"
-      }
-    ]
+        color: "#283d6a",
+      },
+    ],
   },
   {
-    "featureType": "poi",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#6f9ba5"
-      }
-    ]
+        color: "#6f9ba5",
+      },
+    ],
   },
   {
-    "featureType": "poi",
-    "elementType": "labels.text.stroke",
-    "stylers": [
+    featureType: "poi",
+    elementType: "labels.text.stroke",
+    stylers: [
       {
-        "color": "#1d2c4d"
-      }
-    ]
+        color: "#1d2c4d",
+      },
+    ],
   },
   {
-    "featureType": "poi.park",
-    "elementType": "geometry.fill",
-    "stylers": [
+    featureType: "poi.park",
+    elementType: "geometry.fill",
+    stylers: [
       {
-        "color": "#023e58"
-      }
-    ]
+        color: "#023e58",
+      },
+    ],
   },
   {
-    "featureType": "poi.park",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "poi.park",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#3C7680"
-      }
-    ]
+        color: "#3C7680",
+      },
+    ],
   },
   {
-    "featureType": "road",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#304a7d"
-      }
-    ]
+        color: "#304a7d",
+      },
+    ],
   },
   {
-    "featureType": "road",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#98a5be"
-      }
-    ]
+        color: "#98a5be",
+      },
+    ],
   },
   {
-    "featureType": "road",
-    "elementType": "labels.text.stroke",
-    "stylers": [
+    featureType: "road",
+    elementType: "labels.text.stroke",
+    stylers: [
       {
-        "color": "#1d2c4d"
-      }
-    ]
+        color: "#1d2c4d",
+      },
+    ],
   },
   {
-    "featureType": "road.highway",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#2c6675"
-      }
-    ]
+        color: "#2c6675",
+      },
+    ],
   },
   {
-    "featureType": "road.highway",
-    "elementType": "geometry.stroke",
-    "stylers": [
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [
       {
-        "color": "#255763"
-      }
-    ]
+        color: "#255763",
+      },
+    ],
   },
   {
-    "featureType": "road.highway",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "road.highway",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#b0d5ce"
-      }
-    ]
+        color: "#b0d5ce",
+      },
+    ],
   },
   {
-    "featureType": "road.highway",
-    "elementType": "labels.text.stroke",
-    "stylers": [
+    featureType: "road.highway",
+    elementType: "labels.text.stroke",
+    stylers: [
       {
-        "color": "#023e58"
-      }
-    ]
+        color: "#023e58",
+      },
+    ],
   },
   {
-    "featureType": "transit",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "transit",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#98a5be"
-      }
-    ]
+        color: "#98a5be",
+      },
+    ],
   },
   {
-    "featureType": "transit",
-    "elementType": "labels.text.stroke",
-    "stylers": [
+    featureType: "transit",
+    elementType: "labels.text.stroke",
+    stylers: [
       {
-        "color": "#1d2c4d"
-      }
-    ]
+        color: "#1d2c4d",
+      },
+    ],
   },
   {
-    "featureType": "transit.line",
-    "elementType": "geometry.fill",
-    "stylers": [
+    featureType: "transit.line",
+    elementType: "geometry.fill",
+    stylers: [
       {
-        "color": "#283d6a"
-      }
-    ]
+        color: "#283d6a",
+      },
+    ],
   },
   {
-    "featureType": "transit.station",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "transit.station",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#3a4762"
-      }
-    ]
+        color: "#3a4762",
+      },
+    ],
   },
   {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [
       {
-        "color": "#0e1626"
-      }
-    ]
+        color: "#0e1626",
+      },
+    ],
   },
   {
-    "featureType": "water",
-    "elementType": "labels.text.fill",
-    "stylers": [
+    featureType: "water",
+    elementType: "labels.text.fill",
+    stylers: [
       {
-        "color": "#4e6d70"
-      }
-    ]
-  }
-]
+        color: "#4e6d70",
+      },
+    ],
+  },
+];
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
@@ -350,7 +388,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  mapContainer:{
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   mapStyle: {
+    flex: 1,
     width: "100%",
     height: "100%",
   },
@@ -389,7 +433,7 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginVertical: 3,
   },
-  bold:{
-    fontWeight:'bold'
-  }
+  bold: {
+    fontWeight: "bold",
+  },
 });

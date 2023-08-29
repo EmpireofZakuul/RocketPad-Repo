@@ -167,7 +167,7 @@ height: 850,
 
   imageOfTheDayText: {
     fontSize: 16,
-    textAlign: "center",
+    // textAlign: "center",
 color: "white",
 fontWeight: "bold",
   },
