@@ -150,7 +150,7 @@ return(
   </View>
   ) : (
     <View style={styles.containerTimer}>
-    <Text style={rocketLaunches.status?.name === 'Launch Successful' ? styles.launchStatus : styles.launchStatusFailure}>{rocketLaunches.status?.name}</Text> 
+    <Text style={rocketLaunches.status?.name === 'Launch Successful' ? styles.launchStatus : rocketLaunches.status?.name === 'Go for Launch' ? styles.launchStatus  : styles.launchStatusFailure}>{rocketLaunches.status?.name}</Text> 
     </View>
   )}
 

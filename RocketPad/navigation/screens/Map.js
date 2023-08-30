@@ -118,6 +118,9 @@ const Map = () => {
                   { position: "absolute", top: 0, left: 15, right: 15 },
                 ]}
               >
+                <View style={styles.arrowContainer}>
+                  <View style={styles.arrow}/>
+                </View>
                 {markerSelected && (
                   <View style={styles.contentContainer}>
                     <Text style={styles.siteTitle}>{markerSelected.Name}</Text>
@@ -436,4 +439,26 @@ const styles = StyleSheet.create({
   bold: {
     fontWeight: "bold",
   },
+
+  arrowContainer:{
+ position: 'absolute',
+ top: -5,
+ left: '50%',
+ width: 0,
+ height: 0, 
+ alignItems: 'center',
+ justifyContent: 'center',
+  },
+  arrow: {
+      width: 0,
+      height: 0,
+      backgroundColor: "transparent",
+      borderStyle: "solid",
+      borderLeftWidth: 10,
+      borderRightWidth: 10,
+      borderBottomWidth: 10,
+      borderLeftColor: "transparent",
+      borderRightColor: "transparent",
+      borderBottomColor: "white",
+  }
 });
