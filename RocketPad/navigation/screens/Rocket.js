@@ -509,6 +509,7 @@ marginBottom: 120,
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
+    fontWeight: 'bold',
   },
 
   rightSideText: {
