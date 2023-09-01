@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import moment from 'moment';
-import { ActivityIndicator, MD2Colors, FAB, Card, Appbar  } from 'react-native-paper';
+import { ActivityIndicator, MD2Colors, FAB, Card, Appbar, SegmentedButtons   } from 'react-native-paper';
 import { Feather, Entypo } from "@expo/vector-icons";
 // import {LinearGradient} from 'react-native-linear-gradient';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -19,7 +19,7 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
   const [rockets, setRockets] = useState([]);
   const [loadingNews, setLoadingNews] = useState([]);
   const [showSearchBar, setShowSearchBar] = useState(false);
- 
+  const [countrySelected, setCountrySelected] = useState('');
 
   useEffect(() => {
     setLoadingNews(true);
@@ -34,7 +34,7 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
 
         snapshot.docs.forEach((doc) => {
           const formattedDate = formatDate(doc.data().FirstLaunch);
-          const { Name, RocketCapacity, Stages, Variant, images, img } = doc.data();
+          const { Name, RocketCapacity, Stages, Variant, images, img, ID } = doc.data();
           const rocket = {
             id: doc.id,
             Name,
@@ -44,26 +44,29 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
             stages: Stages,
             FirstLaunch: formattedDate,
             variant: Variant,
-      
+            ID: ID
           };
 
           // if (rocket.variant === "No") {
             RocketData.push(rocket);
           // }
         });
+
+        const rocketsFiltered = countrySelected === '' ? RocketData: RocketData.filter((rocket) => rocket.ID === countrySelected);
         console.log(RocketData),
           console.log("Number of documents:", snapshot.docs.length);
 
-        RocketData.sort((a, b) =>
+          rocketsFiltered.sort((a, b) =>
           moment(b.FirstLaunch, "DD MMMM YYYY").diff(moment(a.FirstLaunch, "DD MMMM YYYY"))
         );
-        setRockets(RocketData);
+        setRockets(rocketsFiltered);
+        console.log("Number of documents Filtered :", rocketsFiltered.length);
         setLoadingNews(false);
       },
     });
 
     return () => subscribe();
-  }, []);
+  }, [countrySelected]);
 
 
   // const searchRockets = rockets.filter((rocket) =>{
@@ -82,6 +85,8 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
 
   {showSearchBar && (
   <View style={styles.SearchBarContainer}>
+
+    <View style={styles.searchItems}>
   <View style={styles.searchBar}>
 < Feather name="search" size={20} color="black" style={{marginLeft: 1}}/>
 
@@ -101,9 +106,39 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
         Keyboard.dismiss();
         setShowSearchBar(false);
       }}></Button>
-   
+  </View >
   </View>
+  
+
+  <View style={styles.filterContainer}>
+  <SegmentedButtons
+        value={countrySelected}
+        onValueChange={(country) => {
+          setCountrySelected((prevCountry) => (prevCountry === country ? '' : country));
+        }}
+        buttons={[
+          {
+            value: 'United States',
+            label: 'USA',
+          },
+          {
+            value: 'Europe',
+            label: 'Europe',
+          },
+          { 
+            value: 'India', 
+            label: 'India' 
+          },
+          { 
+            value: 'Japan', 
+            label: 'Japan' 
+          },
+        ]}
+      />
   </View>
+
+  </View>
+
   )} 
     <View style={styles.container}>
       {loadingNews ?(
@@ -313,9 +348,16 @@ textLoadingContainer:{
     margin: 15,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
     width: '90%',
     alignSelf: 'center',
+      },
+
+      searchItems:{
+        flexDirection: 'row',
+        width: '90%',
+        justifyContent: 'center',
+        lignItems: 'center',
       },
       
       searchBar:{
@@ -332,6 +374,12 @@ textLoadingContainer:{
     marginLeft: 10,
     width: '90%',
       },
+
+      filterContainer: {
+      marginTop: 10,
+      width: '90%',
+    },
+
 });
 
 
