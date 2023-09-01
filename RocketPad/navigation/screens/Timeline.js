@@ -108,7 +108,7 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
       }}></Button>
   </View >
   </View>
-  
+
 
   <View style={styles.filterContainer}>
   <SegmentedButtons
