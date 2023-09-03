@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View , Image, TouchableOpacity} from 'react-native'
+import { ScrollView, StyleSheet, Text, View , Image, TouchableOpacity, Linking} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment/moment'
@@ -162,7 +162,7 @@ return(
               <View style={styles.contentContainer}> 
               <Text style={styles.date}>{moment(rocketLaunches.net).format("DD MMMM YYYY @ h:mm A")}</Text>
             <View style={styles.mainContentContainer}>
-            <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> {rocketLaunches.status?.name}</Text>
+            <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'To Be Determined' ? '#ff0000' : '#00b300'}}>{rocketLaunches.status?.name}</Text></Text>
         
             <View>
             <Text style={styles.descriptionContainer}>Mission:</Text>
@@ -176,21 +176,21 @@ return(
          
             </View>
             {/* <View style={styles.mainButtonContainer}>
-              <View>
-        
+              
+        <TouchableOpacity onPress={() => Linking.openURL(rocketLaunches.agencies?.wiki_url)}>
                   <View style={styles.rocketNameButton}>
                     <Text style={styles.buttonText}>Watch</Text>
                     <Icon style={styles.icon} name="play" size={25} color="black" />
                     </View>
+                    </TouchableOpacity>
                    
-                    </View>
 
-                    <View>
+                    <TouchableOpacity  onPress={() => Linking.openURL(rocketLaunches.agencies?.wiki_url)}>
                   <View style={styles.rocketNameButton2}>
                     <Text style={styles.buttonText}>More Info</Text>
-                    <Icon style={styles.icon} name="information-variant" size={30} color="black" />
+                    <Icon style={styles.icon} name="wikipedia" size={30} color="black" />
                     </View>
-                    </View>
+                    </TouchableOpacity>
             </View> */}
             </View>
             </Card>

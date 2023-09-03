@@ -1,6 +1,6 @@
 import { View,  StyleSheet, ScrollView, Image, TouchableOpacity, Linking,  } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { apiKey, endpoint, language, pageSize, searchTerm, domains} from '../../newsAPIConfig'
+import { apiKey, endpoint, language, pageSize, searchTerm, domains, limit, offset} from '../../newsAPIConfig'
 import axios from 'axios'
 import moment from 'moment/moment'
 import { ActivityIndicator, MD2Colors, Card, Text, } from 'react-native-paper';
@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const Home = ({ navigation }) => {
   const [newsArticles, setNewsArticles] = useState([]);
   const imgg = "https://pbs.twimg.com/media/Fvd3qcoWcAMaVs8?format=jpg&name=large";
-  const [loadingNews, setLoadingNews] = useState([]);
+  const [loadingNews, setLoadingNews] = useState(false);
   const [rocketImage, setRocketImage] = useState(null);
  
 
@@ -47,10 +47,38 @@ const Home = ({ navigation }) => {
     setLoadingNews(true);
     const allNewsArticles = [];
 
+  //   try{
+  //   // for (const term of searchTerm) {
+  //     const response = await axios.get(endpoint, {
+  //       params: {
+  //         // category: category,
+  //         // domains: domains,
+  //         // q: term,
+  //         // language: language,
+  //         // apiKey: apiKey,
+  //         limit: limit,
+  //         offset: offset,
+  //         // sortBy: 'publishedAt',
+  //       },
+  //     });
+  //     const articles = response.data?.articles || [];
+  //     console.log("API Response:", response.data);
+  //     allNewsArticles.push(articles);
+  //   // }
+  //   } catch (error) {
+  //     console.error('Error', error);
+  //   } finally {
+  //   // allNewsArticles.sort
+  //   // const limitedArticles = allNewsArticles.slice(0, limit);
+  //   setNewsArticles(allNewsArticles);
+  //   setLoadingNews(false);
+  //   }
+  // };
+
+  
     for (const term of searchTerm) {
       const response = await axios.get(endpoint, {
         params: {
-          // category: category,
           domains: domains,
           q: term,
           language: language,
@@ -60,14 +88,14 @@ const Home = ({ navigation }) => {
         },
       });
       const articles = response.data.articles;
-      
       allNewsArticles.push(...articles);
     }
+  
     allNewsArticles.sort
     const limitedArticles = allNewsArticles.slice(0, pageSize);
     setNewsArticles(limitedArticles);
     setLoadingNews(false);
-  };
+    };
 
   useEffect(() => {
     getNewsArticles();
@@ -106,7 +134,6 @@ const Home = ({ navigation }) => {
       <Text style={styles.latestNews}>Latest News</Text>
       {loadingNews ?(
           <View style={styles.loadingContainer}>
-{/* <ActivityIndicator size="large" color="blue"/> */}
 <ActivityIndicator animating={true} color={MD2Colors.red800}  size="large"/>
           </View>
       ) : (
@@ -114,18 +141,7 @@ const Home = ({ navigation }) => {
         {newsArticles.map((article, index) => {
           return(
           <View key={index}>
-           <TouchableOpacity onPress={() =>
-                  Linking.openURL(article.url)}>
-            {/* <View style={styles.card}>
-            <View style={styles.imageContainer}>
-              <Image source={{ uri: article.urlToImage }}style={styles.image}/>
-              </View>
-              <View style={styles.articleContent}>
-                <Text style={styles.title}>{article.title}</Text>
-                <Text style={styles.description}>{moment(article.publishedAt).format("DD MMMM YYYY")} | {article.source.name}</Text>
-              </View>
-            </View> */}
-
+            <TouchableOpacity onPress={() => Linking.openURL(article.url)}>
 <Card style={styles.card}>
     <Card.Cover source={{ uri: article.urlToImage }} />
     <Card.Content style={styles.articleContent}>
@@ -134,6 +150,16 @@ const Home = ({ navigation }) => {
     </Card.Content>
   </Card>
             </TouchableOpacity>
+            
+           {/* <TouchableOpacity onPress={() => Linking.openURL(article.url)}>
+<Card style={styles.card}>
+    <Card.Cover source={{ uri: article.image_url}} />
+    <Card.Content style={styles.articleContent}>
+      <Text variant="titleLarge" style={styles.title}>{article.title}</Text>
+      <Text variant="bodyMedium" style={styles.description}>{moment(article.published_at).format("DD MMMM YYYY")} | {article.news_site}</Text>
+    </Card.Content>
+  </Card>
+            </TouchableOpacity> */}
           </View>
         );
         })}

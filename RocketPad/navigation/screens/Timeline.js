@@ -109,6 +109,9 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
   </View >
   </View>
 
+<View style={styles.textContainer}>
+  <Text style={styles.textFilter}>Search or Filter the Rocket Timeline</Text>
+</View>
 
   <View style={styles.filterContainer}>
   <SegmentedButtons
@@ -379,6 +382,15 @@ textLoadingContainer:{
       marginTop: 10,
       width: '90%',
     },
+    textContainer:{
+      marginVertical: 10,
+      width: '90%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    textFilter:{
+      fontSize: 20,
+    }
 
 });
 

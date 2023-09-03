@@ -7,3 +7,9 @@ export const searchTerm = [ 'rockets', 'rockets launches', 'spacenews', 'space',
 export const domains = ['space.com','spacenews.com']
 export const sortBy = 'relevancy';
 export const excludedWords = ['movies', 'video games', 'games']
+
+
+
+// export const limit = 10;
+// export const offset = 10;
+// export const endpoint = `https://api.spaceflightnewsapi.net/v4/articles/?`
