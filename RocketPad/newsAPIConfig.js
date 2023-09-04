@@ -10,6 +10,6 @@ export const excludedWords = ['movies', 'video games', 'games']
 
 
 
-// export const limit = 10;
-// export const offset = 10;
-// export const endpoint = `https://api.spaceflightnewsapi.net/v4/articles/?`
+export const limit = 20;
+export const offset = 10;
+export const endpoint2 = `https://api.spaceflightnewsapi.net/v4/articles/`

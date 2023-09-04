@@ -75,7 +75,7 @@ function TabNavigator() {
       <Tab.Screen name={TimelineScreen} component={Timeline} options={{ headerShown: false }} />
       <Tab.Screen name={LaunchesScreen} component={Launches} options={{ headerShown: false }}/>
       <Tab.Screen name={OrbitsScreen} component={Orbits} options={{ headerShown: false }}/>
-      <Tab.Screen name={MapScreen} component={Map} />
+      <Tab.Screen name={MapScreen} component={Map} options={{ headerShown: false }}/>
       {/* <Tab.Screen name={RocketScreen} component={Rocket} options={{ headerShown: false, tabBarButton: () => null }}/> */}
       <Tab.Screen name={FamilyTreeScreen} component={FamilyTree} options={{ headerShown: false, tabBarButton: () => null}}/>
     </Tab.Navigator>

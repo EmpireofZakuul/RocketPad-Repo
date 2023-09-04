@@ -76,9 +76,9 @@ const formatCountdown = (countdown) => {
 
   return (
     <View>
-        <Appbar.Header>
+    <Appbar.Header>
    <Appbar.Content title="Upcoming Rocket Launches" />
- </Appbar.Header>
+   </Appbar.Header>
    
    <ScrollView>
          {loadingLaunches ?(
@@ -162,7 +162,7 @@ return(
               <View style={styles.contentContainer}> 
               <Text style={styles.date}>{moment(rocketLaunches.net).format("DD MMMM YYYY @ h:mm A")}</Text>
             <View style={styles.mainContentContainer}>
-            <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'To Be Determined' ? '#ff0000' : '#00b300'}}>{rocketLaunches.status?.name}</Text></Text>
+            <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'To Be Determined' ? '#ff0000' : rocketLaunches.status?.name === 'To Be Confirmed' ? '#ff0000' : '#00b300'}}>{rocketLaunches.status?.name}</Text></Text>
         
             <View>
             <Text style={styles.descriptionContainer}>Mission:</Text>

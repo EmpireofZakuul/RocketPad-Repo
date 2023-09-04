@@ -4,7 +4,7 @@ import { collection, onSnapshot} from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import { API_KEY } from '../../mapConfig';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import { Modal, Portal, PaperProvider } from 'react-native-paper';
+import { Modal, Portal, PaperProvider, Appbar } from 'react-native-paper';
 import {SafeAreaView } from 'react-native-safe-area-context';
 
 const Map = () => {
@@ -55,6 +55,10 @@ const Map = () => {
   return (
     
     <PaperProvider>
+      <Appbar.Header>
+   <Appbar.Content title="Map" />
+ </Appbar.Header>
+
       <SafeAreaView style={styles.mapContainer}>
         <View style={styles.container}>
           <MapView
@@ -115,7 +119,7 @@ const Map = () => {
               <View
                 style={[
                   styles.modalContainer,
-                  { position: "absolute", top: 0, left: 15, right: 15 },
+                  { position: "absolute", top: 55, left: 15, right: 15 },
                 ]}
               >
                 <View style={styles.arrowContainer}>
