@@ -41,7 +41,7 @@ useEffect(() => {
          
       <Appbar.Header>
     <Appbar.BackAction onPress={() => navigation.goBack()} />
-    <Appbar.Content title={documentName} />
+    <Appbar.Content title={documentName} style={styles.appbarText} />
   </Appbar.Header>
   
     <ScrollView>
@@ -136,10 +136,12 @@ useEffect(() => {
       <Image source={{ uri: rocketOrbit.Img }} style={styles.image} />
       </View>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
+      <Text style={styles.text}>{rocketOrbit.Text5}</Text>
+      <Text style={styles.text}>{rocketOrbit.Text6}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
-      <View style={styles.imageContainer}>
-      <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
-      </View>
+      <Text style={styles.text}>{rocketOrbit.Text7}</Text>
+      <Text style={styles.text}>{rocketOrbit.Text8}</Text>
+      <Text style={styles.text}>{rocketOrbit.Text9}</Text>
     </View>
   )}
 
@@ -170,9 +172,9 @@ useEffect(() => {
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
       <Text style={styles.text}>{rocketOrbit.Text5}</Text>
       <Text style={styles.text}>{rocketOrbit.Text6}</Text>
-      <View style={styles.imageContainer}>
+      {/* <View style={styles.imageContainer}>
       <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
-      </View>
+      </View> */}
     </View>
   )}
 
@@ -280,6 +282,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+
+  appbarText: {
+    // fontFamily: 'san Francisco',
+  }
 
 });
 
