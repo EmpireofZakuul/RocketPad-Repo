@@ -1,4 +1,4 @@
-import { View,  StyleSheet, ScrollView, Image, TouchableOpacity, Linking,  } from 'react-native'
+import { View,  StyleSheet, ScrollView, Image, TouchableOpacity, Linking, ImageBackground,  } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { apiKey, endpoint, endpoint2, language, pageSize, searchTerm, domains, limit, offset} from '../../newsAPIConfig'
 import axios from 'axios'
@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Home = ({ navigation }) => {
   const [newsArticles, setNewsArticles] = useState([]);
-  const imgg = "https://pbs.twimg.com/media/Fvd3qcoWcAMaVs8?format=jpg&name=large";
+  const placeholder = "https://pbs.twimg.com/media/Fvd3qcoWcAMaVs8?format=jpg&name=large";
   const [loadingNews, setLoadingNews] = useState(false);
   const [rocketImage, setRocketImage] = useState(null);
 
@@ -66,7 +66,7 @@ const Home = ({ navigation }) => {
     }
   };
 
-  // for (const term of searchTerm) {
+  // for (const term of searchTerm) {  old version of thew news api using the news api
   //   const response = await axios.get(endpoint, {
   //     params: {
   //       domains: domains,
@@ -151,11 +151,19 @@ const Home = ({ navigation }) => {
                   <Text variant="bodyMedium" style={styles.description}>{moment(article.publishedAt).format("DD MMMM YYYY")} | {article.source.name}</Text>
                 </Card.Content>
               </Card>
-            </TouchableOpacity> */}
+            </TouchableOpacity> */}  
 
-                <TouchableOpacity onPress={() => Linking.openURL(article.url)}>
+
+
+
+
+
+
+
+            
+
+                {/* <TouchableOpacity onPress={() => Linking.openURL(article.url)}> 
                   <Card style={styles.card}>
-                    {/* <Card.Cover source={{ uri: article.image_url }} /> */}
                     <View style={styles.imageContainer}>
                       {article.image_url ? (
                         <Image source={{ uri: article.image_url}} style={styles.imageNews}/>
@@ -172,6 +180,27 @@ const Home = ({ navigation }) => {
                         {article.news_site}
                       </Text>
                     </Card.Content>
+                  </Card>
+                </TouchableOpacity> */}
+
+
+
+
+                <TouchableOpacity onPress={() => Linking.openURL(article.url)}> 
+                  <Card style={styles.newNewsCard}>
+                  <ImageBackground source={{ uri: article.image_url}} style={styles.imageContainerNews}>
+                    <View  style={styles.newsOverlay}>
+                    <Card.Content style={styles.articleContent2}>
+                      <Text style={styles.title2}>{article.title}</Text>
+                      <Text style={styles.summary} numberOfLines={3}>{article.summary}</Text>
+                      <Text style={styles.newsSource}>
+                        {moment(article.published_at).format("DD MMMM YYYY")} |{" "}
+                        {article.news_site}
+                      </Text>
+                      <Text style={styles.readMore}>  <Icon style={styles.icon} name="view-headline" size={20}color="white"/> Read Article</Text>
+                    </Card.Content>
+                    </View>
+                    </ImageBackground>
                   </Card>
                 </TouchableOpacity>
               </View>
@@ -299,5 +328,64 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
   },
+
+  newNewsCard:{
+    width: "100%",
+    height: 400,
+    borderRadius: 12,
+    marginBottom: 40,
+  },
+
+  newsOverlay: {
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    flex: 1,
+    justifyContent: 'flex-end',
+  },
+
+  imageContainerNews: {
+    width: "100%",
+    height: 400,
+    overflow: "hidden",
+    borderRadius: 12,
+  },
+  title2: {
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 15,
+    color: "white",
+    fontSize: 26,
+  },
+ 
+  summary: {
+    color: "white",
+    fontWeight: "bold",
+    alignContent: 'center',
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop:  10,
+  },
+  newsSource: {
+    color: "white",
+    fontWeight: "bold",
+    alignContent: 'center',
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop:  15,
+  },
+  readMore:{
+    color: "white",
+    fontWeight: "bold",
+    alignContent: 'center',
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop:  50,
+  },
+  articleContent2: {
+    paddingHorizontal: 30,
+    paddingVertical: 40,
+    flex: 1,
+    // justifyContent: 'space-evenly',
+  },
+
 });
 export default Home;
