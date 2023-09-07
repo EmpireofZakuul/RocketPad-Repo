@@ -197,7 +197,10 @@ const Home = ({ navigation }) => {
                         {moment(article.published_at).format("DD MMMM YYYY")} |{" "}
                         {article.news_site}
                       </Text>
-                      <Text style={styles.readMore}>  <Icon style={styles.icon} name="view-headline" size={20}color="white"/> Read Article</Text>
+                      <View style={styles.readMoreContainer}>
+                      <Icon name="view-headline" size={20}color="white"/>
+                      <Text style={styles.readMore}> Read Article</Text>
+                      </View>
                     </Card.Content>
                     </View>
                     </ImageBackground>
@@ -358,7 +361,7 @@ const styles = StyleSheet.create({
  
   summary: {
     color: "white",
-    fontWeight: "bold",
+    // fontWeight: "bold",
     alignContent: 'center',
     textAlign: 'center',
     fontSize: 16,
@@ -366,25 +369,29 @@ const styles = StyleSheet.create({
   },
   newsSource: {
     color: "white",
-    fontWeight: "bold",
+    // fontWeight: "bold",
     alignContent: 'center',
     textAlign: 'center',
-    fontSize: 16,
+    fontSize: 14,
     marginTop:  15,
   },
   readMore:{
     color: "white",
-    fontWeight: "bold",
-    alignContent: 'center',
-    textAlign: 'center',
     fontSize: 16,
-    marginTop:  50,
+  },
+  readMoreContainer:{
+  flexDirection: 'row',
+  alignItems: 'center',
+  position: 'absolute',
+  justifyContent: 'center',
+  left: 0,
+  right: 0,
+  bottom: 50
   },
   articleContent2: {
     paddingHorizontal: 30,
     paddingVertical: 40,
     flex: 1,
-    // justifyContent: 'space-evenly',
   },
 
 });
