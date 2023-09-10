@@ -108,6 +108,17 @@ const Map = () => {
               ></Marker>
             ))}
           </MapView>
+          <View style={styles.legend}>
+          <View style={styles.legendItem}>
+          <View style={[styles.legendColour, { backgroundColor: "green"},]}/>
+                  <Text style={styles.legendText}>Active</Text>
+          </View>
+
+          <View style={styles.legendItem}>
+          <View style={[styles.legendColour, { backgroundColor: "red"},]}/>
+                  <Text style={styles.legendText}>Non-Active</Text>
+          </View>
+          </View>
           <Portal>
             <Modal
               visible={markerSelected && visible}
@@ -464,5 +475,39 @@ const styles = StyleSheet.create({
       borderLeftColor: "transparent",
       borderRightColor: "transparent",
       borderBottomColor: "white",
+  },
+
+  legend:{
+position: 'absolute',
+top: 20,
+right: 20,
+flexDirection: 'row',
+alignItems: 'center',
+justifyContent: 'center',
+backgroundColor: '#1d2c4d',
+width: 200,
+height: 40,
+borderRadius: 4,
+overflow: 'hidden',
+  },
+  legendItem:{
+alignItems: 'center',
+
+  },
+  legendColour:{
+width: 100,
+flex: 1,
+height: 10,
+borderColor: 'transparent',
+borderWidth: 1,
+flexDirection: 'row',
+
+  },
+  legendText:{
+fontSize: 10,
+color: '#8ec3b9',
+marginTop: 5,
+marginBottom: 5
   }
+
 });

@@ -165,13 +165,21 @@ return(
             <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'To Be Determined' ? '#ff0000' : rocketLaunches.status?.name === 'To Be Confirmed' ? '#ff0000' : '#00b300'}}>{rocketLaunches.status?.name}</Text></Text>
         
             <View>
+            {(rocketLaunches.mission?.orbit?.name && rocketLaunches.mission?.orbit?.abbrev) || rocketLaunches.mission?.type || rocketLaunches.mission?.description ? (
             <Text style={styles.descriptionContainer}>Mission:</Text>
-            {/* <TouchableOpacity  onPress={() => navigation.navigate('orbit', {documentName: rocketLaunches.mission?.orbit?.name})}> */}
-            {/* <Text style={styles.subTitle}><Text style={styles.boldText}>Orbit:</Text> <Text style={styles.textLink}>{rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text></Text> */}
-            {/* </TouchableOpacity> */}
+            ) : null}
+
+            {rocketLaunches.mission?.orbit?.name && rocketLaunches.mission?.orbit?.abbrev && (
             <Text style={styles.subTitle}><Text style={styles.boldText}>Orbit:</Text> {rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text>
+            )}
+
+            {rocketLaunches.mission?.type && (
             <Text style={styles.subTitle}><Text style={styles.boldText}>Mission Type:</Text> {rocketLaunches.mission?.type}</Text>
+            )}
+
+            {rocketLaunches.mission?.description && (
             <Text style={styles.subTitle}>{rocketLaunches.mission?.description}</Text>
+            )}
             </View>
          
             </View>
