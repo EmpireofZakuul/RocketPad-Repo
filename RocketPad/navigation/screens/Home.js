@@ -116,7 +116,7 @@ const Home = ({ navigation }) => {
               }
             >
               <View style={styles.rocketNameButton}>
-                <Text style={styles.buttonText}>Explore</Text>
+                <Text style={styles.buttonText}>Discover</Text>
                 <Icon
                   style={styles.icon}
                   name="arrow-right"
@@ -126,6 +126,15 @@ const Home = ({ navigation }) => {
               </View>
             </TouchableOpacity>
           </View>
+          <View style={styles.viewMore}>
+                <Icon
+                  style={styles.icon}
+                  name="chevron-up"
+                  size={30}
+                  color="white"
+                />
+                 <Text style={styles.moreText}>Swipe up for more</Text>
+              </View>
         </View>
       )}
 
@@ -340,7 +349,7 @@ const styles = StyleSheet.create({
   },
 
   newsOverlay: {
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
     flex: 1,
     justifyContent: 'flex-end',
   },
@@ -393,6 +402,24 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
     flex: 1,
   },
+
+  viewMore:{
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    width: '100%',
+    zIndex: 1,
+    position: "absolute",
+    top: 750,
+    left: -10,
+  },
+
+  moreText:{
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "white",
+  }
 
 });
 export default Home;
