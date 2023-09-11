@@ -42,22 +42,20 @@ const Map = () => {
 
   const animateToRegion = (region) => {
     if (mapRef.current) {
-      mapRef.current.animateCamera (
+      mapRef.current.animateCamera(
         {
-        center: region,
-    },
-    {duration: 400}
-    );
+          center: region,
+        },
+        { duration: 400 }
+      );
     }
   };
 
-
   return (
-    
     <PaperProvider>
       <Appbar.Header>
-   <Appbar.Content title="Map" />
- </Appbar.Header>
+        <Appbar.Content title="Map" />
+      </Appbar.Header>
 
       <SafeAreaView style={styles.mapContainer}>
         <View style={styles.container}>
@@ -98,9 +96,8 @@ const Map = () => {
                   // };
                   // animateToRegion(newRegion);
 
-
                   animateToRegion({
-                       latitude: sites.Latitude,
+                    latitude: sites.Latitude,
                     longitude: sites.Longitude,
                   });
                   showModal(sites);
@@ -109,15 +106,17 @@ const Map = () => {
             ))}
           </MapView>
           <View style={styles.legend}>
-          <View style={styles.legendItem}>
-          <View style={[styles.legendColour, { backgroundColor: "green"},]}/>
-                  <Text style={styles.legendText}>Active</Text>
-          </View>
+            <View style={styles.legendItem}>
+              <View
+                style={[styles.legendColour, { backgroundColor: "#26a828" }]}
+              />
+              <Text style={styles.legendText}>Active</Text>
+            </View>
 
-          <View style={styles.legendItem}>
-          <View style={[styles.legendColour, { backgroundColor: "red"},]}/>
-                  <Text style={styles.legendText}>Non-Active</Text>
-          </View>
+            <View style={styles.legendItem}>
+              <View style={[styles.legendColour, { backgroundColor: "#fe3838" }]} />
+              <Text style={styles.legendText}>Non-Active</Text>
+            </View>
           </View>
           <Portal>
             <Modal
@@ -134,7 +133,7 @@ const Map = () => {
                 ]}
               >
                 <View style={styles.arrowContainer}>
-                  <View style={styles.arrow}/>
+                  <View style={styles.arrow} />
                 </View>
                 {markerSelected && (
                   <View style={styles.contentContainer}>
@@ -406,7 +405,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  mapContainer:{
+  mapContainer: {
     flex: 1,
     width: "100%",
     height: "100%",
@@ -455,59 +454,62 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 
-  arrowContainer:{
- position: 'absolute',
- top: -5,
- left: '50%',
- width: 0,
- height: 0, 
- alignItems: 'center',
- justifyContent: 'center',
+  arrowContainer: {
+    position: "absolute",
+    top: -5,
+    left: "50%",
+    width: 0,
+    height: 0,
+    alignItems: "center",
+    justifyContent: "center",
   },
   arrow: {
-      width: 0,
-      height: 0,
-      backgroundColor: "transparent",
-      borderStyle: "solid",
-      borderLeftWidth: 10,
-      borderRightWidth: 10,
-      borderBottomWidth: 10,
-      borderLeftColor: "transparent",
-      borderRightColor: "transparent",
-      borderBottomColor: "white",
+    width: 0,
+    height: 0,
+    backgroundColor: "transparent",
+    borderStyle: "solid",
+    borderLeftWidth: 10,
+    borderRightWidth: 10,
+    borderBottomWidth: 10,
+    borderLeftColor: "transparent",
+    borderRightColor: "transparent",
+    borderBottomColor: "white",
   },
 
-  legend:{
-position: 'absolute',
-top: 20,
-right: 20,
-flexDirection: 'row',
-alignItems: 'center',
-justifyContent: 'center',
-backgroundColor: '#1d2c4d',
-width: 200,
-height: 40,
-borderRadius: 4,
-overflow: 'hidden',
-  },
-  legendItem:{
-alignItems: 'center',
+  legend: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#1d2c4d",
+    width: 200,
+    height: 40,
+    borderRadius: 4,
+    overflow: "hidden",
 
+    shadowColor: 'white',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 1,
+    shadowRadius: 15,
+    elevation: 8,
   },
-  legendColour:{
-width: 100,
-flex: 1,
-height: 10,
-borderColor: 'transparent',
-borderWidth: 1,
-flexDirection: 'row',
-
+  legendItem: {
+    alignItems: "center",
   },
-  legendText:{
-fontSize: 10,
-color: '#8ec3b9',
-marginTop: 5,
-marginBottom: 5
-  }
-
+  legendColour: {
+    width: 100,
+    flex: 1,
+    height: 10,
+    borderColor: "transparent",
+    borderWidth: 1,
+    flexDirection: "row",
+  },
+  legendText: {
+    fontSize: 10,
+    color: "#8ec3b9",
+    marginTop: 5,
+    marginBottom: 5,
+  },
 });

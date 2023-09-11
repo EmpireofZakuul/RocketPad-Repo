@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, where, doc, getDoc } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import { Appbar } from 'react-native-paper';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const Orbits = ({navigation}) => {
   const [orbits, setOrbit] = useState([]);
@@ -63,9 +64,19 @@ return (
              <Text style={styles.Header}>{RocketOrbit.OrbitsTitle}</Text>
 
             <TouchableOpacity onPress={() => navigation.navigate('orbit' , { documentName: 'Low Earth Orbit (LEO)' })}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits}</Text>    
+              <View style={styles.card}>
+              <ImageBackground source={{ uri: "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/03/low_earth_orbit/21862713-4-eng-GB/Low_Earth_orbit_article.png"}} style={styles.imageOrbit}>
+              <LinearGradient
+                colors={['rgba(0, 0, 0, 0.5)','rgba(0, 0, 0, 0.2)', 'transparent']}
+                style={styles.gradient}
+                start={[0.5, 1]}
+                end={[0.5, 0.4]}
+              />
+            <Text style={styles.textOrbit}>{RocketOrbit.Orbits}</Text>  
+            </ImageBackground>
+            </View> 
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Medium Earth Orbit (MEO)'})}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Medium Earth Orbit (MEO)'})}>
             <Text style={styles.textLink}>{RocketOrbit.Orbits2}</Text>    
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Geostationary Orbit (GEO)'})}>
@@ -91,7 +102,7 @@ return (
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Tundra Orbit'})}>
             <Text style={styles.textLink}>{RocketOrbit.Orbits10}</Text>    
-          </TouchableOpacity>
+          </TouchableOpacity> */}
              
              <Text style={styles.Header}>{RocketOrbit.OrbitsTitle2}</Text>
              <Text style={styles.text}>{RocketOrbit.Text3}</Text>
@@ -147,7 +158,36 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textDecorationLine: 'underline',
     color: 'blue',
-  }
+  },
+  gradient: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: '5%',
+  },
+  imageOrbit: {
+    flex: 1,
+    resizeMode: "contain",
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
 
+  card:{
+    height: 200,
+    width: 250,
+    borderRadius: 12,
+    // borderWidth: 2,
+    // borderColor: 'red',
+    marginBottom: 20,
+    overflow: "hidden",
+  },
+  textOrbit:{
+    fontSize: 16,
+    lineHeight: 24,
+    marginBottom: 20,
+    color: 'white',
+    fontWeight: 'bold',
+  },
 
 });
