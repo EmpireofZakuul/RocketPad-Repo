@@ -48,83 +48,291 @@ useEffect(() => {
   }, []);
 
 return (
-
   <View>
     <Appbar.Header>
       <Appbar.Content title="Orbits" />
     </Appbar.Header>
- 
-      <ScrollView>
-          <View style={styles.container}>
+
+    <ScrollView>
+      <View style={styles.container}>
         {orbits.map((RocketOrbit, index) => (
           <View key={index}>
-             <Text style={styles.Header}>{RocketOrbit.Title}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text2}</Text>
-             <Text style={styles.Header}>{RocketOrbit.OrbitsTitle}</Text>
+            <Text style={styles.Header}>{RocketOrbit.Title}</Text>
+            <Image source={{ uri: RocketOrbit.Img3 }} style={styles.image} />
+            <Text style={styles.text}>{RocketOrbit.Text}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text2}</Text>
+            <Text style={styles.Header}>{RocketOrbit.OrbitsTitle}</Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate('orbit' , { documentName: 'Low Earth Orbit (LEO)' })}>
-              <View style={styles.card}>
-              <ImageBackground source={{ uri: "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2020/03/low_earth_orbit/21862713-4-eng-GB/Low_Earth_orbit_article.png"}} style={styles.imageOrbit}>
-              <LinearGradient
-                colors={['rgba(0, 0, 0, 0.5)','rgba(0, 0, 0, 0.2)', 'transparent']}
-                style={styles.gradient}
-                start={[0.5, 1]}
-                end={[0.5, 0.4]}
-              />
-            <Text style={styles.textOrbit}>{RocketOrbit.Orbits}</Text>  
-            </ImageBackground>
-            </View> 
-          </TouchableOpacity>
-          {/* <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Medium Earth Orbit (MEO)'})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits2}</Text>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Geostationary Orbit (GEO)'})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits3}</Text>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Geosynchronous Orbit (GSO)'})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits4}</Text>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Semi - Synchronous Orbit '})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits5}</Text>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Lagrange Points'})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits6}</Text>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Polar Orbit and Sun-Synchronous Orbit (SSO)'})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits7}</Text>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Transfer Orbits and Geostationary Transfer Orbit (GTO)'})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits8}</Text>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Molniya Orbit'})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits9}</Text>    
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('orbit', {documentName: 'Tundra Orbit'})}>
-            <Text style={styles.textLink}>{RocketOrbit.Orbits10}</Text>    
-          </TouchableOpacity> */}
-             
-             <Text style={styles.Header}>{RocketOrbit.OrbitsTitle2}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text3}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text5}</Text>
-             <Image source={{ uri: RocketOrbit.Img }} style={styles.image} />
-             <Text style={styles.text}>{RocketOrbit.Text6}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text7}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text8}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text9}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text10}</Text>
-             <Image source={{ uri: RocketOrbit.Img2 }} style={styles.image} />
-             <Text style={styles.text}>{RocketOrbit.Text11}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text12}</Text>
-             <Text style={styles.text}>{RocketOrbit.Text13}</Text>
-             
-            
+            <ScrollView horizontal={true} style={styles.horizontalContainer} showsHorizontalScrollIndicator={false}>
+              <View style={styles.orbitsContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName: "Low Earth Orbit (LEO)",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName: "Medium Earth Orbit (MEO)",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground source={{uri: RocketOrbit.OrbitsImage2}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits2}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName: "Geostationary Orbit (GEO)",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage3}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits3}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName: "Geosynchronous Orbit (GSO)",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage4}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits4}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName: "Semi - Synchronous Orbit ",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage5}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits5}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName: "Lagrange Points",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage6}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits6}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName: "Polar Orbit and Sun-Synchronous Orbit (SSO)",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage7}}style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits7}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName:
+                      "Transfer Orbits and Geostationary Transfer Orbit (GTO)",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage8}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits8}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", {
+                    documentName: "Molniya Orbit",
+                  })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage9}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits9}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("orbit", { documentName: "Tundra Orbit" })
+                }
+              >
+                <View style={styles.card}>
+                  <ImageBackground
+                    source={{uri: RocketOrbit.OrbitsImage10}} style={styles.imageOrbit}>
+                    <LinearGradient
+                      colors={[
+                        "rgba(0, 0, 0, 0.5)",
+                        "rgba(0, 0, 0, 0.2)",
+                        "transparent",
+                      ]}
+                      style={styles.gradient}
+                      start={[0.5, 1]}
+                      end={[0.5, 0.4]}
+                    />
+                    <Text style={styles.textOrbit}>{RocketOrbit.Orbits10}</Text>
+                  </ImageBackground>
+                </View>
+              </TouchableOpacity>
+              </View>
+            </ScrollView>
+            <Text style={styles.Header}>{RocketOrbit.OrbitsTitle2}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text3}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text5}</Text>
+            <Image source={{ uri: RocketOrbit.Img }} style={styles.image} />
+            <Text style={styles.text}>{RocketOrbit.Text6}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text7}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text8}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text9}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text10}</Text>
+            <Image source={{ uri: RocketOrbit.Img2 }} style={styles.image} />
+            <Text style={styles.text}>{RocketOrbit.Text11}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text12}</Text>
+            <Text style={styles.text}>{RocketOrbit.Text13}</Text>
           </View>
-      ))}
+        ))}
       </View>
-      </ScrollView>
-      </View>
-  );
+    </ScrollView>
+  </View>
+);
 };
 export default Orbits
 
@@ -177,9 +385,8 @@ const styles = StyleSheet.create({
     height: 200,
     width: 250,
     borderRadius: 12,
-    // borderWidth: 2,
-    // borderColor: 'red',
     marginBottom: 20,
+    marginHorizontal: 15,
     overflow: "hidden",
   },
   textOrbit:{
@@ -188,6 +395,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     color: 'white',
     fontWeight: 'bold',
+    textAlign: 'center'
   },
+
+  orbitsContainer:{
+    flexDirection: 'row',
+  },
+
+  horizontalContainer:{
+    marginHorizontal: -20,
+  }
 
 });

@@ -52,6 +52,9 @@ useEffect(() => {
 {documentName === 'Low Earth Orbit (LEO)' && (
     <View>
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
+      <View style={styles.imageContainer}>
+      <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
       <View style={styles.imageContainer}>
@@ -181,6 +184,9 @@ useEffect(() => {
   {documentName === 'Molniya Orbit' && (
     <View>
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
+      <View style={styles.imageContainer3}>
+      <Image source={{ uri: rocketOrbit.Img3 }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
       <Text style={styles.text}>{rocketOrbit.Text3}</Text>
