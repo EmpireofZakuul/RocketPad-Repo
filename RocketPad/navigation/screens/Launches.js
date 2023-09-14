@@ -110,8 +110,6 @@ return(
 </View >
 <View style={styles.contentContainer}>
             <Text style={styles.title}>{rocketLaunches.rocket?.configuration?.full_name} | {rocketLaunches.mission?.name}</Text>
-            <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Provider:</Text> {rocketLaunches.launch_service_provider?.name}</Text>
-            <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Location:</Text> {rocketLaunches.pad?.name} - {rocketLaunches.pad?.location?.name}</Text>
 </View>           
 
 <View style={styles.dividerContainer}>
@@ -163,7 +161,8 @@ return(
               <Text style={styles.date}>{moment(rocketLaunches.net).format("DD MMMM YYYY @ h:mm A")}</Text>
             <View style={styles.mainContentContainer}>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'To Be Determined' ? '#ff0000' : rocketLaunches.status?.name === 'To Be Confirmed' ? '#ff0000' : '#00b300'}}>{rocketLaunches.status?.name}</Text></Text>
-        
+            <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Provider:</Text> {rocketLaunches.launch_service_provider?.name}</Text>
+            <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Location:</Text> {rocketLaunches.pad?.name} - {rocketLaunches.pad?.location?.name}</Text>
             <View>
             {(rocketLaunches.mission?.orbit?.name && rocketLaunches.mission?.orbit?.abbrev) || rocketLaunches.mission?.type || rocketLaunches.mission?.description ? (
             <Text style={styles.descriptionContainer}>Mission:</Text>
