@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
-    fontWeight: "bold",
+fontFamily: 'Roboto-Bold'
     
   },
 
@@ -313,13 +313,13 @@ const styles = StyleSheet.create({
   timerText:{
  fontSize: 26,
  color: 'black',
- fontWeight: "bold",
+fontFamily: 'Roboto-Bold'
   },
 
   launchStatus: {
     fontSize: 26,
     color: '#00b300',
-    fontWeight: "bold",
+fontFamily: 'Roboto-Bold',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 8,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
   launchStatusFailure:{
   fontSize: 26,
     color: '#ff0000',
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 8,
@@ -337,6 +337,7 @@ const styles = StyleSheet.create({
   timerTime: {
     fontSize: 14,
     color: 'black',
+    fontFamily: 'Roboto-Regular'
   },
 
   // timer: {
@@ -346,15 +347,17 @@ const styles = StyleSheet.create({
   //   marginBottom: 15,
   // },
   date:{
-    fontSize: 24,
+    fontSize: 20,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold'
   },
 
   subTitle: {
-    fontSize: 18,
+    fontSize: 16,
+    lineHeight: 24,
     marginTop: 10,
     marginVertical: 5,
+    fontFamily: 'Roboto-Regular'
   },
   imageContainer: {
     overflow: "hidden",
@@ -370,15 +373,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   boldText: {
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold'
   },
   mainContentContainer: {
     marginVertical: 15,
   },
   descriptionContainer: {
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Medium',
     marginTop: 15,
-    fontSize: 22,
+    fontSize: 20,
   },
   mainButtonContainer: {
     flexDirection: "row",

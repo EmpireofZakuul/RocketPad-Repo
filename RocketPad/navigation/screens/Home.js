@@ -249,20 +249,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
     // textAlign: "center",
     color: "white",
-    fontWeight: "bold",
+    fontFamily:'Roboto-Bold',
   },
 
   latestNews: {
-    fontSize: 32,
-    fontWeight: "bold",
+    fontSize: 26,
+    fontFamily: 'Roboto-Bold',
     lineHeight: 40,
     textAlign: "center",
     marginTop: 60,
   },
 
   rocketName: {
-    fontSize: 22,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontFamily: 'Roboto-Bold',
     color: "white",
     marginTop: 15,
   },
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily:'Roboto-Bold',
     textAlign: "center",
     color: "white",
     paddingVertical: 6,
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   title2: {
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold',
     textAlign: "center",
     marginBottom: 15,
     color: "white",
@@ -370,7 +370,7 @@ const styles = StyleSheet.create({
  
   summary: {
     color: "white",
-    // fontWeight: "bold",
+    fontFamily: 'Roboto-Regular',
     alignContent: 'center',
     textAlign: 'center',
     fontSize: 16,
@@ -378,15 +378,16 @@ const styles = StyleSheet.create({
   },
   newsSource: {
     color: "white",
-    // fontWeight: "bold",
+    fontFamily: 'Roboto-Regular',
     alignContent: 'center',
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: 12,
     marginTop:  15,
   },
   readMore:{
     color: "white",
-    fontSize: 16,
+    fontSize: 12,
+    fontFamily: 'Roboto-Regular',
   },
   readMoreContainer:{
   flexDirection: 'row',
@@ -416,7 +417,7 @@ const styles = StyleSheet.create({
 
   moreText:{
     fontSize: 16,
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold',
     textAlign: "center",
     color: "white",
   }

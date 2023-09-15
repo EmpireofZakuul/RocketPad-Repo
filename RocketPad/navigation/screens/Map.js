@@ -110,12 +110,12 @@ const Map = () => {
               <View
                 style={[styles.legendColour, { backgroundColor: "#26a828" }]}
               />
-              <Text style={styles.legendText}>Active</Text>
+              <Text style={styles.legendText}>Active Launch Sites</Text>
             </View>
 
             <View style={styles.legendItem}>
               <View style={[styles.legendColour, { backgroundColor: "#fe3838" }]} />
-              <Text style={styles.legendText}>Non-Active</Text>
+              <Text style={styles.legendText}>Non-Active Launch Sites</Text>
             </View>
           </View>
           <Portal>
@@ -442,16 +442,18 @@ const styles = StyleSheet.create({
   },
 
   siteTitle: {
-    fontSize: 16,
+    fontSize: 20,
     textAlign: "center",
     marginBottom: 8,
+    fontFamily: 'Roboto-Bold'
   },
   subTitle: {
-    fontSize: 13,
+    fontSize: 16,
     marginVertical: 3,
+    fontFamily: 'Roboto-Regular',
   },
   bold: {
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold'
   },
 
   arrowContainer: {
@@ -481,10 +483,10 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
     backgroundColor: "#1d2c4d",
-    width: 200,
+    width: 260,
     height: 40,
     borderRadius: 4,
     overflow: "hidden",
@@ -497,9 +499,10 @@ const styles = StyleSheet.create({
   },
   legendItem: {
     alignItems: "center",
+    width: 130,
   },
   legendColour: {
-    width: 100,
+    width: 130,
     flex: 1,
     height: 10,
     borderColor: "transparent",
@@ -511,5 +514,7 @@ const styles = StyleSheet.create({
     color: "#8ec3b9",
     marginTop: 5,
     marginBottom: 5,
+    fontFamily: 'Roboto-Medium',
+    textAlign: 'center'
   },
 });

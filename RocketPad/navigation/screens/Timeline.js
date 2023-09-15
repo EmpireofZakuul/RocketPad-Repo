@@ -330,8 +330,8 @@ textLoadingContainer:{
   topText: {
     textAlign: "center",
     marginBottom: 10,
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 26,
+    fontFamily: 'Roboto-Bold',
     marginTop: 80,
   },
 

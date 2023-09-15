@@ -509,7 +509,7 @@ marginBottom: 120,
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold'
   },
 
   rightSideText: {
@@ -517,14 +517,15 @@ marginBottom: 120,
     lineHeight: 24,
     marginBottom: 20,
     textAlign: "right",
+    fontFamily: 'Roboto-Regular'
   },
 
   Header: {
-    fontSize: 32,
+    fontSize: 26,
     lineHeight: 40,
     marginBottom: 20,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold',
     marginTop: 20,
   },
   image: {
@@ -554,10 +555,10 @@ marginBottom: 120,
   },
 
   dividerText: {
-    fontSize: 22,
+    fontSize: 20,
     lineHeight: 28,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold',
     paddingBottom: 15,
     paddingTop: 15,
   },
@@ -582,22 +583,20 @@ marginBottom: 120,
   },
 
   payloadTitle: {
-    fontSize: 22,
+    fontSize: 20,
     lineHeight: 28,
-  fontWeight: 400,
-  letterSpacing: 0,
     textAlign: "center",
     marginBottom: 5,
+    fontFamily: 'Roboto-Regular'
    
   },
 
   payloadText: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: 400,
-  letterSpacing: 0.15,
     textAlign: "center",
     marginBottom: 5,
+    fontFamily: 'Roboto-Regular'
   },
   smallImageContainer: {
     width: "50%",
@@ -612,8 +611,8 @@ marginBottom: 120,
   },
   numberText: {
     color: "#FF1694",
-    fontSize: 22,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontFamily: 'Roboto-Bold',
   },
   carouselConatiner: {
     // borderColor: "red",
