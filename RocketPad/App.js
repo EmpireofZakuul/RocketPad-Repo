@@ -12,9 +12,14 @@ function App() {
     'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
     'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
   });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
-    <MainContainer/>
     
+    <MainContainer/>
   );
 }
 

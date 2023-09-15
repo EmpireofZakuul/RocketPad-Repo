@@ -138,7 +138,7 @@ const Home = ({ navigation }) => {
         </View>
       )}
 
-      <Text style={styles.latestNews}>Latest News</Text>
+<Text style={styles.latestNews}>Latest News</Text>
       {loadingNews ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator

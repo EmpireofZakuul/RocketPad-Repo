@@ -273,9 +273,9 @@ textLoadingContainer:{
     justifyContent: "center",
   },
   date: {
-    fontSize: 15,
+    fontSize: 16,
     textAlign: "center",
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold'
   },
   line: {
     flex: 1,
@@ -300,7 +300,7 @@ textLoadingContainer:{
     top: '10%',
   },
   rocketName: {
-    fontWeight: "bold",
+    fontFamily: 'Roboto-Bold',
     fontSize: 18,
     color: "white",
     marginBottom: 20,
