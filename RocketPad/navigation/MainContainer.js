@@ -48,6 +48,8 @@ function TabNavigator() {
     <Tab.Navigator
       initialRouteName={HomeScreen}
       screenOptions={({ route }) => ({
+        // tabBarStyle:{height: 80, },
+        // tabBarIconStyle: { fontSize: 10},
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           let rn = route.name;
