@@ -346,6 +346,7 @@ const styles = StyleSheet.create({
   fontSize: 16,
   lineHeight: 24,
   marginBottom: 20,
+  fontFamily: 'Roboto-Regular'
   },
   image:{
     width: '100%',
@@ -358,7 +359,7 @@ const styles = StyleSheet.create({
     lineHeight: 40,
     marginBottom: 20,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold'
   },
   textLink:{
     fontSize: 16,
@@ -394,7 +395,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     marginBottom: 20,
     color: 'white',
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Medium',
     textAlign: 'center'
   },
 

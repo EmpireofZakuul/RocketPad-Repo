@@ -10,6 +10,7 @@ function App() {
     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
     'Roboto-Regular': require('./assets/fonts/Roboto-Regular.ttf'),
     'Roboto-Bold': require('./assets/fonts/Roboto-Bold.ttf'),
+    'Roboto-Medium': require('./assets/fonts/Roboto-Medium.ttf'),
   });
   return (
     <MainContainer/>

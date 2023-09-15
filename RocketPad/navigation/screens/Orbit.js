@@ -41,7 +41,7 @@ useEffect(() => {
          
       <Appbar.Header>
     <Appbar.BackAction onPress={() => navigation.goBack()} />
-    <Appbar.Content title={documentName} style={styles.appbarText} />
+    <Appbar.Content title={documentName} titleStyle={styles.appbarText} />
   </Appbar.Header>
   
     <ScrollView>
@@ -241,6 +241,7 @@ const styles = StyleSheet.create({
   fontSize: 16,
   lineHeight: 24,
   marginBottom: 20,
+  fontFamily: 'Roboto-Regular'
   },
   imageContainer:{
     width: "100%",
@@ -290,7 +291,7 @@ const styles = StyleSheet.create({
   },
 
   appbarText: {
-    // fontFamily: 'san Francisco',
+    fontFamily: 'Roboto-Bold'
   }
 
 });
