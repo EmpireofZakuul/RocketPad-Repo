@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     lineHeight: 40,
     marginBottom: 20,
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontFamily: 'Roboto-Bold'
   },
 
   appbarText: {
