@@ -442,7 +442,7 @@ const styles = StyleSheet.create({
   },
 
   siteTitle: {
-    fontSize: 20,
+    fontSize: 16,
     textAlign: "center",
     marginBottom: 8,
     fontFamily: 'Roboto-Bold'
