@@ -83,8 +83,8 @@ const Map = () => {
                   markerSelected && markerSelected.id === sites.id
                     ? "#FF1694"
                     : sites.Status === "active"
-                    ? "green"
-                    : "red"
+                    ? "#00b300"
+                    : "#ff0000"
                 }
                 onPress={() => {
                   setMarkerSelected(sites);
@@ -108,13 +108,13 @@ const Map = () => {
           <View style={styles.legend}>
             <View style={styles.legendItem}>
               <View
-                style={[styles.legendColour, { backgroundColor: "#26a828" }]}
+                style={[styles.legendColour, { backgroundColor: "#00b300" }]}
               />
               <Text style={styles.legendText}>Active Launch Sites</Text>
             </View>
 
             <View style={styles.legendItem}>
-              <View style={[styles.legendColour, { backgroundColor: "#fe3838" }]} />
+              <View style={[styles.legendColour, { backgroundColor: "#ff0000" }]} />
               <Text style={styles.legendText}>Non-Active Launch Sites</Text>
             </View>
           </View>
@@ -146,7 +146,7 @@ const Map = () => {
                       <Text style={styles.bold}>Operationa Dates:</Text>{" "}
                       {markerSelected.OperationalDate}
                     </Text>
-                    <Text style={styles.subTitle}>
+                    <Text style={[styles.subTitle, { color:  markerSelected.Status === "active" ? "#00b300" : "#ff0000"}]}>
                       <Text style={styles.bold}>Status:</Text>{" "}
                       {markerSelected.Status}
                     </Text>
@@ -453,7 +453,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Regular',
   },
   bold: {
-    fontFamily: 'Roboto-Bold'
+    fontFamily: 'Roboto-Bold',
+    color: 'black',
   },
 
   arrowContainer: {
