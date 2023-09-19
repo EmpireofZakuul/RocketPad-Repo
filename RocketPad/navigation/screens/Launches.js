@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View , Image, TouchableOpacity, Linking} from 'react-native'
+import { ScrollView, StyleSheet, Text, View , Image, TouchableOpacity, Linking, Pressable} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment/moment'
@@ -74,6 +74,19 @@ const formatCountdown = (countdown) => {
     return () => clearInterval(interval);
   }, []);
 
+  const OrbitMap ={
+    'Low Earth Orbit': 'Low Earth Orbit (LEO)',
+    'Geostationary Orbit': 'Geostationary Orbit (GEO)',
+    'Medium Earth Orbit': 'Medium Earth Orbit (MEO)',
+    'Geosynchronous Orbit': 'Geosynchronous Orbit (GSO)',
+    'Semi-Synchronous Orbit': 'Semi - Synchronous Orbit',
+    'Sun-Synchronous Orbit': 'Polar Orbit and Sun-Synchronous Orbit (SSO)',
+    'Polar Orbit': 'Polar Orbit and Sun-Synchronous Orbit (SSO)',
+    'Geostationary Transfer Orbit': 'Transfer Orbits and Geostationary Transfer Orbit (GTO)',
+    'Molniya Orbit': 'Molniya Orbit',
+    'Tundra Orbit': 'Tundra Orbit'
+  }
+
   return (
     <View>
     <Appbar.Header>
@@ -95,7 +108,8 @@ const formatCountdown = (countdown) => {
 const launchTime = new Date(rocketLaunches.net);
 const time = countdown(launchTime);
 const countdownFormated = formatCountdown(time);
-
+const orbitName = rocketLaunches.mission?.orbit?.name;
+const documentName = OrbitMap[orbitName];
 return(
 
           <View key={index}>
@@ -160,18 +174,26 @@ return(
               <View style={styles.contentContainer}> 
               <Text style={styles.date}>{moment(rocketLaunches.net).format("DD MMMM YYYY @ h:mm A")}</Text>
             <View style={styles.mainContentContainer}>
-            <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'To Be Determined' ? '#ff0000' : rocketLaunches.status?.name === 'To Be Confirmed' ? '#ff0000' : '#00b300'}}>{rocketLaunches.status?.name}</Text></Text>
+            <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'Go for Launch' ? '#00b300' : rocketLaunches.status?.name === 'Launch in Flight' ? '#00b300' : '#ff0000'}}>{rocketLaunches.status?.name}</Text></Text>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Provider:</Text> {rocketLaunches.launch_service_provider?.name}</Text>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Location:</Text> {rocketLaunches.pad?.name} - {rocketLaunches.pad?.location?.name}</Text>
-            <View>
+            <View> 
             {(rocketLaunches.mission?.orbit?.name && rocketLaunches.mission?.orbit?.abbrev) || rocketLaunches.mission?.type || rocketLaunches.mission?.description ? (
-            <Text style={styles.descriptionContainer}>Mission:</Text>
+           <Text style={styles.descriptionContainer}>Mission:</Text>
             ) : null}
 
             {rocketLaunches.mission?.orbit?.name && rocketLaunches.mission?.orbit?.abbrev && (
-            <Text style={styles.subTitle}><Text style={styles.boldText}>Orbit:</Text> {rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text>
+                <Pressable
+                onPress={() =>{
+                  if(documentName) {
+                  navigation.navigate("orbit", {
+                    documentName: documentName,
+                  })
+                  } else {}
+                }}>
+            <Text style={documentName ? styles.orbitIncluded : styles.orbitNotIncluded}><Text style={styles.boldText}>Orbit:</Text> {rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text>
+            </Pressable>
             )}
-
             {rocketLaunches.mission?.type && (
             <Text style={styles.subTitle}><Text style={styles.boldText}>Mission Type:</Text> {rocketLaunches.mission?.type}</Text>
             )}
@@ -359,6 +381,26 @@ fontFamily: 'Roboto-Bold',
     marginVertical: 5,
     fontFamily: 'Roboto-Regular'
   },
+
+
+  orbitIncluded: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 10,
+    marginVertical: 5,
+    fontFamily: 'Roboto-Regular',
+    color: 'blue',
+  },
+
+  orbitNotIncluded: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginTop: 10,
+    marginVertical: 5,
+    fontFamily: 'Roboto-Regular',
+    color: 'black'
+  },
+
   imageContainer: {
     overflow: "hidden",
     width: "100%",
@@ -373,7 +415,8 @@ fontFamily: 'Roboto-Bold',
     flex: 1,
   },
   boldText: {
-    fontFamily: 'Roboto-Bold'
+    fontFamily: 'Roboto-Bold',
+    color: 'black',
   },
   mainContentContainer: {
     marginVertical: 15,
