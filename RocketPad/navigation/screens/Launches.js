@@ -174,7 +174,7 @@ return(
               <View style={styles.contentContainer}> 
               <Text style={styles.date}>{moment(rocketLaunches.net).format("DD MMMM YYYY @ h:mm A")}</Text>
             <View style={styles.mainContentContainer}>
-            <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'Go for Launch' ? '#00b300' : rocketLaunches.status?.name === 'Launch in Flight' ? '#00b300' : '#ff0000'}}>{rocketLaunches.status?.name}</Text></Text>
+            <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'Go for Launch' ? '#00b300' : rocketLaunches.status?.name === 'Launch in Flight' ? '#00b300' : rocketLaunches.status?.name === 'Launch Successful' ? '#00b300': '#ff0000'}}>{rocketLaunches.status?.name}</Text></Text>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Provider:</Text> {rocketLaunches.launch_service_provider?.name}</Text>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Location:</Text> {rocketLaunches.pad?.name} - {rocketLaunches.pad?.location?.name}</Text>
             <View> 
@@ -191,7 +191,11 @@ return(
                   })
                   } else {}
                 }}>
-            <Text style={documentName ? styles.orbitIncluded : styles.orbitNotIncluded}><Text style={styles.boldText}>Orbit:</Text> {rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text>
+            <View style={styles.OrbitIcon}>
+            <Text style={documentName ? styles.orbitIncluded : styles.orbitNotIncluded}>
+              <Text style={styles.boldText}>Orbit:</Text> {rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text>
+              {documentName && ( <Icon name='chevron-right' size={25} style={{marginTop: 5, color: 'blue'}}/>)}
+              </View>
             </Pressable>
             )}
             {rocketLaunches.mission?.type && (
@@ -468,4 +472,8 @@ fontFamily: 'Roboto-Bold',
     color: "black",
     paddingVertical: 6,
   },
+  OrbitIcon:{
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
 });
