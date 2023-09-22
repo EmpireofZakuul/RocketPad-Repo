@@ -96,6 +96,18 @@ useEffect(() =>{
   }
 }, [modalVisible]);
 
+const OrbitMap ={
+  'Low Earth Orbit': 'Low Earth Orbit (LEO)',
+  'Geostationary Orbit': 'Geostationary Orbit (GEO)',
+  'Medium Earth Orbit': 'Medium Earth Orbit (MEO)',
+  'Geosynchronous Orbit': 'Geosynchronous Orbit (GSO)',
+  'Semi-Synchronous Orbit': 'Semi - Synchronous Orbit',
+  'Sun-Synchronous Orbit': 'Polar Orbit and Sun-Synchronous Orbit (SSO)',
+  'Polar Orbit': 'Polar Orbit and Sun-Synchronous Orbit (SSO)',
+  'Geostationary Transfer Orbit': 'Transfer Orbits and Geostationary Transfer Orbit (GTO)',
+  'Molniya Orbit': 'Molniya Orbit',
+  'Tundra Orbit': 'Tundra Orbit'
+}
 
   return (
     <View>
@@ -391,7 +403,16 @@ useEffect(() =>{
           rocket.RocketCapacity.map((capacity, index) => (
             <View style={styles.tableContainer} key={`capacity_${index}`}>
               <View style={styles.container}>
+              {/* <Pressable
+                onPress={() =>{
+                  if(documentName) {
+                  navigation.navigate("orbit", {
+                    documentName: documentName,
+                  })
+                  } else {}
+                }}> */}
                 <Text style={styles.payloadTitle}>{capacity.Description}</Text>
+                {/* </Pressable> */}
                 <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
             </View>

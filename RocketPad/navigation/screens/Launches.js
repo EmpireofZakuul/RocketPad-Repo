@@ -278,8 +278,8 @@ const styles = StyleSheet.create({
   },
 
   textLoading: {
-    fontWeight: "bold",
-    fontSize: 22,
+    fontFamily:'Roboto-Bold',
+    fontSize: 20,
     color: "black",
   },
   textLoadingContainer: {
