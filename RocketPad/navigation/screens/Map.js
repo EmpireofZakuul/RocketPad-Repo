@@ -76,8 +76,8 @@ const Map = () => {
               <Marker
                 key={index}
                 coordinate={{
-                  latitude: sites.Latitude,
-                  longitude: sites.Longitude,
+                  latitude: parseFloat(sites.Latitude),
+                  longitude: parseFloat(sites.Longitude),
                 }}
                 pinColor={
                   markerSelected && markerSelected.id === sites.id
@@ -95,6 +95,9 @@ const Map = () => {
                   //   longitudeDelta: 10,
                   // };
                   // animateToRegion(newRegion);
+
+               console.log("Latitude:", sites.Latitude),
+               console.log("Longitude:", sites.Longitude),
 
                   animateToRegion({
                     latitude: sites.Latitude,
@@ -421,19 +424,24 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     marginHorizontal: 15,
-    backgroundColor: "white",
+    backgroundColor: 'white',
+    shadowColor:'black',
+    shadowOffset:{width: 0, height:3},
+    shadowOpacity:0.2,
+    shadowRadius:2,
+    elevation:3,
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    position: "absolute",
-    top: 5,
-    right: 5,
-    backgroundColor: "transparent",
-    width: 56,
-    height: 56,
-    zIndex: 2,
-  },
+  // button: {
+  //   borderRadius: 20,
+  //   padding: 10,
+  //   position: "absolute",
+  //   top: 5,
+  //   right: 5,
+  //   backgroundColor: "transparent",
+  //   width: 56,
+  //   height: 56,
+  //   zIndex: 2,
+  // },
   icon: {
     alignItems: "center",
     justifyContent: "center",
@@ -492,11 +500,11 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     overflow: "hidden",
 
-    shadowColor: 'white',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 1,
-    shadowRadius: 15,
-    elevation: 8,
+    shadowColor:'green',
+    shadowOffset:{width: 0, height:3},
+    shadowOpacity:0.2,
+    shadowRadius:2,
+    elevation:3,
   },
   legendItem: {
     alignItems: "center",
