@@ -1,4 +1,4 @@
-import { View,  StyleSheet, ScrollView, Image, TouchableOpacity, Linking, ImageBackground,  } from 'react-native'
+import { View,  StyleSheet, ScrollView, Image, TouchableOpacity, Linking, ImageBackground, Dimensions } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { apiKey, endpoint, endpoint2, language, pageSize, searchTerm, domains, limit, offset} from '../../newsAPIConfig'
 import axios from 'axios'
@@ -13,6 +13,7 @@ const Home = ({ navigation }) => {
   const placeholder = "https://pbs.twimg.com/media/Fvd3qcoWcAMaVs8?format=jpg&name=large";
   const [loadingNews, setLoadingNews] = useState(false);
   const [rocketImage, setRocketImage] = useState(null);
+  const rocketSpotlightHeight = Dimensions.get('window').height * 0.92;  
 
   useEffect(() => {
     const rocketsRef = collection(FIRESTORE_DB, "ImageOfTheDay");
@@ -95,9 +96,9 @@ const Home = ({ navigation }) => {
     <ScrollView>
       {rocketImage && (
         <View>
-          <View key={rocketImage.id} style={styles.imageOfDay}>
+          <View key={rocketImage.id} style={{...styles.imageOfDay, height: rocketSpotlightHeight}}>
             <Image source={{ uri: rocketImage.img }} style={styles.image} />
-            <View style={styles.imageOfDayOverlay}></View>
+            <View style={{...styles.imageOfDayOverlay, height: rocketSpotlightHeight}}></View>
           </View>
 
           <View style={styles.rocketNameContainer}>
@@ -109,7 +110,7 @@ const Home = ({ navigation }) => {
             {/* <Chip icon="arrow-right" mode="outlined" onPress={() => console.log('Pressed')}>Explore</Chip> */}
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate("rocket", {
+                navigation.navigate("Rocket", {
                   rocketId: rocketImage.id,
                   rocketsImage: rocketImage.rocketImage,
                 })
@@ -232,7 +233,7 @@ const styles = StyleSheet.create({
 
   imageOfDay: {
     width: "100%",
-    height: 850,
+    // height: 850,
     position: "relative",
   },
 
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    height: 850,
+    // height: 850,
   },
 
   imageOfTheDayText: {

@@ -67,7 +67,7 @@ return (
               <View style={styles.orbitsContainer}>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: "Low Earth Orbit (LEO)",
                   })
                 }
@@ -92,7 +92,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: "Medium Earth Orbit (MEO)",
                   })
                 }
@@ -116,7 +116,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: "Geostationary Orbit (GEO)",
                   })
                 }
@@ -141,7 +141,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: "Geosynchronous Orbit (GSO)",
                   })
                 }
@@ -166,7 +166,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: "Semi - Synchronous Orbit ",
                   })
                 }
@@ -191,7 +191,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: "Lagrange Points",
                   })
                 }
@@ -216,7 +216,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: "Polar Orbit and Sun-Synchronous Orbit (SSO)",
                   })
                 }
@@ -241,7 +241,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName:
                       "Transfer Orbits and Geostationary Transfer Orbit (GTO)",
                   })
@@ -267,7 +267,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: "Molniya Orbit",
                   })
                 }
@@ -292,7 +292,7 @@ return (
 
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("orbit", { documentName: "Tundra Orbit" })
+                  navigation.navigate("Orbit", { documentName: "Tundra Orbit" })
                 }
               >
                 <View style={styles.card}>

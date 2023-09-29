@@ -17,14 +17,14 @@ import FamilyTree from './screens/FamilyTree';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const HomeScreen = 'home';
-const TimelineScreen = 'timeline';
-const LaunchesScreen = 'launches';
-const OrbitsScreen = 'orbits';
-const MapScreen = 'map';
-const OrbitScreen = 'orbit';
-const RocketScreen = 'rocket';
-const FamilyTreeScreen = 'familytree'
+const HomeScreen = 'Home';
+const TimelineScreen = 'Timeline';
+const LaunchesScreen = 'Launches';
+const OrbitsScreen = 'Orbits';
+const MapScreen = 'Map';
+const OrbitScreen = 'Orbit';
+const RocketScreen = 'Rocket';
+const FamilyTreeScreen = 'Familytree'
 
 
 export default function MainContainer() {

@@ -111,7 +111,7 @@ const sortRockets = (rockets, order) => {
       <FAB
     icon="timeline-clock"
     style={styles.fab}
-    onPress={() => navigation.navigate("timeline")}
+    onPress={() => navigation.navigate("Timeline")}
   />
 
 {/* <View style={styles.filterButtonContainer}>
@@ -175,7 +175,7 @@ const sortRockets = (rockets, order) => {
   <View >
 <TouchableOpacity 
                 onPress={() =>
-                  navigation.navigate("rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage })
+                  navigation.navigate("Rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage })
                 }>
                 <Card style={styles.cards}>
                 <View style={styles.cardContainer}>

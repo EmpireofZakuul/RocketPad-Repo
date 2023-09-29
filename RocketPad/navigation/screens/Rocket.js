@@ -113,7 +113,7 @@ const OrbitMap ={
     <View>
       <Appbar.Header>
     <Appbar.BackAction onPress={() => navigation.goBack()} />
-    <Appbar.Content title={rocket.Name} />
+    <Appbar.Content title="Rocket Information" />
   </Appbar.Header>
 
       <ScrollView style={styles.rocketContainer}>

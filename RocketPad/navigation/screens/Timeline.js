@@ -170,7 +170,7 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
               icon="family-tree"
               // icon="timeline-clock"
               style={styles.fab}
-              onPress={() => navigation.navigate("familytree")}
+              onPress={() => navigation.navigate("Familytree")}
             />
 
 
@@ -194,7 +194,7 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
                   <View style={styles.line} />
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage, })
+                      navigation.navigate("Rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage, })
                     }
                   >
                     <Card>

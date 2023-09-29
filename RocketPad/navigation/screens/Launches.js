@@ -11,7 +11,7 @@ const Launches = ({navigation}) => {
   const [loadingLaunches, setLoadingLaunches] = useState([]);
  const url = 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?mode=detailed'
  const [remainingTime, setRemainingTime] = useState('');
-const placeholder = 'https://www.tandempm.ie/wp-content/uploads/placeholder-85.png';
+const placeholder = 'https://live.staticflickr.com/65535/52638633506_903d299d21_3k.jpg';
 const [currentTime, setCurrentTime] = useState(Date.now());
 
 
@@ -118,7 +118,10 @@ return(
               {rocketLaunches.image ? (
  <Image source={{ uri: rocketLaunches.image}} style={styles.image}/>
               ) : (
+                <View style={styles.imageContainer}>
                 <Image source={{ uri: placeholder}} style={styles.image}/>
+                <Text style={styles.PlaceholderText}>Placeholder</Text>
+                </View>
               )}
            
 </View >
@@ -186,7 +189,7 @@ return(
                 <Pressable
                 onPress={() =>{
                   if(documentName) {
-                  navigation.navigate("orbit", {
+                  navigation.navigate("Orbit", {
                     documentName: documentName,
                   })
                   } else {}
@@ -475,5 +478,19 @@ fontFamily: 'Roboto-Bold',
   OrbitIcon:{
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  PlaceholderText: {
+    fontFamily: 'Roboto-Bold',
+    color: 'rgba(255, 255, 255, 0.7)',
+    textAlign: 'center',
+    fontSize: 26,
+    position: 'absolute',
+    top: '45%',
+    left: 0,
+    right: 0,
+    bottom: 0,
+
   }
+
+
 });

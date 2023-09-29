@@ -41,8 +41,8 @@ useEffect(() => {
          
       <Appbar.Header>
     <Appbar.BackAction onPress={() => navigation.goBack()} />
-    <Appbar.Content title={documentName} titleStyle={styles.appbarText} />
-  </Appbar.Header>
+    <Appbar.Content title="Orbit Information" titleStyle={styles.appbarText} />
+  </Appbar.Header> 
   
     <ScrollView>
       <View style={styles.container}>
@@ -86,6 +86,9 @@ useEffect(() => {
 {documentName === 'Geostationary Orbit (GEO)' && (
     <View>
       <Text style={styles.Header}>{rocketOrbit.Title}</Text>
+      <View style={styles.imageContainer3}>
+      <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text}</Text>
       <Text style={styles.text}>{rocketOrbit.Text2}</Text>
       <View style={styles.imageContainer}>
@@ -143,6 +146,9 @@ useEffect(() => {
       <Text style={styles.text}>{rocketOrbit.Text6}</Text>
       <Text style={styles.text}>{rocketOrbit.Text4}</Text>
       <Text style={styles.text}>{rocketOrbit.Text7}</Text>
+      <View style={styles.imageContainer4}>
+      <Image source={{ uri: rocketOrbit.Img2 }} style={styles.image} />
+      </View>
       <Text style={styles.text}>{rocketOrbit.Text8}</Text>
       <Text style={styles.text}>{rocketOrbit.Text9}</Text>
     </View>
@@ -280,7 +286,6 @@ const styles = StyleSheet.create({
   image2:{
     resizeMode: "contain",
     flex:1,
-    
   },
   Header:{
     fontSize: 26,
@@ -291,7 +296,7 @@ const styles = StyleSheet.create({
   },
 
   appbarText: {
-    fontFamily: 'Roboto-Bold'
+    fontFamily: 'Roboto-Regular'
   }
 
 });
