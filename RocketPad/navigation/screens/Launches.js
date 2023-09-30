@@ -13,8 +13,8 @@ const Launches = ({navigation}) => {
  const [remainingTime, setRemainingTime] = useState('');
 const placeholder = 'https://live.staticflickr.com/65535/52638633506_903d299d21_3k.jpg';
 const [currentTime, setCurrentTime] = useState(Date.now());
-
-
+// const [showMore, setShowMore] = useState(false);
+const [showMore, setShowMore] = useState({});
   const getLaunches = async () => {
     setLoadingLaunches(true);
 try{
@@ -177,7 +177,13 @@ return(
               <View style={styles.contentContainer}> 
               <Text style={styles.date}>{moment(rocketLaunches.net).format("DD MMMM YYYY @ h:mm A")}</Text>
             <View style={styles.mainContentContainer}>
+              <View>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'Go for Launch' ? '#00b300' : rocketLaunches.status?.name === 'Launch in Flight' ? '#00b300' : rocketLaunches.status?.name === 'Launch Successful' ? '#00b300': '#ff0000'}}>{rocketLaunches.status?.name}</Text></Text>
+              </View>
+       
+            {/* {showMore ? ( */}
+            {showMore[index] && (
+            <View>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Provider:</Text> {rocketLaunches.launch_service_provider?.name}</Text>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Launch Location:</Text> {rocketLaunches.pad?.name} - {rocketLaunches.pad?.location?.name}</Text>
             <View> 
@@ -209,25 +215,15 @@ return(
             <Text style={styles.subTitle}>{rocketLaunches.mission?.description}</Text>
             )}
             </View>
-         
             </View>
-            {/* <View style={styles.mainButtonContainer}>
-              
-        <TouchableOpacity onPress={() => Linking.openURL(rocketLaunches.agencies?.wiki_url)}>
-                  <View style={styles.rocketNameButton}>
-                    <Text style={styles.buttonText}>Watch</Text>
-                    <Icon style={styles.icon} name="play" size={25} color="black" />
-                    </View>
-                    </TouchableOpacity>
-                   
-
-                    <TouchableOpacity  onPress={() => Linking.openURL(rocketLaunches.agencies?.wiki_url)}>
-                  <View style={styles.rocketNameButton2}>
-                    <Text style={styles.buttonText}>More Info</Text>
-                    <Icon style={styles.icon} name="wikipedia" size={30} color="black" />
-                    </View>
-                    </TouchableOpacity>
-            </View> */}
+            // ): null}
+            )}
+                
+              {/* <Pressable onPress={() => setShowMore(!showMore)}> */}
+              <Pressable onPress={() => setShowMore({...showMore, [index]: !showMore[index]})}>
+                <Text style={styles.showMore}>{showMore[index] ? 'Show Less...' : 'Show More...'}</Text>
+              </Pressable>
+            </View>
             </View>
             </Card>
             </View>
@@ -490,6 +486,12 @@ fontFamily: 'Roboto-Bold',
     right: 0,
     bottom: 0,
 
+  },
+  showMore:{
+    fontFamily: 'Roboto-Regular',
+    fontSize: 16,
+    color: 'blue',
+    marginTop: 5,
   }
 
 

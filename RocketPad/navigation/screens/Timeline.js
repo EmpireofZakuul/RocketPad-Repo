@@ -427,7 +427,8 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   selectedButton: {
-    backgroundColor: "#00b300"
+    // backgroundColor: "#00b300"
+    backgroundColor: "rgba(193, 192, 249, 1)",
   },
   cancelButton:{
     fontFamily:'Roboto-Regualar',
