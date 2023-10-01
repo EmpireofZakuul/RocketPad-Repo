@@ -122,30 +122,6 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
           </View>
 
           <View style={styles.filterContainer}>
-            {/* <SegmentedButtons
-        value={countrySelected}
-        onValueChange={(country) => {
-          setCountrySelected((prevCountry) => (prevCountry === country ? '' : country));
-        }}
-        buttons={[
-          {
-            value: 'United States',
-            label: 'USA',
-          },
-          {
-            value: 'Europe',
-            label: 'Europe',
-          },
-          { 
-            value: 'India', 
-            label: 'India' 
-          },
-          { 
-            value: 'Japan', 
-            label: 'Japan' 
-          },
-        ]}
-      /> */}
             <TouchableOpacity style={[styles.buttons, countrySelected === 'United States' && styles.selectedButton]} onPress={() => CountryButtonSelected('United States')}><Text style={styles.buttonText}>USA</Text></TouchableOpacity>
             <TouchableOpacity style={[styles.buttons, countrySelected === 'Europe' && styles.selectedButton]} onPress={() => CountryButtonSelected('Europe')}><Text style={styles.buttonText}>Europe</Text></TouchableOpacity>
             <TouchableOpacity style={[styles.buttons, countrySelected === 'India' && styles.selectedButton]} onPress={() => CountryButtonSelected('India')}><Text style={styles.buttonText}>India</Text></TouchableOpacity>
