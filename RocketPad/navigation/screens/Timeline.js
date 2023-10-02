@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView , Keyboard, TextInput} from 'react-native';
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView , Keyboard, TextInput, LayoutAnimation, Pressable} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
@@ -15,11 +15,12 @@ const formatDate = (date) => {
 
 // const imgg = "https://designshack.net/wp-content/uploads/placeholder-image.png";
 
-const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClicked }) => {
+const Timeline = ({ navigation}) => {
   const [rockets, setRockets] = useState([]);
   const [loadingNews, setLoadingNews] = useState([]);
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [countrySelected, setCountrySelected] = useState('');
+  const [search, setSearch] = useState("");
 
   const CountryButtonSelected = (country) => {
     if (countrySelected === country) {
@@ -76,61 +77,53 @@ const Timeline = ({ navigation, clicked, searchPhrase, setSearchPhrase, setClick
     return () => subscribe();
   }, [countrySelected]);
 
-
-  // const searchRockets = rockets.filter((rocket) =>{
-  //   const rocketName = rocket.Name.toLowerCase().includes(searchPhrase.toLowerCase());
-  //   // const rocketContinent = rocket.id.toLowerCase().includes(searchPhrase.toLowerCase());
-  //   return rocketName 
-  // }, [searchPhrase]);
-
   return (
     <View>
       <Appbar.Header>
 
         <Appbar.Content title="Rocket Timeline" />
-        <Appbar.Action icon="magnify" onPress={() => setShowSearchBar(true)} />
       </Appbar.Header>
 
-      {showSearchBar && (
         <View style={styles.SearchBarContainer}>
-
-          <View style={styles.searchItems}>
-            <View style={styles.searchBar}>
-              < Feather name="search" size={20} color="black" style={{ marginLeft: 1 }} />
-
-              <TextInput style={styles.input} placeholder='Search' value={searchPhrase} onChangeText={setSearchPhrase} onFocus={() => {
-                setClicked(true);
-              }} />
-
-              {searchPhrase !== "" && (
-                <Entypo name='cross' size={20} color="black" style={{ padding: 1 }} onPress={() => {
-                  setSearchPhrase("")
-                }} />
-              )}
+        <View style={styles.SearchBarContainerItem}>
+            <View style={ showSearchBar ? styles.searchBarClicked : styles.searchBarUnclicked}>
+              < Feather name="search" size={20} color="grey" style={{ marginLeft: 1 }} />
+              <TextInput style={styles.input} placeholder='Search' value={search} onChangeText={setSearch} onFocus={() =>  { LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut), setShowSearchBar(true)}}/>
             </View>
 
+            {showSearchBar && (
             <View>
               <Button title="Cancel" onPress={() => {
                 Keyboard.dismiss();
                 setShowSearchBar(false);
+                setSearch("");
+                LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
               }}></Button>
             </View >
-          </View>
-
-          <View style={styles.textContainer}>
-            <Text style={styles.textFilter}>Search or Filter the Rocket Timeline</Text>
-          </View>
-
+            )}
+          </View >
+          
+          {showSearchBar && (
           <View style={styles.filterContainer}>
             <TouchableOpacity style={[styles.buttons, countrySelected === 'United States' && styles.selectedButton]} onPress={() => CountryButtonSelected('United States')}><Text style={styles.buttonText}>USA</Text></TouchableOpacity>
             <TouchableOpacity style={[styles.buttons, countrySelected === 'Europe' && styles.selectedButton]} onPress={() => CountryButtonSelected('Europe')}><Text style={styles.buttonText}>Europe</Text></TouchableOpacity>
             <TouchableOpacity style={[styles.buttons, countrySelected === 'India' && styles.selectedButton]} onPress={() => CountryButtonSelected('India')}><Text style={styles.buttonText}>India</Text></TouchableOpacity>
             <TouchableOpacity style={[styles.buttons, countrySelected === 'Japan' && styles.selectedButton]} onPress={() => CountryButtonSelected('Japan')}><Text style={styles.buttonText}>Japan</Text></TouchableOpacity>
           </View>
+          )}
+          
+          <View style={styles.searchResultsContainer}> 
+          {search !== "" && (
+          <TouchableOpacity onPress={() => console.log("Pressed")}>
+            <View style={styles.searchResultsItems}>
+          <Text style={styles.searchResultsText}>Hello</Text>
+          </View>
+          </TouchableOpacity>
+          )}
+          </View>
 
         </View>
 
-      )}
       <View style={styles.container}>
         {loadingNews ? (
           <View>
@@ -336,30 +329,37 @@ const styles = StyleSheet.create({
   },
 
   SearchBarContainer: {
-    margin: 15,
+    paddingVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    width: '90%',
-    alignSelf: 'center',
+    backgroundColor: '#fffbfe',
   },
-
-  searchItems: {
+  SearchBarContainerItem:{
+    alignItems: 'center',
     flexDirection: 'row',
-    width: '90%',
-    justifyContent: 'center',
-    lignItems: 'center',
   },
 
-  searchBar: {
+  searchBarUnclicked: {
     padding: 10,
     flexDirection: 'row',
-    width: '85%',
+    width: '95%',
+    backgroundColor: '#d9dbda',
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  searchBarClicked: {
+    padding: 10,
+    flexDirection: 'row',
+    width: '80%',
     backgroundColor: '#d9dbda',
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
+
   input: {
     fontSize: 20,
     marginLeft: 10,
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   },
 
   filterContainer: {
-    marginTop: 10,
+    marginVertical: 10,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
@@ -407,10 +407,27 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(193, 192, 249, 1)",
   },
   cancelButton:{
-    fontFamily:'Roboto-Regualar',
+    fontFamily:'Roboto-Regular',
     fontSize: 16,
-  }
+  },
 
+searchResultsContainer:{
+  width: '100%',
+},
+
+  searchResultsItems:{
+    height: 40,
+    width: '100%',
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: '#e0e0e0'
+  },
+searchResultsText:{
+  fontFamily:'Roboto-Regular',
+  fontSize: 16,
+}
 });
 
 
