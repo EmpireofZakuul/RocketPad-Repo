@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView , Keyboard, TextInput, LayoutAnimation, Pressable} from 'react-native';
+import { View, Text, Button, StyleSheet, ImageBackground, TouchableOpacity, ScrollView , Keyboard, TextInput, LayoutAnimation, KeyboardAvoidingView, Dimensions } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
@@ -21,7 +21,7 @@ const Timeline = ({ navigation}) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [countrySelected, setCountrySelected] = useState('');
   const [search, setSearch] = useState("");
-
+  const resultsHeight = Dimensions.get('window').height * 0.35;  
   const CountryButtonSelected = (country) => {
     if (countrySelected === country) {
       setCountrySelected('');
@@ -80,7 +80,6 @@ const Timeline = ({ navigation}) => {
   return (
     <View>
       <Appbar.Header>
-
         <Appbar.Content title="Rocket Timeline" />
       </Appbar.Header>
 
@@ -112,16 +111,23 @@ const Timeline = ({ navigation}) => {
           </View>
           )}
           
-          <View style={styles.searchResultsContainer}> 
+         
+
+          {/* <KeyboardAvoidingView style={styles.searchResultsContainer} behavior="padding" enabled> */}
+          <View style={styles.searchResultsContainer}>
+            <ScrollView style={search.length > 0 ? { height: resultsHeight} : {}} keyboardShouldPersistTaps="always">
           {search !== "" && (
-          <TouchableOpacity onPress={() => console.log("Pressed")}>
+            rockets.filter((rocket) => rocket.Name.toLowerCase().startsWith(search.toLowerCase())).map((rocket) => (   
+          <TouchableOpacity key={rocket.id} onPress={() =>{
+            navigation.navigate("Rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage, }); Keyboard.dismiss();}}>
             <View style={styles.searchResultsItems}>
-          <Text style={styles.searchResultsText}>Hello</Text>
+          <Text style={styles.searchResultsText}>{rocket.Name}</Text>
           </View>
           </TouchableOpacity>
-          )}
+          )))}   
+          </ScrollView>
           </View>
-
+          {/* </KeyboardAvoidingView> */}
         </View>
 
       <View style={styles.container}>
@@ -191,16 +197,13 @@ const Timeline = ({ navigation}) => {
 
               ))}
             </View>
-
-
-
           </ScrollView>
         )}
       </View>
 
     </View>
-
   );
+  
 };
 
 export default Timeline;
@@ -209,7 +212,7 @@ const styles = StyleSheet.create({
 
   container: {
     marginHorizontal: 10,
-    marginBottom: 220,
+    marginBottom: 340,
 
   },
   //   rockets:{
@@ -222,7 +225,7 @@ const styles = StyleSheet.create({
   rocketContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 30,
     marginTop: 40,
   },
 
@@ -416,8 +419,6 @@ searchResultsContainer:{
 },
 
   searchResultsItems:{
-    height: 40,
-    width: '100%',
     paddingHorizontal: 10,
     justifyContent: 'center',
     paddingVertical: 10,
