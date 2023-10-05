@@ -56,9 +56,7 @@ const Timeline = ({ navigation}) => {
             ID: ID
           };
 
-          // if (rocket.variant === "No") {
           RocketData.push(rocket);
-          // }
         });
 
         const rocketsFiltered = countrySelected === '' ? RocketData : RocketData.filter((rocket) => rocket.ID === countrySelected);

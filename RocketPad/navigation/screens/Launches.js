@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View , Image, TouchableOpacity, Linking, Pressable} from 'react-native'
+import { ScrollView, StyleSheet, Text, View , Image, TouchableOpacity, Linking, Pressable, LayoutAnimation} from 'react-native'
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import moment from 'moment/moment'
@@ -220,7 +220,7 @@ return(
             )}
                 
               {/* <Pressable onPress={() => setShowMore(!showMore)}> */}
-              <Pressable onPress={() => setShowMore({...showMore, [index]: !showMore[index]})}>
+              <Pressable onPress={() => {LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut), setShowMore({...showMore, [index]: !showMore[index]})}}>
                 <Text style={styles.showMore}>{showMore[index] ? 'Show Less...' : 'Show More...'}</Text>
               </Pressable>
             </View>
