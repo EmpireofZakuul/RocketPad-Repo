@@ -23,6 +23,7 @@ const Rocket = () => {
 const carouselContainerHeight = height;
   const scrollX = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation();
+  const imageGalleryWidth = Dimensions.get('window').width * 0.92;  
 
   const handleOnScroll = event => {
     Animated.event(
@@ -121,7 +122,7 @@ const OrbitMap ={
 
         <View style={styles.container}>
           <TouchableOpacity onPress={() => setModalVisible(true)}>
-            <View style={styles.imageContainer}>
+            <View style={[styles.imageContainer, {width: imageGalleryWidth}]}>
               {rocketImage.slice(0, 4).map((url, index) => (
                 <View key={index} style={styles.smallImageContainer}>
                   <Image source={{ uri: url }} style={styles.image} />
@@ -544,7 +545,7 @@ marginBottom: 120,
   Header: {
     fontSize: 26,
     lineHeight: 40,
-    marginBottom: 20,
+    marginBottom: 10,
     textAlign: "center",
     fontFamily: 'Roboto-Bold',
     marginTop: 20,
@@ -555,7 +556,7 @@ marginBottom: 120,
   },
   imageContainer: {
     borderRadius: 12,
-    width: 380,
+    // width: 380,
     height: 260,
     borderColor: "black",
     borderWidth: 5,
@@ -604,11 +605,11 @@ marginBottom: 120,
   },
 
   payloadTitle: {
-    fontSize: 20,
-    lineHeight: 28,
+    fontSize: 16,
+    lineHeight: 24,
     textAlign: "center",
     marginBottom: 5,
-    fontFamily: 'Roboto-Regular'
+    fontFamily: 'Roboto-Bold'
    
   },
 
