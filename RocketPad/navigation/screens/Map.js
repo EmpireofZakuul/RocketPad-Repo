@@ -53,9 +53,9 @@ const Map = () => {
 
   return (
     <PaperProvider>
-      <Appbar.Header>
+      {/* <Appbar.Header>
         <Appbar.Content title="Map" />
-      </Appbar.Header>
+      </Appbar.Header> */}
 
       <SafeAreaView style={styles.mapContainer}>
         <View style={styles.container}>
@@ -489,7 +489,7 @@ const styles = StyleSheet.create({
 
   legend: {
     position: "absolute",
-    top: 20,
+    top: 50,
     right: 20,
     flexDirection: "row",
     // alignItems: "center",

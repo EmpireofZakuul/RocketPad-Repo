@@ -39,8 +39,8 @@ useEffect(() => {
 
     <View>
          
-      <Appbar.Header>
-    <Appbar.BackAction onPress={() => navigation.goBack()} />
+      <Appbar.Header style={{backgroundColor: '#211F26'}}>
+    <Appbar.BackAction onPress={() => navigation.goBack()} color ='#FFFFFF'/>
     <Appbar.Content title="Orbit Information" titleStyle={styles.appbarText} />
   </Appbar.Header> 
   
@@ -296,7 +296,8 @@ const styles = StyleSheet.create({
   },
 
   appbarText: {
-    fontFamily: 'Roboto-Regular'
+    fontFamily: 'Roboto-Regular',
+    color: '#FFFFFF'
   }
 
 });

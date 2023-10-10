@@ -49,8 +49,8 @@ useEffect(() => {
 
 return (
   <View>
-    <Appbar.Header>
-      <Appbar.Content title="Orbits" />
+    <Appbar.Header style={{backgroundColor: '#211F26'}}>
+      <Appbar.Content title="Orbits" titleStyle={styles.appbarText}/>
     </Appbar.Header>
 
     <ScrollView>
@@ -405,6 +405,10 @@ const styles = StyleSheet.create({
 
   horizontalContainer:{
     marginHorizontal: -20,
+  },
+  appbarText: {
+    fontFamily: 'Roboto-Regular',
+    color: '#FFFFFF'
   }
 
 });

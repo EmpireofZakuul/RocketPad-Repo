@@ -112,9 +112,9 @@ const OrbitMap ={
 
   return (
     <View>
-      <Appbar.Header>
-    <Appbar.BackAction onPress={() => navigation.goBack()} />
-    <Appbar.Content title="Rocket Information" />
+      <Appbar.Header style={{backgroundColor: '#211F26'}}>
+    <Appbar.BackAction onPress={() => navigation.goBack()} color ='#FFFFFF'/>
+    <Appbar.Content title="Rocket Information" titleStyle={styles.appbarText}/>
   </Appbar.Header>
 
       <ScrollView style={styles.rocketContainer}>
@@ -125,7 +125,13 @@ const OrbitMap ={
             <View style={[styles.imageContainer, {width: imageGalleryWidth}]}>
               {rocketImage.slice(0, 4).map((url, index) => (
                 <View key={index} style={styles.smallImageContainer}>
-                  <Image source={{ uri: url }} style={styles.image} />
+                  <Image source={{ uri: url }} style={[styles.image,
+                  {
+                    borderTopLeftRadius: index === 0 ? 12 : 0,
+                    borderTopRightRadius: index === 1 ? 12 : 0,
+                    borderBottomLeftRadius: index === 2 ? 12 : 0,
+                    borderBottomRightRadius: index === 3 ? 12 : 0,
+                    }]} />
                 </View>
               ))}
 
@@ -555,11 +561,11 @@ marginBottom: 120,
     resizeMode: "cover",
   },
   imageContainer: {
-    borderRadius: 12,
+    borderRadius: 16,
     // width: 380,
     height: 260,
     borderColor: "black",
-    borderWidth: 5,
+    borderWidth: 4,
     overflow: "hidden",
     flexDirection: "row",
     flexWrap: "wrap",
@@ -625,6 +631,8 @@ marginBottom: 120,
     height: "50%",
     borderColor: "black",
     borderWidth: 2,
+    overflow: 'hidden',
+    backgroundColor: "black",
   },
   numberImages: {
     position: "absolute",
@@ -717,6 +725,10 @@ marginBottom: 120,
   video:{
     width: "100%",
     height: "100%",
+  },
+  appbarText: {
+    fontFamily: 'Roboto-Regular',
+    color: '#FFFFFF'
   }
 });
 

@@ -89,8 +89,8 @@ const formatCountdown = (countdown) => {
 
   return (
     <View>
-    <Appbar.Header>
-   <Appbar.Content title="Upcoming Rocket Launches" />
+    <Appbar.Header style={{backgroundColor: '#211F26'}}>
+   <Appbar.Content title="Upcoming Rocket Launches" titleStyle={styles.appbarText} />
    </Appbar.Header>
    
    <ScrollView>
@@ -492,7 +492,10 @@ fontFamily: 'Roboto-Bold',
     fontSize: 16,
     color: 'blue',
     marginTop: 5,
+  },
+  appbarText: {
+    fontFamily: 'Roboto-Regular',
+    color: '#FFFFFF'
   }
-
 
 });

@@ -77,14 +77,14 @@ const Timeline = ({ navigation}) => {
 
   return (
     <View>
-      <Appbar.Header>
-        <Appbar.Content title="Rocket Timeline" />
+      <Appbar.Header style={{backgroundColor: '#211F26'}}>
+        <Appbar.Content title="Rocket Timeline" titleStyle={styles.appbarText}/>
       </Appbar.Header>
 
         <View style={styles.SearchBarContainer}>
         <View style={styles.SearchBarContainerItem}>
             <View style={ showSearchBar ? styles.searchBarClicked : styles.searchBarUnclicked}>
-              < Feather name="search" size={20} color="grey" style={{ marginLeft: 1 }} />
+              < Feather name="search" size={20} color='grey' style={{ marginLeft: 1 }} />
               <TextInput style={styles.input} placeholder='Search' value={search} onChangeText={setSearch} onFocus={() =>  { LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut), setShowSearchBar(true)}}/>
             </View>
 
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    backgroundColor: '#fffbfe',
+    backgroundColor: '#211F26'
   },
   SearchBarContainerItem:{
     alignItems: 'center',
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     width: '95%',
-    backgroundColor: '#d9dbda',
+    backgroundColor: '#FFFFFF',
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     width: '80%',
-    backgroundColor: '#d9dbda',
+    backgroundColor: '#FFFFFF',
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'space-evenly',
@@ -366,6 +366,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: '90%',
     fontFamily:'Roboto-Medium',
+    borderColor: '#211F26'
   },
 
   filterContainer: {
@@ -390,12 +391,12 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'transparent',
-    backgroundColor: 'rgba(237, 237, 237, 0.8)',
+    backgroundColor: '#FFFFFF',
+    // backgroundColor: 'rgba(237, 237, 237, 0.8)',
     flex: 1,
     marginHorizontal: 5,
-    borderWidth: 1,
-    borderColor: '#e0e0e0'
+    // borderWidth: 1,
+    // borderColor: '#e0e0e0'
   },
 
   buttonText: {
@@ -420,12 +421,17 @@ searchResultsContainer:{
     paddingHorizontal: 10,
     justifyContent: 'center',
     paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: '#e0e0e0'
+    borderBottomWidth: 0.3,
+    borderColor: '#8e8e8f'
   },
 searchResultsText:{
   fontFamily:'Roboto-Regular',
   fontSize: 16,
+  color: '#FFFFFF'
+},
+appbarText: {
+  fontFamily: 'Roboto-Regular',
+  color: '#FFFFFF'
 }
 });
 

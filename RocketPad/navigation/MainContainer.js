@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+
 import Timeline from './screens/Timeline';
 import Home from './screens/Home';
 import Rocket from './screens/Rocket';
@@ -47,23 +48,30 @@ function TabNavigator() {
   return (
     <Tab.Navigator
       initialRouteName={HomeScreen}
-      screenOptions={({ route }) => ({
-        // tabBarStyle:{height: 80, },
-        // tabBarIconStyle: { fontSize: 10},
+      screenOptions={({ route}) => ({
+        tabBarStyle:{height: 80, backgroundColor: '#211F26', borderTopWidth: 0,},
+        tabBarActiveTintColor: '#21a097',
+        tabBarInactiveTintColor: '#FFFFFF',
+        tabBarLabelStyle: {fontFamily: 'Roboto-Medium', fontSize: 11},
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           let rn = route.name;
 
           if (rn === HomeScreen) {
             iconName = focused ? 'home' : 'home-outline';
+            
           } else if (rn === TimelineScreen) {
             iconName = focused ? 'timeline-clock' : 'timeline-clock-outline';
+
           } else if (rn === LaunchesScreen) {
             iconName = focused ? 'rocket' : 'rocket-outline';
+
           } else if (rn === OrbitsScreen) {
             iconName = focused ? 'orbit' : 'orbit';
+
           } else if (rn === MapScreen) {
             iconName = focused ? 'map' : 'map-outline';
+
           }
           
 
