@@ -10,7 +10,7 @@ import { FAB, Appbar } from 'react-native-paper';
 import ImageZoom from 'react-native-image-pan-zoom';
 
 
-const Rocket = () => {
+const Rocket = ({navigation}) => {
   const [rocket, setRocket] = useState({});
   const [rocketImage, setRocketImage] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -22,7 +22,7 @@ const Rocket = () => {
   const carouselContainerWidth = width;
 const carouselContainerHeight = height;
   const scrollX = useRef(new Animated.Value(0)).current;
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const imageGalleryWidth = Dimensions.get('window').width * 0.92;  
 
   const handleOnScroll = event => {
@@ -106,10 +106,14 @@ const OrbitMap ={
   'Sun-Synchronous Orbit': 'Polar Orbit and Sun-Synchronous Orbit (SSO)',
   'Polar Orbit': 'Polar Orbit and Sun-Synchronous Orbit (SSO)',
   'Geostationary Transfer Orbit': 'Transfer Orbits and Geostationary Transfer Orbit (GTO)',
+  'Geosynchronous Transfer Orbit': 'Transfer Orbits and Geostationary Transfer Orbit (GTO)',
   'Molniya Orbit': 'Molniya Orbit',
   'Tundra Orbit': 'Tundra Orbit'
 }
 
+const orbitCheck = (description) => {
+  return Object.keys(OrbitMap).find(orbit => description.includes(orbit));
+}
   return (
     <View>
       <Appbar.Header style={{backgroundColor: '#211F26'}}>
@@ -410,16 +414,24 @@ const OrbitMap ={
           rocket.RocketCapacity.map((capacity, index) => (
             <View style={styles.tableContainer} key={`capacity_${index}`}>
               <View style={styles.container}>
-              {/* <Pressable
+              <Pressable
                 onPress={() =>{
-                  if(documentName) {
-                  navigation.navigate("orbit", {
-                    documentName: documentName,
+                  const foundOrbit = orbitCheck(capacity.Description);
+                  if(foundOrbit) {
+                  navigation.navigate("Orbit", {
+                    documentName: OrbitMap[foundOrbit],
                   })
                   } else {}
-                }}> */}
-                <Text style={styles.payloadTitle}>{capacity.Description}</Text>
-                {/* </Pressable> */}
+                }}
+                style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+                  <View style={{flex: 1}}>
+                <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description}
+                {orbitCheck(capacity.Description) && ( 
+                <Icon name='chevron-right' size={25} style={{ color: 'blue', alignSelf: 'flex-end'}}/>
+                )}
+                </Text>
+                </View>
+                </Pressable>
                 <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
             </View>
@@ -523,6 +535,11 @@ const OrbitMap ={
 export default Rocket;
 
 const styles = StyleSheet.create({
+  OrbitIcon:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
   container: {
     marginHorizontal: 20,
     marginVertical: 20,
@@ -589,6 +606,7 @@ marginBottom: 120,
     fontFamily: 'Roboto-Bold',
     paddingBottom: 15,
     paddingTop: 15,
+    marginHorizontal: 5,
   },
 
   leftContainer: {
@@ -611,6 +629,15 @@ marginBottom: 120,
   },
 
   payloadTitle: {
+    fontSize: 16,
+    lineHeight: 24,
+    textAlign: "center",
+    marginBottom: 5,
+    fontFamily: 'Roboto-Bold',
+    color: 'blue',
+  },
+
+  payloadTitleNot: {
     fontSize: 16,
     lineHeight: 24,
     textAlign: "center",

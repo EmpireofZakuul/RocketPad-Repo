@@ -266,6 +266,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     color: "white",
     marginTop: 15,
+    marginRight: 10,
   },
 
   rocketNameContainer: {
