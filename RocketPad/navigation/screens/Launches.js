@@ -13,7 +13,7 @@ const Launches = ({navigation}) => {
  const [remainingTime, setRemainingTime] = useState('');
 const placeholder = 'https://live.staticflickr.com/65535/52638633506_903d299d21_3k.jpg';
 const [currentTime, setCurrentTime] = useState(Date.now());
-// const [showMore, setShowMore] = useState(false);
+const [showMoreAnimation, setShowMoreAnimation] = useState(false);
 const [showMore, setShowMore] = useState({});
   const getLaunches = async () => {
     setLoadingLaunches(true);
@@ -113,6 +113,7 @@ const documentName = OrbitMap[orbitName];
 return(
 
           <View key={index}>
+               <Pressable onPress={() => {LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut,), setShowMore({...showMore, [index]: !showMore[index]})}}>
             <Card style={styles.card}>
             <View style={styles.imageContainer}>
               {rocketLaunches.image ? (
@@ -220,12 +221,13 @@ return(
             )}
                 
               {/* <Pressable onPress={() => setShowMore(!showMore)}> */}
-              <Pressable onPress={() => {LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut), setShowMore({...showMore, [index]: !showMore[index]})}}>
+              {/* <Pressable onPress={() => {LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut), setShowMore({...showMore, [index]: !showMore[index]})}}> */}
                 <Text style={styles.showMore}>{showMore[index] ? 'Show Less...' : 'Show More...'}</Text>
-              </Pressable>
+              {/* </Pressable> */}
             </View>
             </View>
             </Card>
+            </Pressable>
             </View>
 );
         })}
@@ -416,6 +418,7 @@ fontFamily: 'Roboto-Bold',
     width: "100%",
     height: 250,
     flex: 1,
+    resizeMode:'cover'
   },
   boldText: {
     fontFamily: 'Roboto-Bold',
