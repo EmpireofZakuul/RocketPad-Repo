@@ -412,7 +412,7 @@ const orbitCheck = (description) => {
 
         {rocket.RocketCapacity &&
           rocket.RocketCapacity.map((capacity, index) => (
-            <View style={styles.tableContainer} key={`capacity_${index}`}>
+            <View style={styles.tableContainer2} key={`capacity_${index}`}>
               <View style={styles.container}>
               <Pressable
                 onPress={() =>{
@@ -422,15 +422,16 @@ const orbitCheck = (description) => {
                     documentName: OrbitMap[foundOrbit],
                   })
                   } else {}
-                }}
-                style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-                  <View style={{flex: 1}}>
-                <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description}
+                }}>
+      
+      <Text style={styles.textIcon}>
+                <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description} </Text>
+                <View style={{marginTop: -3, marginLeft: -30}}>
                 {orbitCheck(capacity.Description) && ( 
-                <Icon name='chevron-right' size={25} style={{ color: 'blue', alignSelf: 'flex-end'}}/>
+                <Icon name='chevron-right' size={25} style={{color: 'blue'}} />
                 )}
-                </Text>
-                </View>
+             </View>
+             </Text>
                 </Pressable>
                 <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
@@ -535,15 +536,10 @@ const orbitCheck = (description) => {
 export default Rocket;
 
 const styles = StyleSheet.create({
-  OrbitIcon:{
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
   container: {
     marginHorizontal: 20,
     marginVertical: 20,
-    flexGrow: 1,
+    // flexGrow: 1,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -626,6 +622,11 @@ marginBottom: 120,
 
   tableContainer: {
     flexDirection: "row",
+  },
+
+  tableContainer2: {
+    flexDirection: "row",
+    justifyContent:'center'
   },
 
   payloadTitle: {
@@ -756,6 +757,12 @@ marginBottom: 120,
   appbarText: {
     fontFamily: 'Roboto-Regular',
     color: '#FFFFFF'
+  },
+  textIcon:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    textAlign:'center',
+    justifyContent:'center'
   }
 });
 
