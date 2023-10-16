@@ -407,11 +407,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor:  "#1d2c4d",
   },
   mapContainer: {
     flex: 1,
     width: "100%",
     height: "100%",
+    backgroundColor:  "#1d2c4d",
   },
   mapStyle: {
     flex: 1,

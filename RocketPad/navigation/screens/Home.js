@@ -67,27 +67,6 @@ const Home = ({ navigation }) => {
     }
   };
 
-  // for (const term of searchTerm) {  old version of thew news api using the news api
-  //   const response = await axios.get(endpoint, {
-  //     params: {
-  //       domains: domains,
-  //       q: term,
-  //       language: language,
-  //       apiKey: apiKey,
-  //       pageSize: pageSize,
-  //       sortBy: 'publishedAt',
-  //     },
-  //   });
-  //   const articles = response.data.articles;
-  //   allNewsArticles.push(...articles);
-  // }
-
-  // allNewsArticles.sort
-  // const limitedArticles = allNewsArticles.slice(0, pageSize);
-  // setNewsArticles(limitedArticles);
-  // setLoadingNews(false);
-  // };
-
   useEffect(() => {
     getNewsArticles();
   }, []);
@@ -117,7 +96,7 @@ const Home = ({ navigation }) => {
               }
             >
               <View style={styles.rocketNameButton}>
-                <Text style={styles.buttonText}>Discover</Text>
+                <Text style={styles.buttonText}>View Rocket</Text>
                 <Icon
                   style={styles.icon}
                   name="arrow-right"
@@ -153,49 +132,6 @@ const Home = ({ navigation }) => {
           {newsArticles.map((article, index) => {
             return (
               <View key={index}>
-                {/* <TouchableOpacity onPress={() => Linking.openURL(article.url)}>
-            <Card style={styles.card}>
-                <Card.Cover source={{ uri: article.urlToImage }} />
-                <Card.Content style={styles.articleContent}>
-                  <Text variant="titleLarge" style={styles.title}>{article.title}</Text>
-                  <Text variant="bodyMedium" style={styles.description}>{moment(article.publishedAt).format("DD MMMM YYYY")} | {article.source.name}</Text>
-                </Card.Content>
-              </Card>
-            </TouchableOpacity> */}  
-
-
-
-
-
-
-
-
-            
-
-                {/* <TouchableOpacity onPress={() => Linking.openURL(article.url)}> 
-                  <Card style={styles.card}>
-                    <View style={styles.imageContainer}>
-                      {article.image_url ? (
-                        <Image source={{ uri: article.image_url}} style={styles.imageNews}/>
-                      ) : (
-                        <Image source={{ uri: placeholder }} style={styles.image}/>
-                      )}
-                    </View>
-                    <Card.Content style={styles.articleContent}>
-                      <Text variant="titleLarge" style={styles.title}>
-                        {article.title}
-                      </Text>
-                      <Text variant="bodyMedium" style={styles.description}>
-                        {moment(article.published_at).format("DD MMMM YYYY")} |{" "}
-                        {article.news_site}
-                      </Text>
-                    </Card.Content>
-                  </Card>
-                </TouchableOpacity> */}
-
-
-
-
                 <TouchableOpacity onPress={() => Linking.openURL(article.url)}> 
                   <Card style={styles.newNewsCard}>
                   <ImageBackground source={{ uri: article.image_url}} style={styles.imageContainerNews}>

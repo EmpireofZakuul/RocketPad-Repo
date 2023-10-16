@@ -424,14 +424,16 @@ const orbitCheck = (description) => {
                   } else {}
                 }}>
       
-      <Text style={styles.textIcon}>
+      <View style={styles.textIcon}>
+        <Text>
                 <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description} </Text>
-                <View style={{marginTop: -3, marginLeft: -30}}>
+                <View style={{marginTop: -4, marginLeft: -5}}>
                 {orbitCheck(capacity.Description) && ( 
                 <Icon name='chevron-right' size={25} style={{color: 'blue'}} />
                 )}
              </View>
              </Text>
+             </View>
                 </Pressable>
                 <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
@@ -634,7 +636,7 @@ marginBottom: 120,
     lineHeight: 24,
     textAlign: "center",
     marginBottom: 5,
-    fontFamily: 'Roboto-Bold',
+    fontFamily: 'Roboto-Medium',
     color: 'blue',
   },
 
@@ -761,8 +763,9 @@ marginBottom: 120,
   textIcon:{
     flexDirection: 'row',
     alignItems: 'center',
-    textAlign:'center',
-    justifyContent:'center'
+    // textAlign:'center',
+    // justifyContent:'center'
+    marginHorizontal: -6,
   }
 });
 
