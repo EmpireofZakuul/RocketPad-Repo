@@ -34,12 +34,6 @@ const Map = () => {
     return () => subscribe();
   }, []);
 
-  // const animateToRegion = (region) => {
-  //   if (mapRef.current) {
-  //     mapRef.current.animateToRegion(region, 3 * 1000);
-  //   }
-  // };
-
   const animateToRegion = (region) => {
     if (mapRef.current) {
       mapRef.current.animateCamera(
@@ -53,9 +47,6 @@ const Map = () => {
 
   return (
     <PaperProvider>
-      {/* <Appbar.Header>
-        <Appbar.Content title="Map" />
-      </Appbar.Header> */}
 
       <SafeAreaView style={styles.mapContainer}>
         <View style={styles.container}>
@@ -88,13 +79,6 @@ const Map = () => {
                 }
                 onPress={() => {
                   setMarkerSelected(sites);
-                  // const newRegion = {
-                  //   latitude: sites.Latitude,
-                  //   longitude: sites.Longitude,
-                  //   latitudeDelta: 10,
-                  //   longitudeDelta: 10,
-                  // };
-                  // animateToRegion(newRegion);
 
                console.log("Latitude:", sites.Latitude),
                console.log("Longitude:", sites.Longitude),
