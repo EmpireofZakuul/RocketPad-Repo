@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View} from 'react-native'
+import { StyleSheet, Text, View, Pressable} from 'react-native'
 import React, {useEffect, useRef, useState} from 'react'
 import { collection, onSnapshot} from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
@@ -14,6 +14,8 @@ const Map = () => {
   const hideModal = () => setVisible(false);
   const [markerSelected, setMarkerSelected] = useState(null);
   const mapRef = useRef(null);
+  const [showActive, setShowActive] = useState(true);
+  const [showNonActive, setShowNonActive] = useState(true);
 
   useEffect(() => {
     const orbitsRef = collection(FIRESTORE_DB, "LaunchSites");
@@ -63,7 +65,9 @@ const Map = () => {
             customMapStyle={mapStyle}
             apiKey={API_KEY}
           >
-            {launchLocations.map((sites, index) => (
+            {launchLocations.map((sites, index) => {
+              if ((showActive && sites.Status === "active") || (showNonActive && sites.Status === "non-active")) {
+               return(
               <Marker
                 key={index}
                 coordinate={{
@@ -90,20 +94,23 @@ const Map = () => {
                   showModal(sites);
                 }}
               ></Marker>
-            ))}
+               );
+              }
+              return null;
+              })}
           </MapView>
           <View style={styles.legend}>
-            <View style={styles.legendItem}>
+            <Pressable style={[styles.legendItem,{opacity: showActive ? 1 : 0.4}]} onPress={() => setShowActive(!showActive)}>
               <View
-                style={[styles.legendColour, { backgroundColor: "#00b300" }]}
+                style={[styles.legendColour, { backgroundColor: "#00b300"}]}
               />
               <Text style={styles.legendText}>Active Launch Sites</Text>
-            </View>
+            </Pressable>
 
-            <View style={styles.legendItem}>
-              <View style={[styles.legendColour, { backgroundColor: "#ff0000" }]} />
+            <Pressable style={[styles.legendItem,{opacity: showNonActive ? 1 : 0.4}]} onPress={() => setShowNonActive(!showNonActive)}>
+              <View style={[styles.legendColour, { backgroundColor: "#ff0000"}]} />
               <Text style={styles.legendText}>Non-Active Launch Sites</Text>
-            </View>
+            </Pressable>
           </View>
           <Portal>
             <Modal
