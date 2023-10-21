@@ -219,11 +219,10 @@ return(
             </View>
             // ): null}
             )}
-                
-              {/* <Pressable onPress={() => setShowMore(!showMore)}> */}
-              {/* <Pressable onPress={() => {LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut), setShowMore({...showMore, [index]: !showMore[index]})}}> */}
-                <Text style={styles.showMore}>{showMore[index] ? 'Show Less...' : 'Show More...'}</Text>
-              {/* </Pressable> */}
+                <View style={{flexDirection: 'row'}}>
+                <Icon name={showMore[index] ? 'chevron-up' : 'chevron-down'} size={25} style={{marginTop: 2, color: 'blue'}}/>
+                 <Text style={styles.showMore}>{showMore[index] ? 'Show Less' : 'Show More'}</Text>
+                 </View>
             </View>
             </View>
             </Card>
