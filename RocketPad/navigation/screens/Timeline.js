@@ -154,17 +154,12 @@ const Timeline = ({ navigation}) => {
                 <View style={styles.vertLine}></View>
               </View>
               {rockets.map((rocket, index) => (
-                <View
-                  style={[
-                    styles.rocketContainer,
-                    index % 2 !== 0 && styles.mirroredContainer,
-                  ]}
-                  key={index}
-                >
-                  <View style={styles.dateContainer}>
+                <View style={[ styles.rocketContainer,index % 2 !== 0 && styles.mirroredContainer,]} key={index}>
+                  <View style={styles.dateContainer2}>
                     <Text style={styles.date}>{rocket.FirstLaunch}</Text>
                   </View>
-                  <View style={styles.line} />
+                  <View style={[styles.circle, { left: index % 2 !==0 ? '50%' : '50%', marginLeft: index % 2 !==0 ? -16 : -14}]}/>
+                  <View style={styles.line}/>
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("Rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage, })
@@ -223,8 +218,10 @@ const styles = StyleSheet.create({
   rocketContainer: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: 'center',
     marginBottom: 30,
     marginTop: 40,
+    position: 'relative',
   },
 
   cardContainer: {
@@ -250,19 +247,44 @@ const styles = StyleSheet.create({
   },
   dateContainer: {
     width: 150,
-    marginRight: 8,
+    height: 60,
     alignItems: "center",
     justifyContent: "center",
+    borderColor: 'Grey',
+    borderWidth: 2,
+    borderRadius: 12,
+
+    shadowColor:'black',
+    shadowOffset:{width: 0, height:3},
+    shadowOpacity:0.2,
+    shadowRadius:2,
+    elevation:3,
+    paddingHorizontal: 10, 
+  },
+  dateContainer2: {
+    width: 200,
+    // height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 15,
   },
   date: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: "center",
     fontFamily: 'Roboto-Bold'
   },
   line: {
     flex: 1,
     borderBottomColor: "black",
-    borderBottomWidth: 4,
+    borderBottomWidth: 0,
+  },
+  circle: {
+    position: 'absolute',
+    width: 30,
+    height: 30,
+    borderRadius: 100 / 2,
+    backgroundColor: "#21a097",
+    borderWidth: 4
   },
   card: {
     width: 160,
@@ -319,6 +341,8 @@ const styles = StyleSheet.create({
 
   mirroredContainer: {
     flexDirection: "row-reverse",
+    alignItems: "center",
+    justifyContent: 'center',
   },
 
   fab: {
