@@ -155,10 +155,10 @@ const Timeline = ({ navigation}) => {
               </View>
               {rockets.map((rocket, index) => (
                 <View style={[ styles.rocketContainer,index % 2 !== 0 && styles.mirroredContainer,]} key={index}>
-                  <View style={styles.dateContainer2}>
+                  <View style={[styles.dateContainer2, {paddingLeft: index % 2 !==0 ? 15 : 0, paddingRight: index % 2 ===0 ? 15 : 0}]}>
                     <Text style={styles.date}>{rocket.FirstLaunch}</Text>
                   </View>
-                  <View style={[styles.circle, { left: index % 2 !==0 ? '50%' : '50%', marginLeft: index % 2 !==0 ? -16 : -14}]}/>
+                  <View style={[styles.circle, { left: index % 2 !==0 ? '50%' : '50%', marginLeft: index % 2 !==0 ? -15 : -12}]}/>
                   <View style={styles.line}/>
                   <TouchableOpacity
                     onPress={() =>
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     // height: 60,
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
   },
   date: {
     fontSize: 18,
@@ -280,8 +280,8 @@ const styles = StyleSheet.create({
   },
   circle: {
     position: 'absolute',
-    width: 30,
-    height: 30,
+    width: 26,
+    height: 26,
     borderRadius: 100 / 2,
     backgroundColor: "#21a097",
     borderWidth: 4
