@@ -763,8 +763,6 @@ marginBottom: 120,
   textIcon:{
     flexDirection: 'row',
     alignItems: 'center',
-    // textAlign:'center',
-    // justifyContent:'center'
     marginHorizontal: -6,
   }
 });
