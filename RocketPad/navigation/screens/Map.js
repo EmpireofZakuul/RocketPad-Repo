@@ -2,9 +2,9 @@ import { StyleSheet, Text, View, Pressable} from 'react-native'
 import React, {useEffect, useRef, useState} from 'react'
 import { collection, onSnapshot} from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
-import { API_KEY } from '../../mapConfig';
+// import { API_KEY } from '../../mapConfig';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
-import { Modal, Portal, PaperProvider, Appbar } from 'react-native-paper';
+import { Modal, Portal, PaperProvider} from 'react-native-paper';
 import {SafeAreaView } from 'react-native-safe-area-context';
 
 const Map = () => {
@@ -21,11 +21,11 @@ const Map = () => {
     const orbitsRef = collection(FIRESTORE_DB, "LaunchSites");
     const subscribe = onSnapshot(orbitsRef, {
       next: (snapshot) => {
-        console.log("updated");
+        // console.log("updated");
 
         const locations = [];
         snapshot.docs.forEach((doc) => {
-          console.log(doc.id);
+          // console.log(doc.id);
           locations.push({ id: doc.id, ...doc.data() });
         });
 
@@ -51,7 +51,7 @@ const Map = () => {
     <PaperProvider>
 
       <SafeAreaView style={styles.mapContainer}>
-        <View style={styles.container}>
+        {/* <View style={styles.container}> */}
           <MapView
             style={styles.mapStyle}
             provider={PROVIDER_GOOGLE}
@@ -59,11 +59,11 @@ const Map = () => {
             region={{
               latitude: 48.7485320459443,
               longitude: 10.464650688166566,
-              latitudeDelta: 50,
-              longitudeDelta: 50,
+              latitudeDelta: 0.015,
+              longitudeDelta: 0.015,
             }}
             customMapStyle={mapStyle}
-            apiKey={API_KEY}
+            // apiKey={API_KEY}
           >
             {launchLocations.map((sites, index) => {
               if ((showActive && sites.Status === "active") || (showNonActive && sites.Status === "non-active")) {
@@ -84,8 +84,8 @@ const Map = () => {
                 onPress={() => {
                   setMarkerSelected(sites);
 
-               console.log("Latitude:", sites.Latitude),
-               console.log("Longitude:", sites.Longitude),
+              //  console.log("Latitude:", sites.Latitude),
+              //  console.log("Longitude:", sites.Longitude),
 
                   animateToRegion({
                     latitude: sites.Latitude,
@@ -149,7 +149,7 @@ const Map = () => {
               </View>
             </Modal>
           </Portal>
-        </View>
+        {/* </View> */}
       </SafeAreaView>
     </PaperProvider>
   );
@@ -401,15 +401,19 @@ const styles = StyleSheet.create({
     backgroundColor:  "#1d2c4d",
   },
   mapContainer: {
-    flex: 1,
+    // flex: 1,
+    ...StyleSheet.absoluteFillObject,
     width: "100%",
     height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor:  "#1d2c4d",
   },
   mapStyle: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
+    // flex: 1,
+    // width: "100%",
+    // height: "100%",
+    ...StyleSheet.absoluteFillObject,
   },
   contentContainer: {
     backgroundColor: "white",

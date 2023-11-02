@@ -69,7 +69,7 @@ const sortRockets = (rockets, order) => {
 
   const FilterValue = (value) =>{
     setFilterValue(value);
-    console.log(value);
+    // console.log(value);
   }
 
   const rocketPositions = {

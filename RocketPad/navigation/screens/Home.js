@@ -31,8 +31,8 @@ const Home = ({ navigation }) => {
           };
           RocketData.push(rocket);
         });
-        console.log(RocketData),
-          console.log("Number of documents:", snapshot.docs.length);
+        // console.log(RocketData),
+        //   console.log("Number of documents:", snapshot.docs.length);
 
         const randomIndex = Math.floor(Math.random() * RocketData.length);
         setRocketImage(RocketData[randomIndex]);

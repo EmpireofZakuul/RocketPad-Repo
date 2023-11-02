@@ -12,7 +12,19 @@
       }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env":{
+        "apiKey": "AIzaSyAcPwBM4EkP3WEuXd-kAJe8LuABBsT0R9w",
+        "authDomain": "rocketpad-9e6a4.firebaseapp.com",
+        "projectId": "rocketpad-9e6a4",
+        "storageBucket": "rocketpad-9e6a4.appspot.com",
+        "messagingSenderId": "116702870781",
+        "appId": "1:116702870781:web:425ea0d8e836981dfd9294",
+        "measurementId": "G-H4EJ79L70J"
+      }
     },
     "production": {}
   },
