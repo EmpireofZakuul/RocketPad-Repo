@@ -59,8 +59,8 @@ const Map = () => {
             region={{
               latitude: 48.7485320459443,
               longitude: 10.464650688166566,
-              latitudeDelta: 0.015,
-              longitudeDelta: 0.015,
+              latitudeDelta: 50,
+              longitudeDelta: 50,
             }}
             customMapStyle={mapStyle}
             // apiKey={API_KEY}
