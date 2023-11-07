@@ -30,7 +30,7 @@ const FamilyTreeScreen = 'Familytree'
 
 export default function MainContainer() {
   return (
-    <NavigationContainer>
+    <NavigationContainer tabBarOptions={{ style: { topBorderWidth: 0 } }}>
       <Stack.Navigator>
         {/* <Stack.Screen name='TabNavigator' component={TabNavigator} options={{ headerShown: false }} /> */}
         <Stack.Screen name='TabNavigator' component={TabNavigator} options={{ headerShown: false }} />

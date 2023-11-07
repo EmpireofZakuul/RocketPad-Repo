@@ -4,6 +4,7 @@ import { collection, query, onSnapshot, orderBy } from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
 import {ActivityIndicator, MD2Colors,FAB, Card, Button, Modal, Appbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const FamilyTree = ({ navigation }) => {
 
@@ -49,9 +50,6 @@ const sortRockets = (rockets, order) => {
             rocketCapacity: RocketCapacity,
             stages: Stages,
             variant: Variant,
-            
-            // top: 0,
-            // left: 0,
           };
 
 
@@ -92,11 +90,9 @@ const sortRockets = (rockets, order) => {
 
   return (
     <View>
-          <Appbar.Header>
-   
-   <Appbar.Content title="Rocket FamilyTree" />
-   {/* <Appbar.Action icon="magnify" onPress={() => setShowSearchBar(true)} /> */}
- </Appbar.Header>
+        <Appbar.Header style={{backgroundColor: '#211F26'}}>
+        <Appbar.Content title="Rocket Timeline" titleStyle={styles.appbarText}/>
+      </Appbar.Header>
    
     <View style={styles.container}>
        {loadingNews ?(
@@ -107,7 +103,7 @@ const sortRockets = (rockets, order) => {
           <View style={styles.textLoadingContainer}><Text style={styles.textLoading}>Launching Rockets.......</Text></View>
           </View>
       ) : (
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
       <FAB
     icon="timeline-clock"
     style={styles.fab}
@@ -173,25 +169,32 @@ const sortRockets = (rockets, order) => {
 {rocketsFamilyTree.map((rocket, index) => (   
 <View key={index} style={[styles.rocketPosition,  rocketPositionsUpdated(rocket.Name)]}>
   <View >
-<TouchableOpacity 
-                onPress={() =>
-                  navigation.navigate("Rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage })
-                }>
-                <Card style={styles.cards}>
-                <View style={styles.cardContainer}>
-                
-                  <View style={styles.card}>
-                    <ImageBackground
-                      source={{ uri: rocket.image }}
-                      style={styles.image}
-                    >
-                      <Text style={styles.rocketName}>{rocket.Name}</Text>
-                    </ImageBackground>
-                  </View>
-                  
-                </View>
-                </Card>
-              </TouchableOpacity>
+  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate("Rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage, })
+                    }
+                  >
+                    <Card>
+                      <View style={styles.cardContainer}>
+                        <View style={styles.card}>
+                          <ImageBackground
+                            source={{ uri: rocket.image }}
+                            style={styles.image}
+                          >
+                            <LinearGradient
+                              colors={['rgba(0, 0, 0, 0.9)', 'rgba(0, 0, 0, 0.2)', 'transparent']}
+                              style={styles.gradient}
+                              start={[0.5, 1]}
+                              end={[0.5, 0.5]}
+                            />
+                            <Text style={styles.rocketName}>{rocket.Name}</Text>
+                          </ImageBackground>
+                        </View>
+
+                      </View>
+                    </Card>
+                  </TouchableOpacity>
+
               </View>
               </View>
               
@@ -233,19 +236,9 @@ const styles = StyleSheet.create({
         marginTop: 60,
     },
 
-      // fabFilter: {
-      //   position: 'absolute',
-      //   margin: 16,
-      //   top: 0,
-      //   // right: 300,
-      //   marginBottom: 40,
-      //   justifyContent: 'flex-start',
-      // },
       container: {
         marginHorizontal: 10,
         marginBottom: 220,
-        // paddingTop: 10,
-    // flex: 1,
       },
       rocketContainer:{
 marginTop:60,
@@ -273,9 +266,13 @@ marginTop:60,
       width: 160,
       height: 200,
       },
-      cards:{
-        // marginBottom: 40,
-        // marginTop: 40,
+  
+      gradient: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        top: '10%',
       },
       image: {
         flex: 1,
@@ -284,7 +281,7 @@ marginTop:60,
         alignItems: "center",
       },
       rocketName: {
-        fontWeight: "bold",
+        fontFamily: 'Roboto-Bold',
         fontSize: 18,
         color: "white",
         marginBottom: 20,
@@ -298,11 +295,6 @@ marginTop:60,
         alignItems: 'center',
        
       },
-
-      // rocketPositionMargin:{
-      //   marginBottom: -40,
-      //   marginTop: -40,
-      // },
 
       centeredView: {
         flex: 1,
@@ -326,4 +318,8 @@ marginTop:60,
         shadowRadius: 4,
         elevation: 5,
       },
+      appbarText: {
+        fontFamily: 'Roboto-Regular',
+        color: '#FFFFFF'
+      }
 })

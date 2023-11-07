@@ -53,7 +53,7 @@ return (
       <Appbar.Content title="Orbits" titleStyle={styles.appbarText}/>
     </Appbar.Header>
 
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         {orbits.map((RocketOrbit, index) => (
           <View key={index}>

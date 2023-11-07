@@ -44,7 +44,7 @@ useEffect(() => {
     <Appbar.Content title="Orbit Information" titleStyle={styles.appbarText} />
   </Appbar.Header> 
   
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         {rocketOrbits.map((rocketOrbit, index) => (
           <View key={index}>

@@ -93,7 +93,7 @@ const formatCountdown = (countdown) => {
    <Appbar.Content title="Upcoming Rocket Launches" titleStyle={styles.appbarText} />
    </Appbar.Header>
    
-   <ScrollView>
+   <ScrollView showsVerticalScrollIndicator={false}>
          {loadingLaunches ?(
      <View>
      <View style={styles.loadingContainer}>

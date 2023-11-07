@@ -76,7 +76,7 @@ const Timeline = ({ navigation}) => {
   }, [countrySelected]);
 
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Appbar.Header style={{backgroundColor: '#211F26'}}>
         <Appbar.Content title="Rocket Timeline" titleStyle={styles.appbarText}/>
       </Appbar.Header>
@@ -137,7 +137,7 @@ const Timeline = ({ navigation}) => {
             <View style={styles.textLoadingContainer}><Text style={styles.textLoading}>Launching Rockets.......</Text></View>
           </View>
         ) : (
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
 
             <FAB
               icon="family-tree"
@@ -205,15 +205,14 @@ const styles = StyleSheet.create({
 
   container: {
     marginHorizontal: 10,
-    marginBottom: 340,
-
+    height:'100%'
   },
-  //   rockets:{
-  // marginTop: 30,
-  //   },
+
   timeline: {
     flexDirection: "column",
     alignItems: "flex-start",
+   flex:1,
+   marginBottom: 175,
   },
   rocketContainer: {
     flexDirection: "row",

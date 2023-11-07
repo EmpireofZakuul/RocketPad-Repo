@@ -72,7 +72,7 @@ const Home = ({ navigation }) => {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}> 
       {rocketImage && (
         <View>
           <View key={rocketImage.id} style={{...styles.imageOfDay, height: rocketSpotlightHeight}}>

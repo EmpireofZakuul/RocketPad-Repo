@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, Pressable} from 'react-native'
 import React, {useEffect, useRef, useState} from 'react'
 import { collection, onSnapshot} from 'firebase/firestore';
 import { FIRESTORE_DB } from '../../firebaseConfig';
-// import { API_KEY } from '../../mapConfig';
+import { API_KEY } from '../../mapConfig';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import { Modal, Portal, PaperProvider} from 'react-native-paper';
 import {SafeAreaView } from 'react-native-safe-area-context';
@@ -63,7 +63,7 @@ const Map = () => {
               longitudeDelta: 50,
             }}
             customMapStyle={mapStyle}
-            // apiKey={API_KEY}
+            apiKey={API_KEY}
           >
             {launchLocations.map((sites, index) => {
               if ((showActive && sites.Status === "active") || (showNonActive && sites.Status === "non-active")) {
