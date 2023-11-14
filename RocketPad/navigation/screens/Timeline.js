@@ -221,6 +221,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     marginTop: 40,
     position: 'relative',
+    flex: 1,
   },
 
   cardContainer: {
@@ -261,11 +262,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, 
   },
   dateContainer2: {
-    width: 200,
-    // height: 60,
+    width:'50%',
     alignItems: "center",
     justifyContent: "center",
-    // paddingHorizontal: 15,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   date: {
     fontSize: 18,

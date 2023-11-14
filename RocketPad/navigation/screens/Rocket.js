@@ -115,7 +115,7 @@ const orbitCheck = (description) => {
   return Object.keys(OrbitMap).find(orbit => description.includes(orbit));
 }
   return (
-    <View>
+    <View style={{flex: 1}}>
       <Appbar.Header style={{backgroundColor: '#211F26'}}>
     <Appbar.BackAction onPress={() => navigation.goBack()} color ='#FFFFFF'/>
     <Appbar.Content title="Rocket Information" titleStyle={styles.appbarText}/>
@@ -424,7 +424,7 @@ const orbitCheck = (description) => {
                   } else {}
                 }}>
       
-      <View style={styles.textIcon}>
+      {/* <View style={styles.textIcon}>
         <Text>
                 <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description} </Text>
                 <View style={{marginTop: -4, marginLeft: -5}}>
@@ -433,7 +433,11 @@ const orbitCheck = (description) => {
                 )}
              </View>
              </Text>
-             </View>
+             </View> */}
+      <View style={{ flexDirection: 'row', alignItems: 'baseline', flex:1, marginHorizontal: -6 }}>
+    <Text style={styles.payloadTitle}>{capacity.Description}</Text>
+    <Icon name='chevron-right' size={25} style={{color: 'blue'}} />
+</View>
                 </Pressable>
                 <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
@@ -541,12 +545,12 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
     marginVertical: 20,
-    // flexGrow: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   rocketContainer: {
-marginBottom: 120,
+// marginBottom: 120,
+height: '100%'
   },
   leftSideText: {
     fontSize: 16,
@@ -624,11 +628,14 @@ marginBottom: 120,
 
   tableContainer: {
     flexDirection: "row",
+    flex:1
   },
 
   tableContainer2: {
     flexDirection: "row",
-    justifyContent:'center'
+    justifyContent:'center',
+    flex:1,
+    alignItems: 'center' 
   },
 
   payloadTitle: {
@@ -638,6 +645,15 @@ marginBottom: 120,
     marginBottom: 5,
     fontFamily: 'Roboto-Medium',
     color: 'blue',
+    flexWrap: 'wrap',
+    width: '95%'
+  },
+
+
+  textIcon: {
+    flexDirection: "row",
+    alignItems: "center",
+    // marginHorizontal: -6,
   },
 
   payloadTitleNot: {
@@ -707,7 +723,7 @@ marginBottom: 120,
     flex: 1,
     margin: 0,
     backgroundColor: "black",
-    borderRadius: 20,
+    // borderRadius: 20,
     width: "100%",
     height: "100%",
     alignItems: "center",

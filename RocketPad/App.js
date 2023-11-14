@@ -2,6 +2,7 @@
 import * as React from 'react';
 import MainContainer from './navigation/MainContainer';
 import { useFonts } from 'expo-font';
+import { StatusBar } from "react-native";
 
 function App() {
   const [fontsLoaded] = useFonts({
@@ -18,8 +19,14 @@ function App() {
   }
 
   return (
-    
+    <>
+    <StatusBar
+    barStyle="light-content"
+    backgroundColor="transparent"
+    translucent={true}
+  />
     <MainContainer/>
+    </>
   );
 }
 

@@ -58,7 +58,7 @@ return (
         {orbits.map((RocketOrbit, index) => (
           <View key={index}>
             <Text style={styles.Header}>{RocketOrbit.Title}</Text>
-            <Image source={{ uri: RocketOrbit.Img3 }} style={styles.image} />
+            {/* <Image source={{ uri: RocketOrbit.Img3 }} style={styles.image} /> */}
             <Text style={styles.text}>{RocketOrbit.Text}</Text>
             <Text style={styles.text}>{RocketOrbit.Text2}</Text>
             <Text style={styles.Header}>{RocketOrbit.OrbitsTitle}</Text>
