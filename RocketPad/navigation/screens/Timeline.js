@@ -179,7 +179,7 @@ const Timeline = ({ navigation}) => {
                               end={[0.5, 0.5]}
                             />
                             <Text style={styles.rocketName}>{rocket.Name}</Text>
-                          </ImageBackground>
+                          </ImageBackground>   
                         </View>
 
                       </View>
