@@ -413,8 +413,9 @@ const orbitCheck = (description) => {
         {rocket.RocketCapacity &&
           rocket.RocketCapacity.map((capacity, index) => (
             <View style={styles.tableContainer2} key={`capacity_${index}`}>
-              <View style={styles.container}>
+              <View style={{ marginVertical: 20,}}>
               <Pressable
+              style={{marginVertical: 10}}
                 onPress={() =>{
                   const foundOrbit = orbitCheck(capacity.Description);
                   if(foundOrbit) {
@@ -424,20 +425,24 @@ const orbitCheck = (description) => {
                   } else {}
                 }}>
       
-      {/* <View style={styles.textIcon}>
+       <View style={styles.textIcon}>
         <Text>
                 <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description} </Text>
-                <View style={{marginTop: -4, marginLeft: -5}}>
+                <View style={{marginTop: -4}}>
                 {orbitCheck(capacity.Description) && ( 
                 <Icon name='chevron-right' size={25} style={{color: 'blue'}} />
                 )}
              </View>
              </Text>
-             </View> */}
-      <View style={{ flexDirection: 'row', alignItems: 'baseline', flex:1, marginHorizontal: -6 }}>
-    <Text style={styles.payloadTitle}>{capacity.Description}</Text>
-    <Icon name='chevron-right' size={25} style={{color: 'blue'}} />
-</View>
+             </View> 
+
+             {/* <View style={styles.textIcon}>
+                <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description} </Text>
+                {orbitCheck(capacity.Description) && ( 
+                <Icon name='chevron-right' size={25} style={{color: 'blue'}} />
+                )}
+
+             </View>  */}
                 </Pressable>
                 <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
@@ -635,7 +640,8 @@ height: '100%'
     flexDirection: "row",
     justifyContent:'center',
     flex:1,
-    alignItems: 'center' 
+    alignItems: 'center', 
+    marginHorizontal: 10
   },
 
   payloadTitle: {
@@ -646,14 +652,13 @@ height: '100%'
     fontFamily: 'Roboto-Medium',
     color: 'blue',
     flexWrap: 'wrap',
-    width: '95%'
+    // width: '90%'
   },
 
 
   textIcon: {
     flexDirection: "row",
     alignItems: "center",
-    // marginHorizontal: -6,
   },
 
   payloadTitleNot: {
@@ -661,8 +666,9 @@ height: '100%'
     lineHeight: 24,
     textAlign: "center",
     marginBottom: 5,
-    fontFamily: 'Roboto-Bold'
-   
+    fontFamily: 'Roboto-Bold',
+    flexWrap: 'wrap',
+    // width: '90%'
   },
 
   payloadText: {
