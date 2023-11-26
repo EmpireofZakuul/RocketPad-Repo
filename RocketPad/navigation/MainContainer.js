@@ -49,10 +49,11 @@ function TabNavigator() {
     <Tab.Navigator
       initialRouteName={HomeScreen}
       screenOptions={({ route}) => ({
+        tabBarHideOnKeyboard: true,
         tabBarStyle:{height: 80, backgroundColor: '#211F26', borderTopWidth: 0,},
         tabBarActiveTintColor: '#21a097',
         tabBarInactiveTintColor: '#FFFFFF',
-        tabBarLabelStyle: {fontFamily: 'Roboto-Medium', fontSize: 11},
+        tabBarLabelStyle: {fontFamily: 'Roboto-Medium', fontSize: 11, paddingBottom: 5,},
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           let rn = route.name;

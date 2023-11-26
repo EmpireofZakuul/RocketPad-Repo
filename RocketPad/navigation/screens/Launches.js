@@ -176,7 +176,7 @@ return(
               </View>
 
               <View style={styles.contentContainer}> 
-              <Text style={styles.date}>{moment(rocketLaunches.net).format("DD MMMM YYYY @ h:mm A")}</Text>
+              <Text style={styles.date}>{moment.utc(rocketLaunches.net).format("DD MMMM YYYY @ HH:mm")} UTC</Text>
             <View style={styles.mainContentContainer}>
               <View>
             <Text style={styles.subTitle}><Text style={styles.boldText}>Status:</Text> <Text style={{color: rocketLaunches.status?.name === 'Go for Launch' ? '#00b300' : rocketLaunches.status?.name === 'Launch in Flight' ? '#00b300' : rocketLaunches.status?.name === 'Launch Successful' ? '#00b300': '#ff0000'}}>{rocketLaunches.status?.name}</Text></Text>

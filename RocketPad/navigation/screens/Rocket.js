@@ -413,9 +413,9 @@ const orbitCheck = (description) => {
         {rocket.RocketCapacity &&
           rocket.RocketCapacity.map((capacity, index) => (
             <View style={styles.tableContainer2} key={`capacity_${index}`}>
-              <View style={{ marginVertical: 20,}}>
+              <View style={styles.payloadItem}>
               <Pressable
-              style={{marginVertical: 10}}
+              style={{marginVertical: 10, padding: 10}}
                 onPress={() =>{
                   const foundOrbit = orbitCheck(capacity.Description);
                   if(foundOrbit) {
@@ -435,14 +435,6 @@ const orbitCheck = (description) => {
              </View>
              </Text>
              </View> 
-
-             {/* <View style={styles.textIcon}>
-                <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description} </Text>
-                {orbitCheck(capacity.Description) && ( 
-                <Icon name='chevron-right' size={25} style={{color: 'blue'}} />
-                )}
-
-             </View>  */}
                 </Pressable>
                 <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
@@ -554,14 +546,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   rocketContainer: {
-// marginBottom: 120,
-height: '100%'
+    // marginBottom: 120,
+    height: "100%",
   },
   leftSideText: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 20,
-    fontFamily: 'Roboto-Bold'
+    fontFamily: "Roboto-Bold",
   },
 
   rightSideText: {
@@ -569,7 +561,7 @@ height: '100%'
     lineHeight: 24,
     marginBottom: 20,
     textAlign: "right",
-    fontFamily: 'Roboto-Regular'
+    fontFamily: "Roboto-Regular",
   },
 
   Header: {
@@ -577,7 +569,7 @@ height: '100%'
     lineHeight: 40,
     marginBottom: 10,
     textAlign: "center",
-    fontFamily: 'Roboto-Bold',
+    fontFamily: "Roboto-Bold",
     marginTop: 20,
   },
   image: {
@@ -610,7 +602,7 @@ height: '100%'
     fontSize: 20,
     lineHeight: 28,
     textAlign: "center",
-    fontFamily: 'Roboto-Bold',
+    fontFamily: "Roboto-Bold",
     paddingBottom: 15,
     paddingTop: 15,
     marginHorizontal: 5,
@@ -633,15 +625,21 @@ height: '100%'
 
   tableContainer: {
     flexDirection: "row",
-    flex:1
+    flex: 1,
   },
 
   tableContainer2: {
     flexDirection: "row",
-    justifyContent:'center',
-    flex:1,
-    alignItems: 'center', 
-    marginHorizontal: 10
+    justifyContent: "center",
+    flex: 1,
+    alignItems: "center",
+    marginHorizontal: 10,
+  },
+  payloadItem: {
+    marginVertical: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1,
   },
 
   payloadTitle: {
@@ -649,16 +647,16 @@ height: '100%'
     lineHeight: 24,
     textAlign: "center",
     marginBottom: 5,
-    fontFamily: 'Roboto-Medium',
-    color: 'blue',
-    flexWrap: 'wrap',
-    // width: '90%'
+    fontFamily: "Roboto-Medium",
+    color: "blue",
+    flexWrap: "wrap",
+    flex: 1,
   },
-
 
   textIcon: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
   },
 
   payloadTitleNot: {
@@ -666,9 +664,9 @@ height: '100%'
     lineHeight: 24,
     textAlign: "center",
     marginBottom: 5,
-    fontFamily: 'Roboto-Bold',
-    flexWrap: 'wrap',
-    // width: '90%'
+    fontFamily: "Roboto-Bold",
+    flexWrap: "wrap",
+    flex: 1,
   },
 
   payloadText: {
@@ -676,21 +674,22 @@ height: '100%'
     lineHeight: 24,
     textAlign: "center",
     marginBottom: 5,
-    fontFamily: 'Roboto-Regular'
+    fontFamily: "Roboto-Regular",
+    flexWrap: "wrap",
   },
   smallImageContainer: {
     width: "50%",
     height: "50%",
     borderColor: "black",
     borderWidth: 2,
-    overflow: 'hidden',
+    overflow: "hidden",
     backgroundColor: "black",
   },
   numberImages: {
     position: "absolute",
     bottom: 10,
     right: 10,
-    backgroundColor: 'rgba(128,128,128, 0.5)',
+    backgroundColor: "rgba(128,128,128, 0.5)",
     borderRadius: 20,
     padding: 5,
   },
@@ -698,7 +697,7 @@ height: '100%'
     // color: "#ff0000",
     color: "white",
     fontSize: 26,
-    fontFamily: 'Roboto-Bold',
+    fontFamily: "Roboto-Bold",
   },
   carouselConatiner: {
     // borderColor: "red",
@@ -774,18 +773,18 @@ height: '100%'
     alignItems: "center",
     justifyContent: "center",
   },
-  video:{
+  video: {
     width: "100%",
     height: "100%",
   },
   appbarText: {
-    fontFamily: 'Roboto-Regular',
-    color: '#FFFFFF'
+    fontFamily: "Roboto-Regular",
+    color: "#FFFFFF",
   },
-  textIcon:{
-    flexDirection: 'row',
-    alignItems: 'center',
+  textIcon: {
+    flexDirection: "row",
+    alignItems: "center",
     marginHorizontal: -6,
-  }
+  },
 });
 
