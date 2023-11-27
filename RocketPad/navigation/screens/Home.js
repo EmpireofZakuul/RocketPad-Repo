@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
   const placeholder = "https://pbs.twimg.com/media/Fvd3qcoWcAMaVs8?format=jpg&name=large";
   const [loadingNews, setLoadingNews] = useState(false);
   const [rocketImage, setRocketImage] = useState(null);
-  const rocketSpotlightHeight = Dimensions.get('window').height - 80;  
+  const rocketSpotlightHeight = Dimensions.get('window').height;  
 
   useEffect(() => {
     const rocketsRef = collection(FIRESTORE_DB, "ImageOfTheDay");
@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
 
   imageOfDay: {
     width: "100%",
-    // height: 850,
     position: "relative",
+    top: 0,
   },
 
   imageOfDayOverlay: {
@@ -180,6 +180,7 @@ const styles = StyleSheet.create({
     left: 0,
     width: "100%",
     // height: 850,
+    zIndex: 1,
   },
 
   imageOfTheDayText: {

@@ -89,9 +89,9 @@ const sortRockets = (rockets, order) => {
 
 
   return (
-    <View>
+    <View style={{flex: 1}}>
         <Appbar.Header style={{backgroundColor: '#211F26'}}>
-        <Appbar.Content title="Rocket Timeline" titleStyle={styles.appbarText}/>
+        <Appbar.Content title="Rocket Family Tree" titleStyle={styles.appbarText}/>
       </Appbar.Header>
    
     <View style={styles.container}>
@@ -238,10 +238,13 @@ const styles = StyleSheet.create({
 
       container: {
         marginHorizontal: 10,
-        marginBottom: 220,
+        marginBottom: 10,
+        height:'100%'
       },
       rocketContainer:{
-marginTop:60,
+    marginTop:60,
+    height:'100%',
+    marginBottom: 100,
       },
 
 
