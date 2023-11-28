@@ -415,7 +415,7 @@ const orbitCheck = (description) => {
             <View style={styles.tableContainer2} key={`capacity_${index}`}>
               <View style={styles.payloadItem}>
               <Pressable
-              style={{marginVertical: 10, padding: 10}}
+              style={{ padding: 15}}
                 onPress={() =>{
                   const foundOrbit = orbitCheck(capacity.Description);
                   if(foundOrbit) {
@@ -425,16 +425,16 @@ const orbitCheck = (description) => {
                   } else {}
                 }}>
       
-       <View style={styles.textIcon}>
-        <Text>
+       {/* <View style={styles.textIcon}> */}
+        {/* <Text> */}
                 <Text style={orbitCheck(capacity.Description) ? styles.payloadTitle : styles.payloadTitleNot}>{capacity.Description} </Text>
-                <View style={{marginTop: -4}}>
+                {/* <View style={{marginTop: -4}}>
                 {orbitCheck(capacity.Description) && ( 
                 <Icon name='chevron-right' size={25} style={{color: 'blue'}} />
                 )}
-             </View>
-             </Text>
-             </View> 
+             </View> */}
+             {/* </Text> */}
+             {/* </View>  */}
                 </Pressable>
                 <Text style={styles.payloadText}>{capacity.Value}</Text>
               </View>
@@ -646,11 +646,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     textAlign: "center",
-    marginBottom: 5,
     fontFamily: "Roboto-Medium",
     color: "blue",
     flexWrap: "wrap",
-    flex: 1,
   },
 
   textIcon: {
@@ -663,10 +661,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
     textAlign: "center",
-    marginBottom: 5,
     fontFamily: "Roboto-Bold",
     flexWrap: "wrap",
-    flex: 1,
   },
 
   payloadText: {

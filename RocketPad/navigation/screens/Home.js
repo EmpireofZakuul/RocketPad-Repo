@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
   const placeholder = "https://pbs.twimg.com/media/Fvd3qcoWcAMaVs8?format=jpg&name=large";
   const [loadingNews, setLoadingNews] = useState(false);
   const [rocketImage, setRocketImage] = useState(null);
-  const rocketSpotlightHeight = Dimensions.get('window').height;  
+  const rocketSpotlightHeight = Dimensions.get('window').height - 80;  
 
   useEffect(() => {
     const rocketsRef = collection(FIRESTORE_DB, "ImageOfTheDay");
@@ -78,23 +78,17 @@ const Home = ({ navigation }) => {
           <View key={rocketImage.id} style={{...styles.imageOfDay, height: rocketSpotlightHeight}}>
             <Image source={{ uri: rocketImage.img }} style={styles.image} />
             <View style={{...styles.imageOfDayOverlay, height: rocketSpotlightHeight}}></View>
-          </View>
-
           <View style={styles.rocketNameContainer}>
             <Text style={styles.imageOfTheDayText}>
               RocketPad's Rocket Spotlight
             </Text>
             <Text style={styles.rocketName}>{rocketImage.name}</Text>
-            {/* <Button style={styles.rocketNameButton}> Explore <Icon style={styles.icon} name="arrow-right" size={20} color="white" /></Button> */}
-            {/* <Chip icon="arrow-right" mode="outlined" onPress={() => console.log('Pressed')}>Explore</Chip> */}
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("Rocket", {
                   rocketId: rocketImage.id,
                   rocketsImage: rocketImage.rocketImage,
-                })
-              }
-            >
+                })}>
               <View style={styles.rocketNameButton}>
                 <Text style={styles.buttonText}>View Rocket</Text>
                 <Icon
@@ -105,6 +99,7 @@ const Home = ({ navigation }) => {
                 />
               </View>
             </TouchableOpacity>
+            
           </View>
           <View style={styles.viewMore}>
                 <Icon
@@ -115,10 +110,11 @@ const Home = ({ navigation }) => {
                 />
                  <Text style={styles.moreText}>Swipe up for more</Text>
               </View>
+              </View>
         </View>
       )}
 
-<Text style={styles.latestNews}>Latest News</Text>
+
       {loadingNews ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator
@@ -128,7 +124,9 @@ const Home = ({ navigation }) => {
           />
         </View>
       ) : (
-        <View style={styles.container}>
+        
+        <View style={{...styles.container,   marginTop: rocketSpotlightHeight}}>
+       <Text style={styles.latestNews}>Latest News</Text>
           {newsArticles.map((article, index) => {
             return (
               <View key={index}>
@@ -164,13 +162,15 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 10,
-    marginTop: 60,
+    zIndex: 0,
   },
 
   imageOfDay: {
     width: "100%",
-    position: "relative",
+    position: "absolute",
     top: 0,
+    left: 0,
+    zIndex: 1,
   },
 
   imageOfDayOverlay: {
@@ -179,7 +179,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-    // height: 850,
     zIndex: 1,
   },
 
@@ -195,7 +194,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Roboto-Bold',
     lineHeight: 40,
     textAlign: "center",
-    marginTop: 60,
+    paddingVertical: 25
   },
 
   rocketName: {
@@ -207,9 +206,10 @@ const styles = StyleSheet.create({
   },
 
   rocketNameContainer: {
-    zIndex: 1,
+    zIndex: 2,
     position: "absolute",
-    top: 450,
+    // top: 450,
+    top: '50%',
     left: 20,
   },
   rocketNameButton: {
@@ -348,9 +348,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: '100%',
-    zIndex: 1,
+    zIndex: 2,
     position: "absolute",
-    bottom: 60,
+    top: '80%',
     left: -10,
   },
 

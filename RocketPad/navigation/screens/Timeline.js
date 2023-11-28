@@ -158,7 +158,7 @@ const Timeline = ({ navigation}) => {
                   <View style={[styles.dateContainer2, {paddingLeft: index % 2 !==0 ? 15 : 0, paddingRight: index % 2 ===0 ? 15 : 0}]}>
                     <Text style={styles.date}>{rocket.FirstLaunch}</Text>
                   </View>
-                  <View style={[styles.circle, { left: index % 2 !==0 ? '50%' : '50%', marginLeft: index % 2 !==0 ? -15 : -12}]}/>
+                  <View style={[styles.circle, { left: index % 2 !==0 ? '50%' : '50%', marginLeft: index % 2 !==0 ? -14 : -11}]}/>
                   <View style={styles.line}/>
                   <TouchableOpacity
                     onPress={() =>
@@ -280,8 +280,8 @@ const styles = StyleSheet.create({
   },
   circle: {
     position: 'absolute',
-    width: 26,
-    height: 26,
+    width: 24,
+    height: 24,
     borderRadius: 100 / 2,
     backgroundColor: "#21a097",
     borderWidth: 4
