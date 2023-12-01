@@ -121,7 +121,7 @@ const orbitCheck = (description) => {
     <Appbar.Content title="Rocket Information" titleStyle={styles.appbarText}/>
   </Appbar.Header>
 
-      <ScrollView style={styles.rocketContainer}>
+      <ScrollView style={styles.rocketContainer} showsVerticalScrollIndicator={false}>
         <Text style={styles.Header}>{rocket.Name}</Text>
 
         <View style={styles.container}>

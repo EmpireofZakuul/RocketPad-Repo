@@ -51,8 +51,8 @@ function TabNavigator() {
       screenOptions={({ route}) => ({
         tabBarHideOnKeyboard: true,
         tabBarStyle:{height: 80, backgroundColor: '#211F26', borderTopWidth: 0,},
-        // tabBarActiveTintColor: '#21a097',
-        tabBarActiveTintColor: '#ff0000',
+        tabBarActiveTintColor: '#21a097',
+        // tabBarActiveTintColor: '#ff0000',
         // tabBarActiveTintColor: '#00b300',
         tabBarInactiveTintColor: '#FFFFFF',
         tabBarLabelStyle: {fontFamily: 'Roboto-Medium', fontSize: 11, paddingBottom: 5,},

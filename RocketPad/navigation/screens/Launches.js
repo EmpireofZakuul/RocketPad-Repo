@@ -201,11 +201,10 @@ return(
                   })
                   } else {}
                 }}>
-            <View style={styles.OrbitIcon}>
+           
             <Text style={documentName ? styles.orbitIncluded : styles.orbitNotIncluded}>
               <Text style={styles.boldText}>Orbit:</Text> {rocketLaunches.mission?.orbit?.name} ({rocketLaunches.mission?.orbit?.abbrev})</Text>
-              {documentName && ( <Icon name='chevron-right' size={25} style={{marginTop: 5, color: 'blue'}}/>)}
-              </View>
+          
             </Pressable>
             )}
             {rocketLaunches.mission?.type && (
