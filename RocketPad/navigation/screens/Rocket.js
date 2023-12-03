@@ -546,7 +546,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   rocketContainer: {
-    // marginBottom: 120,
+    marginBottom: 20,
     height: "100%",
   },
   leftSideText: {
@@ -636,7 +636,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   payloadItem: {
-    marginVertical: 20,
+    marginVertical: 10,
     alignItems: "center",
     justifyContent: "center",
     flex: 1,

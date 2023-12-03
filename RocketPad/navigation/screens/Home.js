@@ -13,7 +13,7 @@ const Home = ({ navigation }) => {
   const placeholder = "https://pbs.twimg.com/media/Fvd3qcoWcAMaVs8?format=jpg&name=large";
   const [loadingNews, setLoadingNews] = useState(false);
   const [rocketImage, setRocketImage] = useState(null);
-  const rocketSpotlightHeight = Dimensions.get('window').height - 80;  
+  const rocketSpotlightHeight = Dimensions.get('window').height;  
 
   useEffect(() => {
     const rocketsRef = collection(FIRESTORE_DB, "ImageOfTheDay");
@@ -75,9 +75,9 @@ const Home = ({ navigation }) => {
     <ScrollView showsVerticalScrollIndicator={false}> 
       {rocketImage && (
         <View>
-          <View key={rocketImage.id} style={{...styles.imageOfDay, height: rocketSpotlightHeight}}>
+          <View key={rocketImage.id} style={{...styles.imageOfDay, height: rocketSpotlightHeight - 80}}>
             <Image source={{ uri: rocketImage.img }} style={styles.image} />
-            <View style={{...styles.imageOfDayOverlay, height: rocketSpotlightHeight}}></View>
+            <View style={{...styles.imageOfDayOverlay, height: rocketSpotlightHeight - 80}}></View>
           <View style={styles.rocketNameContainer}>
             <Text style={styles.imageOfTheDayText}>
               RocketPad's Rocket Spotlight
@@ -116,7 +116,7 @@ const Home = ({ navigation }) => {
 
 
       {loadingNews ? (
-        <View style={styles.loadingContainer}>
+        <View style={{...styles.loadingContainer, marginTop: rocketSpotlightHeight}}>
           <ActivityIndicator
             animating={true}
             color={MD2Colors.red800}
@@ -125,7 +125,7 @@ const Home = ({ navigation }) => {
         </View>
       ) : (
         
-        <View style={{...styles.container,   marginTop: rocketSpotlightHeight}}>
+        <View style={{...styles.container,   marginTop: rocketSpotlightHeight - 80}}>
        <Text style={styles.latestNews}>Latest News</Text>
           {newsArticles.map((article, index) => {
             return (
@@ -277,7 +277,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    // marginTop: 20,
+    zIndex:0,
   },
 
   newNewsCard:{
