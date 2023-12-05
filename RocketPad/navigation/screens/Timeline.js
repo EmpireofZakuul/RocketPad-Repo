@@ -117,7 +117,7 @@ const Timeline = ({ navigation}) => {
           {search !== "" && (
             rockets.filter((rocket) => rocket.Name.toLowerCase().startsWith(search.toLowerCase())).map((rocket) => (   
           <TouchableOpacity key={rocket.id} onPress={() =>{
-            navigation.navigate("Rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage, }); Keyboard.dismiss();}}>
+            navigation.navigate("Rocket", { rocketId: rocket.id, rocketsImage: rocket.rocketImage, }); Keyboard.dismiss(); setSearch("");}}>
             <View style={styles.searchResultsItems}>
           <Text style={styles.searchResultsText}>{rocket.Name}</Text>
           </View>
@@ -148,7 +148,7 @@ const Timeline = ({ navigation}) => {
 
 
             <Text style={styles.topText}>Present Day</Text>
-            <View style={styles.timeline}>
+            <View style={[styles.timeline, {marginBottom: showSearchBar ? 220 : 175}]}>
               <View style={styles.lineContainer}>
                 <View style={styles.horizLine}></View>
                 <View style={styles.vertLine}></View>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "flex-start",
    flex:1,
-   marginBottom: 175,
+  //  marginBottom: 175,
   },
   rocketContainer: {
     flexDirection: "row",
